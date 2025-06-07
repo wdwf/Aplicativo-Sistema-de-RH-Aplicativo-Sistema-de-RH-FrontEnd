@@ -9,6 +9,6 @@ export default interface Usuario {
     nome: string;
     andar: string;
     ramal: number;
-     cargo?: Cargo[] | null;
+    cargo?: Cargo[] | null;
     
 }
