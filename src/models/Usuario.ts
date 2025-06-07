@@ -1,5 +1,4 @@
 import Cargo from "./Cargo";
-import Departamento from "./Departamento";
 
 export default interface Usuario {
     id: number;
@@ -7,7 +6,5 @@ export default interface Usuario {
     usuario: string;
     senha: string;
     foto: string;
-    tipo: string;
     cargo?: Cargo[] | null;
-    departamento?: Departamento[] | null;
 }
