@@ -1,3 +1,4 @@
+import Departamento from "./Departamento";
 import Usuario from "./Usuario";
 
 export default interface Cargo {
@@ -7,4 +8,5 @@ export default interface Cargo {
     descricao: string;
     salario: number;
     usuario?: Usuario[] | null;
+    departamento?: Departamento[] | null;
 }
