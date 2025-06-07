@@ -1,13 +1,22 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import './Cadastro.css'
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { cadastrarUsuario } from '../../services/Service'
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
+import { buscar, cadastrarUsuario } from '../../services/Service'
 import Usuario from '../../models/Usuario'
 import { RotatingLines } from 'react-loader-spinner'
 
+import { AuthContext } from '../../contexts/AuthContext'
+import { ToastAlerta } from '../../utils/ToastAlerta'
+
 function Cadastro() {
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+
+  const { id } = useParams<{ id: string }>();
+  
+const { usuario: usuarioContext, handleLogout } = useContext(AuthContext)
+const token = usuarioContext.token
+    
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [confirmaSenha, setConfirmaSenha] = useState<string>("")
@@ -27,7 +36,7 @@ function Cadastro() {
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuario({
       ...usuario,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
 
   }
@@ -49,22 +58,21 @@ function Cadastro() {
           nome: usuario.nome,
           usuario: usuario.usuario,
           senha: usuario.senha,
-          tipo: usuario.tipo,
-          cargo: usuario.cargo,
-          departamento: usuario.departamento,
+          foto: usuario.foto
         }, setUsuario)
-        ToastAlerts("Usuário cadastrado com sucesso!", "sucesso")
+        ToastAlerta("Usuário cadastrado com sucesso!", "sucesso")
         } catch (error) {
-        ToastAlerts("Erro ao cadastrar o usuário!", "erro")
+        ToastAlerta("Erro ao cadastrar o usuário!", "erro")
       }
     } else {
-      ToastAlerts("Dados do usuário inconsistentes! Verifique as informações do cadastro.", "erro")
+      ToastAlerta("Dados do usuário inconsistentes! Verifique as informações do cadastro.", "erro")
       setUsuario({ ...usuario, senha: '' })
       setConfirmaSenha('')
     }
 
       setIsLoading(false)
   }
+
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 h-screen bg-[#fdfdf8] font-sans">
@@ -106,6 +114,18 @@ function Cadastro() {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
           </div>
+          <div className="flex flex-col">
+            <label htmlFor="foto" className="mb-1">Foto</label>
+            <input
+              type="text"
+              id="foto"
+              name="foto"
+              placeholder="Cole o Link da sua Imagem"
+              className="p-2 rounded bg-white text-black"
+              value={usuario.foto}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+            />
+          </div>
 
           <div className="flex flex-col">
             <label htmlFor="senha" className="mb-1">Senha</label>
@@ -121,51 +141,20 @@ function Cadastro() {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="tipo" className="mb-1">Tipo de Usuário</label>
+            <label htmlFor="confirmarSenha" className="mb-1">Confirmar Senha</label>
             <input
-              type="text"
-              id="tipo"
-              name="tipo"
-              placeholder="Ex: Administrador, RH..."
+              type="password"
+              id="confirmarSenha"
+              name="confirmarSenha"
+              placeholder="Digite novamente sua senha"
               className="p-2 rounded bg-white text-black"
-              value={usuario.tipo}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+              value={confirmaSenha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>handleConfirmarSenha(e)}
             />
           </div>
 
-          <div className="flex flex-col">
-            <label htmlFor="cargo" className="mb-1">cargo</label>
-            <input
-              type="text"
-              id="cargo"
-              name="cargo"
-              placeholder="Ex: Administrador, RH..."
-              className="p-2 rounded bg-white text-black"
-              value={usuario.cargo}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <label htmlFor="departamento" className="mb-1">departamento</label>
-            <input
-              type="text"
-              id="departamento"
-              name="departamento"
-              placeholder="Ex: Financeiro, RH..."
-              className="p-2 rounded bg-white text-black"
-              value={usuario.departamento}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-          </div>
 
           <div className="flex justify-between gap-4 pt-4">
-            <button 
-              type="reset"
-              className="bg-red-500 hover:bg-red-700 text-white py-2 w-1/2 rounded"
-            >
-              Cancelar
-            </button>
             <button 
               type="submit"
               className="bg-green-500 hover:bg-green-700 text-white py-2 w-1/2 rounded"
@@ -190,7 +179,3 @@ function Cadastro() {
 }
 
 export default Cadastro
-
-function ToastAlerts(arg0: string, arg1: string) {
-    throw new Error('Function not implemented.')
-}
