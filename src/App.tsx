@@ -1,19 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
 import Footer from './components/Footer'
-import Navbar from './components/Navbar'
 import Home from './pages/home/Home'
+import Navbar from './components/Navbar'
 import { AuthProvider } from './contexts/AuthContext'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 import Login from './pages/Login'
 import Cadastro from './pages/cadastro/Cadastro'
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 
 function App() {
+ 
+
   return (
-    <>
        <AuthProvider>
         <ToastContainer />
           <BrowserRouter>
@@ -28,9 +28,7 @@ function App() {
           </div>
           <Footer />
         </BrowserRouter>
-        
         </AuthProvider> 
-    </>
   )
 }
 
