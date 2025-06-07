@@ -23,6 +23,7 @@ function CalculoSalario() {
   const [resultado, setResultado] = useState<any>()
 
   const token = usuario.token
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -66,13 +67,11 @@ function CalculoSalario() {
 
 
   return (
-    <div className="min-h-screen bg-gray-200 flex flex-col items-center pt-10">
-      <h1 className="text-3xl font-bold mb-6 text-red-700">Calcular Salário</h1>
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
+      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
+      <h1 className="text-3xl font-bold text-center mb-1 text-black">Calcular Salário</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-yellow-300 p-6 rounded-md shadow-md w-full max-w-md space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4">
         <label htmlFor="">Selecione o usuario</label>
         <select
           name="usuarioId"
@@ -139,6 +138,7 @@ function CalculoSalario() {
           </p>
         </div>
       )}
+    </div>
     </div>
   )
 }
