@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/AuthContext'
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
+import Login from './pages/Login'
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <Navbar />
           <div className="min-h-[80vh]">
             <Routes>
-               <Route path="/" element={<Home />} />
+               <Route path="/" element={<Login />} />
               <Route path="/home" element={<Home />} />
             </Routes>
           </div>
