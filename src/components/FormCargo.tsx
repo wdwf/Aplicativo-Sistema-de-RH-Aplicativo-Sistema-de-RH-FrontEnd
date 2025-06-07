@@ -7,40 +7,40 @@ import { ToastAlerta } from "../utils/ToastAlerta";
 import { RotatingLines } from "react-loader-spinner";
 
 export default function FormCargo() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [cargo, setCargo] = useState<Cargo>({} as Cargo)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  // const { usuario, handleLogout } = useContext(AuthContext)
-  // const token = usuario.token
+  const { usuario, handleLogout } = useContext(AuthContext)
+  const token = usuario.token
 
   const { id } = useParams<{ id: string }>();
 
-  // async function buscarPorId(id: string) {
-  //   try {
-  //     await buscar(`/cargo/${id}`, setCargo, {
-  //       headers: { Authorization: token }
-  //     })
-  //   } catch (error: any) {
-  //     if (error.toString().includes('403')) {
-  //       handleLogout()
-  //     }
-  //   }
-  // }
+  async function buscarPorId(id: string) {
+    try {
+      await buscar(`/cargo/${id}`, setCargo, {
+        headers: { Authorization: token }
+      })
+    } catch (error: any) {
+      if (error.toString().includes('403')) {
+        handleLogout()
+      }
+    }
+  }
 
-  // useEffect(() => {
-  //   if (token === '') {
-  //     ToastAlerta('Você precisa estar logado', 'info')
-  //     navigate('/')
-  //   }
-  // }, [token])
+  useEffect(() => {
+    if (token === '') {
+      ToastAlerta('Você precisa estar logado', 'info')
+      navigate('/')
+    }
+  }, [token])
 
-  // useEffect(() => {
-  //   if (id !== undefined) {
-  //     buscarPorId(id)
-  //   }
-  // }, [id])
+  useEffect(() => {
+    if (id !== undefined) {
+      buscarPorId(id)
+    }
+  }, [id])
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setCargo({
@@ -49,46 +49,46 @@ export default function FormCargo() {
     })
   }
 
-  // function retornar() {
-  //   navigate("/home")
-  // }
+  function retornar() {
+    navigate("/home")
+  }
 
   async function gerarNovoCargo(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault()
     setIsLoading(true)
 
     if (id !== undefined) {
-      // try {
-      //   await atualizar(`/cargo`, cargo, setCargo, {
-      //     headers: { 'Authorization': token }
-      //   })
-      //   ToastAlerta("O Cargo foi atualizado com sucesso!", "sucesso")
-      // } catch (error: any) {
-      //   if (error.toString().includes('403')) {
-      //     handleLogout();
-      //   } else {
-      //     ToastAlerta("Erro ao atualizar o cargo.", "erro")
-      //   }
+      try {
+        await atualizar(`/cargo`, cargo, setCargo, {
+          headers: { 'Authorization': token }
+        })
+        ToastAlerta("O Cargo foi atualizado com sucesso!", "sucesso")
+      } catch (error: any) {
+        if (error.toString().includes('403')) {
+          handleLogout();
+        } else {
+          ToastAlerta("Erro ao atualizar o cargo.", "erro")
+        }
 
-      // }
+      }
     } else {
-      // try {
-      //   await cadastrar(`/cargo`, cargo, setCargo, {
-      //     headers: { 'Authorization': token }
-      //   })
-      //   ToastAlerta("O Cargo foi cadastrado com sucesso!", "sucesso")
-      // } catch (error: any) {
-      //   if (error.toString().includes('403')) {
-      //     handleLogout();
-      //   } else {
-      //     ToastAlerta("Erro ao cadastrar o cargo.", "erro")
-      //   }
+      try {
+        await cadastrar(`/cargo`, cargo, setCargo, {
+          headers: { 'Authorization': token }
+        })
+        ToastAlerta("O Cargo foi cadastrado com sucesso!", "sucesso")
+      } catch (error: any) {
+        if (error.toString().includes('403')) {
+          handleLogout();
+        } else {
+          ToastAlerta("Erro ao cadastrar o cargo.", "erro")
+        }
 
-      // }
+      }
     }
 
     setIsLoading(false)
-    // retornar()
+    retornar()
   }
 
   return (
