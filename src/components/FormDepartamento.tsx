@@ -10,48 +10,39 @@ import { RotatingLines } from 'react-loader-spinner';
 
 function FormDepartamento() {
 
-const navigate = useNavigate();
+    const navigate = useNavigate();
 
-const [departamento, setDepartamento] = useState<Departamento>({} as Departamento)
-const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [departamento, setDepartamento] = useState<Departamento>({} as Departamento)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
-const { usuario, handleLogout } = useContext(AuthContext)
-const token = usuario.token
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
+    console.log(usuario);
 
-const { id } = useParams<{ id: string }>();
-const { descricao } = useParams<{ descricao: string }>();
+    const { id } = useParams<{ id: string }>();
+
 
 async function buscarPorId(id: string) {
+    console.log("entrei aqui")
         try {
-            await buscar(`/departamento/${id}`, setDepartamento, {
-                headers: { Authorization: token }
-            })
+            // await buscar(`/departamento/${id}`, setDepartamento, {
+            //     headers: { Authorization: token }
+            // })
         } catch (error: any) {
-            if (error.toString().includes('403')) {
-                handleLogout()
-            }
+            // if (error.toString().includes('403')) {
+            //     handleLogout()
+            // }
         }
     }
 
 
-    async function buscarPorDescricao(descricao: string) {
-        try {
-            await buscar(`/departamento/descricao/${descricao}`, setDepartamento, {
-                headers: { Authorization: token }
-            })
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
-                handleLogout()
-            }
-        }
-    }
+    //  useEffect(() => {
+    //     if (token === '') {
+    //         alert('Você precisa estar logado!')
+    //         navigate('/')
+    //     }
+    // }, [token])
 
-     useEffect(() => {
-        if (token === '') {
-            ToastAlerta('Você precisa estar logado!', 'info')
-            navigate('/')
-        }
-    }, [token])
 
   useEffect(() => {
         if (id !== undefined) {
@@ -100,7 +91,7 @@ async function buscarPorId(id: string) {
                 if (error.toString().includes('403')) {
                     handleLogout();
                 } else {
-                    ToastAlerta('Erro ao cadastrar o Departamento.','erro')
+                    ToastAlerta('Erro ao cadastrar o Departamento.', 'erro')
                 }
 
             }
@@ -122,6 +113,17 @@ async function buscarPorId(id: string) {
 
             <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoDepartamento}>
                 <div className="flex flex-col gap-2">
+                    
+                    <label htmlFor="nome">Nome do Departamento</label>
+                    <input
+                        type="text"
+                        placeholder="Escreva aqui o nome de seu Departamento"
+                        name='nome'
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={departamento.nome}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+
                     <label htmlFor="descricao">Descrição do Departamento</label>
                     <input
                         type="text"
@@ -129,6 +131,24 @@ async function buscarPorId(id: string) {
                         name='descricao'
                         className="border-2 border-slate-700 rounded p-2"
                         value={departamento.descricao}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                    <label htmlFor="andar">Andar</label>
+                    <input
+                        type="text"
+                        placeholder="Ex... 1º Andar"
+                        name='andar'
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={departamento.andar}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                    <label htmlFor="ramal">Ramal</label>
+                    <input
+                        type="text"
+                        placeholder="Por Ex: 123"
+                        name='ramal'
+                        className="border-2 border-slate-700 rounded p-2"
+                        value={departamento.ramal}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>

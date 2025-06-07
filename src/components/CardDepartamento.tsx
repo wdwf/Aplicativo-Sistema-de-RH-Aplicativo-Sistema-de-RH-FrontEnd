@@ -13,9 +13,10 @@ function CardDepartamento({ departamento }: CardDepartamentoProps) {
 
         <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
             <header className='py-2 px-6 bg-indigo-800 text-white font-bold text-2xl'>
-                Tema
+                Departamento
             </header>
-            <p className='p-8 text-3xl bg-slate-200 h-full'>{departamento.descricao}</p>
+            <p className='p-8 text bg-slate-200 h-full'> Nome: {departamento.nome}</p>
+            <p className='p-8 text bg-slate-200 h-full'>Descrição: {departamento.descricao}</p>
 
             <div className="flex">
 
