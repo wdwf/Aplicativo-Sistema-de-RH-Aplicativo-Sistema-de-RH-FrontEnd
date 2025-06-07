@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Departamento from '../models/Departamento';
 import { AuthContext } from '../contexts/AuthContext';
 import { atualizar, buscar, cadastrar } from '../services/Service';
@@ -14,42 +14,31 @@ function FormDepartamento() {
 
     const [departamento, setDepartamento] = useState<Departamento>({} as Departamento)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [loadingPage, setLoadingPage] = useState(true);
 
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
-    console.log(usuario);
+    
 
     const { id } = useParams<{ id: string }>();
 
 
-async function buscarPorId(id: string) {
-    console.log("entrei aqui")
-        try {
-            // await buscar(`/departamento/${id}`, setDepartamento, {
-            //     headers: { Authorization: token }
-            // })
-        } catch (error: any) {
-            // if (error.toString().includes('403')) {
-            //     handleLogout()
-            // }
+    
+       useEffect (() => {
+        if(token === ''){
+            return
         }
-    }
-
-
-    //  useEffect(() => {
-    //     if (token === '') {
-    //         alert('Você precisa estar logado!')
-    //         navigate('/')
-    //     }
-    // }, [token])
-
-
-  useEffect(() => {
-        if (id !== undefined) {
-            buscarPorId(id)
+        if(!token){
+        ToastAlerta("Você precisa estar Logado!","info")
+        handleLogout();
+        navigate("/")
+        }else{
+            buscar(`/departamento/${id}`, setDepartamento, {
+             headers: { Authorization: token },
+           });
+           setLoadingPage(false)
         }
-    }, [id])
-
+       }, [token])
 
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setDepartamento({
@@ -59,7 +48,7 @@ async function buscarPorId(id: string) {
     }
 
     function retornar() {
-        navigate("/departamento")
+        navigate("/home")
     }
 
 
@@ -101,7 +90,18 @@ async function buscarPorId(id: string) {
         retornar()
     }
 
+if (loadingPage) {
+    return <RotatingLines
+      strokeColor="black"
+      strokeWidth="5"
+      animationDuration="0.75"
+      width="24"
+      visible={true}
+    />
+  }
 
+  console.log(departamento);
+  
 
     
   return (
@@ -168,6 +168,7 @@ async function buscarPorId(id: string) {
 
                     }
                 </button>
+                <Link to="/home">Cancelar</Link>
             </form>
         </div>
     </>
