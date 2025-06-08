@@ -1,21 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import "tailwindcss";
 
 @layer base {
-  
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: poppins, sans-serif;}
-
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: poppins, sans-serif;
+  }
 }
 
-@theme{
-    --color-rh-primaryblue:#0995FD;
-    --color-rh-secondaryblue:#0369B5;
-    --color-rh-primarypurple:#9778F6;
-    --color-rh-secondarypurple:#551ABC;
-    --color-rh-primarygrey:#212120;
-    --color-rh-secondarygrey:#848681;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+@theme {
+  --color-rh-primaryblue: #0995fd;
+  --color-rh-secondaryblue: #0369b5;
+  --color-rh-primarypurple: #9778f6;
+  --color-rh-secondarypurple: #551abc;
+  --color-rh-primarygrey: #212120;
+  --color-rh-secondarygrey: #848681;
 }
