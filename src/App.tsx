@@ -7,7 +7,7 @@ import Navbar from './components/Navbar'
 import { AuthProvider } from './contexts/AuthContext'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
-import Login from './pages/Login'
+import Login from './pages/login/Login'
 import Cadastro from './pages/cadastro/Cadastro'
 import FormDepartamento from './components/FormDepartamento'
 import ListaDepartamento from './components/ListaDepartamento'
