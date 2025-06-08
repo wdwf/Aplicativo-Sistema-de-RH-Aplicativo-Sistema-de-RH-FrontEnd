@@ -2,11 +2,11 @@ import Departamento from "./Departamento";
 import Usuario from "./Usuario";
 
 export default interface Cargo {
-    id: number;
+    id: string | number;
     nome: string;
     nivel: string;
     descricao: string;
-    salario: number;
+    salario: string | number;
     usuario?: Usuario[] | null;
-    departamento?: Departamento[] | null;
+    departamento: Departamento | null;
 }
