@@ -29,16 +29,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         foto: "",
         token: ""
     })
-
     const [isLoading, setIsLoading] = useState(false)
-
-    // Carrega dados do localStorage ao iniciar
-    useEffect(() => {
-        const storedUser = localStorage.getItem("@AppAuth:usuario");
-        if (storedUser) {
-            setUsuario(JSON.parse(storedUser));
-        }
-    }, []);
 
     async function handleLogin(usuarioLogin: UsuarioLogin) {
         setIsLoading(true)
@@ -66,6 +57,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
         localStorage.removeItem("@AppAuth:usuario");
     }
+
+    // Carrega dados do localStorage ao iniciar
+    useEffect(() => {
+        const storedUser = localStorage.getItem("@AppAuth:usuario");
+        if (storedUser) {
+            setUsuario(JSON.parse(storedUser));
+        }
+
+        setIsLoading(false);
+    }, []);
 
     return (
         <AuthContext.Provider value={{ usuario, setUsuario, handleLogin, handleLogout, isLoading }}>
