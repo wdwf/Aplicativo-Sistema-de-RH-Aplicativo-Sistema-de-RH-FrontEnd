@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
 import Footer from './components/Footer'
@@ -18,14 +19,13 @@ function App() {
  
 
   return (
-    <>
        <AuthProvider>
         <ToastContainer />
           <BrowserRouter>
           <Navbar />
           <div className="min-h-[80vh]">
             <Routes>
-              <Route path="/" element={<Home />} />
+               <Route path="/" element={<Login />} />
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
@@ -37,9 +37,7 @@ function App() {
           </div>
           <Footer />
         </BrowserRouter>
-        
         </AuthProvider> 
-    </>
   )
 }
 

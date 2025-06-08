@@ -4,12 +4,13 @@ import Logo from "../assets/img/Logo.png"
 function Navbar(){
     return (
       
-    <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+    <nav className="bg-white dark:bg-rh-primarygrey fixed w-full z-20 top-0 start-0 border-rh-primarygrey dark:border-rh-secondarygrey">
     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
        <Link to="/home">
     <img src={Logo} className="h-8 flex items-center space-x-3 rtl:space-x-reverse" alt="Flowbite Logo"/>
     </Link>
     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+
         <Link to="/login" type="button" className="text-white bg-blue-900 hover:bg-blue-850 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-4xl text-sm px-4 py-2 text-center dark:bg-blue-950 dark:hover:bg-blue-800 dark:focus:ring-blue-800">Logar</Link>
         <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
             <span className="sr-only">Open main menu</span>
@@ -32,6 +33,7 @@ function Navbar(){
         <li className="relative overflow-hidden">
             <Link to="/home"  className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:underline md:hover:text-blue-800 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</Link>
              <span className="absolute bottom-0 left-0 w-0 h-1 bg-cyan-300 transition-all duration-300 group-hover:w-full"></span>
+
         </li>
         </ul>
     </div>
