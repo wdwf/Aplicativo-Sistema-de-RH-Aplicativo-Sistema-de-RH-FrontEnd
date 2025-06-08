@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router"
 import { useContext, useEffect, useState, type ChangeEvent } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { RotatingLines } from 'react-loader-spinner';
-import UsuarioLogin from "../models/UsuarioLogin";
-
+import UsuarioLogin from "../../models/UsuarioLogin";
+import Logo from "../assets/img/Logo.png"
+import Cadastro from "../assets/img/Cadastro.png"
+import Cadastro2 from "../assets/img/Cadastro2.png"
 function Login() {
 
     const navigate = useNavigate();
@@ -32,27 +34,26 @@ function Login() {
         handleLogin(usuarioLogin)
     }
     return (
-        <div
-            className="w-full min-h-screen bg-cover bg-center py-7 flex items-center justify-center"
-            style={{ backgroundImage: "url('')" }} // ajuste caminho da imagem
-        >
-            <div className="bg-background p-14 rounded-xl shadow-lg w-full max-w-lg">
+        <div className="flex min-h-screen">
+            <div className="w-1/2 bg-white flex flex-col justify-center items-center py-12">
+                <div className="w-full max-w-md">
+                    <div className="flex flex-col mb-4 md:items-center">
+                        <img src={Logo} alt="Logo Fitlab" className="h-16" />
+                    </div>
 
 
-                <h2 className="text-text text-4xl font-bold text-left mb-2">Bem-vindo(a) a nos RH</h2>
-                <p className="text-text-secundary text-sm text-left mb-6">
-                    TESTE.
-                </p>
-
+                    <h1 className="text-rh-primarygrey text-4xl text-center ">Acesse a Plataforma</h1>
+                    <p className="text-rh-secondarygrey text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
+              
                 <form onSubmit={login}>
                     <div className="mb-4">
-                        <label className="block text-text mb-1" htmlFor="usuario">Email</label>
+                        <label className="block text-text mb-1" htmlFor="usuario">E-mail</label>
                         <input
                             type="email"
                             id="usuario"
                             name="usuario"
                             placeholder="Exemplo@email.com"
-                            className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                            className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
                             value={usuarioLogin.usuario}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
@@ -65,7 +66,7 @@ function Login() {
                             id="senha"
                             name="senha"
                             placeholder="********"
-                            className="w-full px-4 py-2 text-text-secundary border-4 border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                            className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
                             value={usuarioLogin.senha}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
@@ -73,9 +74,9 @@ function Login() {
 
                     <button
                         type="submit"
-                        className="w-full bg-primary text-text font-semibold py-2 rounded transition cursor-pointer">
+                        className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer">
                         {isLoading ? <RotatingLines
-                            strokeColor="green"
+                            strokeColor="grey"
                             strokeWidth="5"
                             animationDuration="0.75"
                             width="24"
@@ -86,14 +87,31 @@ function Login() {
                     </button>
 
                     <p className="text-center text-text-tertiary mt-6">
-                        Não tem uma conta ainda?{" "}
+                        Não tem uma conta?{" "}
                         <Link to="/cadastrar" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
-                            Registrar-se <span>→</span>
+                            Cadastrar <span>→</span>
                         </Link>
                     </p>
                 </form>
+                </div>
             </div>
+            <div className="w-1/2 relative flex items-end justify-center px-1 overflow-hidden group mt-20">
+                <img 
+                    src={Cadastro}
+                    alt="Imagem normal"
+                    className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-0"
+                />
+                <img 
+                    src={Cadastro2}
+                    alt="Imagem hover"
+                    className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                />
+            </div>
+
         </div>
+         
+        
+        
     )
 }
 
