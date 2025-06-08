@@ -7,7 +7,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import Departamento from "../models/Departamento";
 import { buscar } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
-import { DNA } from "react-loader-spinner";
+import { DNA, RotatingLines } from "react-loader-spinner";
 import CardDepartamento from "./CardDepartamento";
 
 function ListaDepartamento() {
@@ -15,6 +15,7 @@ function ListaDepartamento() {
  
  const [departamento, setDepartamento] = useState<Departamento[]>([]);
  const [isLoading, setIsLoading] = useState<boolean>(false)
+ const [isLoadinPage, setIsLoadingPage] = useState<boolean>(true)
  
  const { usuario, handleLogout } = useContext(AuthContext)
  const token = usuario.token
@@ -24,6 +25,7 @@ function ListaDepartamento() {
       await buscar("/departamento", setDepartamento, {
         headers: { Authorization: token },
       });
+      setIsLoadingPage(false)
     } catch (error: any) {
       if (error.toString().includes("403")) {
         handleLogout();
@@ -31,19 +33,30 @@ function ListaDepartamento() {
     }
   }
 
-  useEffect(() => {
-    if (token === "") {
-      ToastAlerta("Você precisa estar logado!", "info");
-      navigate("/");
-    }
-  }, [token]);
+ useEffect (() => {
+         if(token === ''){
+             return
+         }
+         if(!token){
+         ToastAlerta("Você precisa estar Logado!","info")
+         handleLogout();
+         navigate("/")
+         }else{
+          buscarDepartamento()
+        
+         }
+        }, [token])
 
-  useEffect (() => {
-    buscarDepartamento()
-  }, [departamento.length])
 
-
-
+if (isLoadinPage) {
+    return <RotatingLines
+      strokeColor="black"
+      strokeWidth="5"
+      animationDuration="0.75"
+      width="24"
+      visible={true}
+    />
+  }
 
 
 
