@@ -3,9 +3,10 @@ import { useContext, useEffect, useState, type ChangeEvent } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { RotatingLines } from 'react-loader-spinner';
 import UsuarioLogin from "../../models/UsuarioLogin";
-import Logo from "../assets/img/Logo.png"
-import Cadastro from "../assets/img/Cadastro.png"
-import Cadastro2 from "../assets/img/Cadastro2.png"
+import Logo from "../../assets/img/Logo.png"
+import Bg from "../../assets/img/Bg.png"
+import Bg2 from "../../assets/img/Bg2.png"
+
 function Login() {
 
     const navigate = useNavigate();
@@ -88,21 +89,21 @@ function Login() {
 
                     <p className="text-center text-text-tertiary mt-6">
                         Não tem uma conta?{" "}
-                        <Link to="/cadastrar" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
+                        <Link to="/cadastro" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
                             Cadastrar <span>→</span>
                         </Link>
                     </p>
                 </form>
                 </div>
             </div>
-            <div className="w-1/2 relative flex items-end justify-center px-1 overflow-hidden group mt-20">
+            <div className="w-1/2 relative flex items-end justify-center px-1 overflow-hidden group ">
                 <img 
-                    src={Cadastro}
+                    src={Bg}
                     alt="Imagem normal"
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-0"
                 />
                 <img 
-                    src={Cadastro2}
+                    src={Bg2}
                     alt="Imagem hover"
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 />
