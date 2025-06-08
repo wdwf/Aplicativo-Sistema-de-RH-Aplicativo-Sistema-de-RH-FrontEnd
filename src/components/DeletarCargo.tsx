@@ -4,13 +4,15 @@ import { buscar, deletar } from '../services/Service';
 import Cargo from '../models/Cargo';
 import { AuthContext } from '../contexts/AuthContext';
 import { ToastAlerta } from '../utils/ToastAlerta';
-import { RotatingLines } from 'react-loader-spinner';
+import { Hourglass, RotatingLines } from 'react-loader-spinner';
 
 export default function DeletarCargo() {
   const navigate = useNavigate();
 
   const [cargo, setCargo] = useState<Cargo>({} as Cargo)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [loadingPage, setLoadingPage] = useState(true);
+
 
   const { usuario, handleLogout } = useContext(AuthContext)
   const token = usuario.token
@@ -42,6 +44,22 @@ export default function DeletarCargo() {
     }
   }, [id])
 
+  useEffect(() => {
+    if (token === '') return;
+    if (!token) {
+      ToastAlerta('Você precisa estar logado!', 'info')
+      handleLogout();
+      navigate('/')
+    }
+    else {
+      if (id !== undefined) {
+        buscarPorId(id)
+      }
+      setLoadingPage(false);
+    }
+  }, [token, id])
+
+
   async function deletarCargo() {
     setIsLoading(true)
 
@@ -68,6 +86,18 @@ export default function DeletarCargo() {
 
   function retornar() {
     navigate("/home")
+  }
+
+  if (loadingPage) {
+    return <Hourglass
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="hourglass-loading"
+      wrapperStyle={{}}
+      wrapperClass=""
+      colors={['#306cce', '#72a1ed']}
+    />
   }
 
   return (
