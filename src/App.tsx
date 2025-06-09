@@ -13,6 +13,9 @@ import FormDepartamento from './components/FormDepartamento'
 import ListaDepartamento from './components/ListaDepartamento'
 import DeleteDepartamento from './components/DeleteDepartamento'
 import Sobre from './pages/sobre/Sobre'
+import ListaCargo from './components/ListaCargo'
+import FormCargo from './components/FormCargo'
+import DeletarCargo from './components/DeletarCargo'
 
 
 
@@ -28,14 +31,20 @@ function App() {
           <div className="min-h-[80vh]">
             <Routes>
               <Route path="/" element={<Login />} />
-              <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/sobre" element={<Sobre />} />
-              <Route path="/departamento" element={<ListaDepartamento />} />
-              <Route path="/cadastrardepartamento" element={<FormDepartamento />} />
-              <Route path="/editardepartamento/:id" element={<FormDepartamento />} />
-              <Route path="/deletardepartamento/:id" element={<DeleteDepartamento />} />
+              <Route path="/features-futuras" element={<Sobre />} />
+              <Route path="/departamentos" element={<ListaDepartamento />} />
+              <Route path="/cadastrar-departamento" element={<FormDepartamento />} />
+              <Route path="/editar-departamento/:id" element={<FormDepartamento />} />
+              <Route path="/deletar-departamento/:id" element={<DeleteDepartamento />} />
+              <Route path="/cargos" element={<ListaCargo />} />
+              <Route path="/cadastrar-cargo" element={<FormCargo />} />
+              <Route path="/cadastrar-cargo/:id" element={<FormCargo />} />
+              <Route path="/editar-cargo/:id" element={<FormCargo />} />
+              <Route path="/deletar-cargo/:id" element={<DeletarCargo />} />
             </Routes>
           </div>
           <Footer />
