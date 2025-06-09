@@ -71,7 +71,7 @@ export default function FormCargo() {
   }
 
   function retornar() {
-    navigate("/home")
+    navigate("/cargos")
   }
 
   async function gerarNovoCargo(e: ChangeEvent<HTMLFormElement>) {
@@ -193,7 +193,7 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="salario" className="w-full pl-3 text-sm font-normal">Salario do Cargo</label>
+              <label htmlFor="salario" className="w-full pl-3 text-sm font-normal">Salario Bruto do Cargo</label>
               <input
                 className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="number"

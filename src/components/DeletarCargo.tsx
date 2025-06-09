@@ -107,9 +107,12 @@ export default function DeletarCargo() {
       <img src={colbgleft} alt="decorativo" className="sticky top-0 h-screen" />
 
       <div className="flex items-center flex-col gap-4 p-4">
-        <h2 className="text-5xl font-medium text-gray-800 my-2">
-          Removendo Cargo
-        </h2>
+        <div className='my-2 flex flex-col gap-2 items-center'>
+          <h2 className="text-5xl text-gray-800">
+            Removendo Cargo
+          </h2>
+          <p className='text-gray-600'>Você tem certeza que deseja remover o registro desse cargo?</p>
+        </div>
 
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
