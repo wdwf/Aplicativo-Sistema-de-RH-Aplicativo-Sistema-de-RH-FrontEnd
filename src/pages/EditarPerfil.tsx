@@ -9,39 +9,23 @@ import bgeditar1 from "../assets/img/bgeditar1.png";
 import bgeditar2 from "../assets/img/bgeditar2.png";
 import ListaCargo from "../components/ListaCargo";
 import Cargo from "../models/Cargo";
+import Usuario from "../models/Usuario";
 
 export default function EditarPerfil() {
   const navigate = useNavigate();
   const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [listaCargos, setListaCargos] = useState<Cargo[]>([]);
-  const [usuarioEditar, setUsuarioEditar] = useState({
-    id: "",
+  const [usuarioEditar, setUsuarioEditar] = useState<Usuario>({
+    id: Number(""),
     nome: "",
     usuario: "",
     senha: "",
     foto: "",
-    cargo: "",
+    cargo: null,
   });
 
-  useEffect(() => {
-    if (usuario.token === "") {
-      return;
-    }
-    if (!usuario.token) {
-      ToastAlerta("Você precisa estar Logado!", "info");
-      handleLogout();
-      navigate("/");
-    } else {
-      if (usuario.id) {
-        buscarUserPorId(String(usuario.id));
-      }
-    }
-  }, [usuario.token]);
-
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-    console.log(e);
-
     setUsuarioEditar({
       ...usuarioEditar,
       [e.target.name]: e.target.value,
@@ -78,17 +62,22 @@ export default function EditarPerfil() {
 
   async function buscarCargo() {
     try {
-      await buscar('/cargo', setListaCargos, {
-        headers: { Authorization: token }
-      })
+      await buscar("/cargo", setListaCargos, {
+        headers: { Authorization: usuario.token },
+      });
     } catch (error: any) {
-      if (error.toString().includes('403')) {
-        handleLogout()
+      if (error.toString().includes("403")) {
+        handleLogout();
       }
     }
   }
 
-  async function handleSubmit() {
+  function retornar() {
+    navigate("/login");
+  }
+
+  async function handleSubmit(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
     setIsLoading(true);
     try {
       await atualizar("/usuario/atualizar", usuarioEditar, setUsuario, {
@@ -100,24 +89,47 @@ export default function EditarPerfil() {
       ToastAlerta("Dados atualizados com sucesso!", "sucesso");
       ToastAlerta("Por motivos de segurança o usuario foi deslogado", "info");
       handleLogout();
+      setIsLoading(false);
+      retornar();
     } catch (error) {
       ToastAlerta("Erro ao atualizar dados. Verifique os campos.", "error");
       setIsLoading(false);
     }
   }
 
-  useEffect(() => {
-    buscarUserPorId(String(usuario.id)).then(() => {
-      setUsuarioEditar((prevData) => ({
-        ...prevData,
-        senha: "",
-      }));
-    });
-  }, []);
+  function atualizarCargo(e: ChangeEvent<HTMLSelectElement>) {
+    const cargoId = parseInt(e.target.value);
 
-  function atualizarCargo(event: ChangeEvent<HTMLSelectElement>): void {
-    throw new Error("Function not implemented.");
+    setUsuarioEditar({
+      ...usuarioEditar,
+      cargo: {
+        id: cargoId,
+      } as Cargo,
+    });
   }
+
+  useEffect(() => {
+    if (usuario.token === "") {
+      return;
+    }
+    if (!usuario.token) {
+      ToastAlerta("Você precisa estar Logado!", "info");
+      handleLogout();
+      navigate("/");
+    } else {
+      if (usuario.id) {
+        buscarCargo();
+        buscarUserPorId(String(usuario.id)).then(() => {
+          setUsuarioEditar((prevData) => ({
+            ...prevData,
+            senha: "",
+          }));
+        });
+      }
+    }
+  }, [usuario.token]);
+
+  console.log(listaCargos);
 
   return (
     <div className="flex min-h-screen relative justify-between">
@@ -126,7 +138,7 @@ export default function EditarPerfil() {
       <div className="w-full max-w-md m-auto px-4">
         <h2 className="font-medium text-4xl mb-8 text-center">Seus Dados</h2>
 
-        <form className="flex flex-col gap-6">
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
           <div className="mb-2">
             <label className="block text-text mb-1" htmlFor="nome">
               Nome
@@ -233,36 +245,8 @@ export default function EditarPerfil() {
             >
               Cancelar
             </button>
+            
           </div>
-
-          {/* <button onClick={handleSubmit}>
-            {isLoading ? (
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="24"
-                visible={true}
-              />
-            ) : (
-              <span>Atualizar</span>
-            )}
-          </button> */}
-
-          {/* <button
-                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-rh-primary-white bg-rh-secondary-red hover:bg-red-500"
-                onClick={deletar}>
-                {isLoading ?
-                  <RotatingLines
-                    strokeColor="white"
-                    strokeWidth="5"
-                    animationDuration="0.75"
-                    width="24"
-                    visible={true}
-                  /> :
-                  <span>Remover</span>
-                }
-              </button> */}
         </form>
       </div>
 

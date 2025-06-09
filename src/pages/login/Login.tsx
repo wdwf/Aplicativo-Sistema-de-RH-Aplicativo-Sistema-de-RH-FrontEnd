@@ -75,7 +75,7 @@ function Login() {
 
                     <button
                         type="submit"
-                        className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer">
+                        className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer flex justify-center items-center">
                         {isLoading ? <RotatingLines
                             strokeColor="grey"
                             strokeWidth="5"

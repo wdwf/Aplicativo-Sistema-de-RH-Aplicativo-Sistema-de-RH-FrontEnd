@@ -172,7 +172,7 @@ const token = usuarioContext.token
 
             <button 
               type="submit"
-              className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer"
+              className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer flex justify-center items-center"
               disabled={isLoading}
             >
               {isLoading ? <RotatingLines
