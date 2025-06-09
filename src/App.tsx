@@ -12,6 +12,7 @@ import Cadastro from './pages/cadastro/Cadastro'
 import FormDepartamento from './components/FormDepartamento'
 import ListaDepartamento from './components/ListaDepartamento'
 import DeleteDepartamento from './components/DeleteDepartamento'
+import EditarPerfil from './pages/EditarPerfil'
 
 
 
@@ -29,9 +30,10 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
-               <Route path="/departamento" element={<ListaDepartamento />} />
+              <Route path="/departamento" element={<ListaDepartamento />} />
               <Route path="/cadastrardepartamento" element={<FormDepartamento />} />
               <Route path="/editardepartamento/:id" element={<FormDepartamento />} />
+              <Route path="/editarperfil/:id" element={<EditarPerfil />} />
               <Route path="/deletardepartamento/:id" element={<DeleteDepartamento />} />
             </Routes>
           </div>
