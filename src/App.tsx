@@ -13,6 +13,7 @@ import DeleteDepartamento from './components/departamento/DeleteDepartamento'
 import Sobre from './pages/sobre/Sobre'
 import ListaCargo from './components/cargo/ListaCargo'
 import Planejamos from './pages/futuro/Planejamos'
+import NotFound from './pages/notFound/NotFound'
 import FormDepartamento from './components/departamento/FormDepartamento'
 import FormCargo from './components/cargo/FormCargo'
 import DeletarCargo from './components/cargo/DeletarCargo'
@@ -37,6 +38,7 @@ function App() {
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/home" element={<Home />} />
               <Route path="/sobre" element={<Sobre />} />
+              <Route path="/perfil" element={<Perfil />} />
               <Route path="/features-futuras" element={<Planejamos />} />
               <Route path="/calcular-salario" element={<CalculoSalario />} />
               <Route path="/departamentos" element={<ListaDepartamento />} />
@@ -48,6 +50,7 @@ function App() {
               <Route path="/cadastrar-cargo/:id" element={<FormCargo />} />
               <Route path="/editar-cargo/:id" element={<FormCargo />} />
               <Route path="/deletar-cargo/:id" element={<DeletarCargo />} />
+              <Route path="*" element={<NotFound />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/editar-perfil" element={<EditarPerfil />} />
             </Routes>
