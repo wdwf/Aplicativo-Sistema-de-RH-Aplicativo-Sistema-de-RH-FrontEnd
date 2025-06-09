@@ -23,6 +23,8 @@ input[type="number"] {
 }
 
 @theme {
+  --color-rh-primary-white: #fff;
+  --color-rh-primary-50: #f4faff;
   --color-rh-primaryblue: #0995fd;
   --color-rh-secondaryblue: #0369b5;
   --color-rh-primarypurple: #9778f6;

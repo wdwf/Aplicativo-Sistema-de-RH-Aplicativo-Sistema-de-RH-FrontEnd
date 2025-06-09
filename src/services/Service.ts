@@ -2,7 +2,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL:"https://aplicativo-sistema-rh.onrender.com"
+    baseURL: import.meta.env.VITE_API_URL,
 })
 
 export const cadastrarUsuario = async (url: string, dados: Object, setDados: Function) => {
@@ -34,8 +34,9 @@ export const deletar = async (url: string, header: Object) => {
 }
 
 export const calcularSalario = async (usuarioId: number, horasTrabalhadas: number, bonus: number, descontos: number, setDados: Function, header: Object) => {
-  const resposta = await api.get(`/usuario/${usuarioId}/calcular-salario`, {
-    params: {horasTrabalhadas:horasTrabalhadas ,bonus:bonus ,descontos:descontos },
-    ...header})
-  setDados(resposta.data)
+    const resposta = await api.get(`/usuario/${usuarioId}/calcular-salario`, {
+        params: { horasTrabalhadas: horasTrabalhadas, bonus: bonus, descontos: descontos },
+        ...header
+    })
+    setDados(resposta.data)
 }
