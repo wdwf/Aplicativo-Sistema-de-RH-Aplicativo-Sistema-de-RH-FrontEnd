@@ -2,28 +2,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import Departamento from "../models/Departamento";
 import { buscar } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
-import { DNA } from "react-loader-spinner";
+import { DNA, RotatingLines } from "react-loader-spinner";
 import CardDepartamento from "./CardDepartamento";
+import arrowBlack from "../assets/img/arrowBlack.png";
+
 
 function ListaDepartamento() {
- const navigate = useNavigate();
- 
- const [departamento, setDepartamento] = useState<Departamento[]>([]);
- const [isLoading, setIsLoading] = useState<boolean>(false)
- 
- const { usuario, handleLogout } = useContext(AuthContext)
- const token = usuario.token
+  const navigate = useNavigate();
+
+  const [departamento, setDepartamento] = useState<Departamento[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadinPage, setIsLoadingPage] = useState<boolean>(true);
+
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
 
   async function buscarDepartamento() {
     try {
       await buscar("/departamento", setDepartamento, {
         headers: { Authorization: token },
       });
+      setIsLoadingPage(false);
     } catch (error: any) {
       if (error.toString().includes("403")) {
         handleLogout();
@@ -33,46 +37,56 @@ function ListaDepartamento() {
 
   useEffect(() => {
     if (token === "") {
-      ToastAlerta("Você precisa estar logado!", "info");
+      return;
+    }
+    if (!token) {
+      ToastAlerta("Você precisa estar Logado!", "info");
+      handleLogout();
       navigate("/");
+    } else {
+      buscarDepartamento();
     }
   }, [token]);
 
-  useEffect (() => {
-    buscarDepartamento()
-  }, [departamento.length])
-
-
-
-
+  if (isLoadinPage) {
+    return (
+      <RotatingLines
+        strokeColor="black"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="24"
+        visible={true}
+      />
+    );
+  }
 
 
   return (
-  
-  <>
-
-            {departamento.length === 0 && (
-                <DNA
-                    visible={true}
-                    height="200"
-                    width="200"
-                    ariaLabel="dna-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="dna-wrapper mx-auto"
-                />
-            )}
-            <div className="flex justify-center w-full my-4">
-                <div className="container flex flex-col">
-                    <div className="grid grid-cols-1 md:grid-cols-2 
-                                    lg:grid-cols-3 gap-8">
-                        {departamento.map((departamento) => (<CardDepartamento key={departamento.id} departamento={departamento} />))}
-
-                    </div>
-                </div>
+    <div className="w-full p-6">
+      <div className="flex gap-3 ml-1 my-6 items-center">
+        <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">
+          <img src={arrowBlack} alt="Seta para voltar" className="-scale-x-100" width={24} height={24} />
+        </Link>
+        <h3 className="text-3xl font-medium text-rh-primarygrey mb-6">
+          Lista de Departamentos
+        </h3>
+      </div>
+      <div className="flex flex-wrap gap-4">
+        {
+          departamento.length === 0 && (
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <p className="text-xl font-semibold text-rh-primarygrey mt-4">Nenhum cargo cadastrado.</p>
             </div>
-        </>
-
-
+          )
+        }
+        {departamento.map((departamento) => (
+          <CardDepartamento
+            key={departamento.id}
+            departamento={departamento}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 

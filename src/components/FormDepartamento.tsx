@@ -1,157 +1,216 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import Departamento from '../models/Departamento';
-import { AuthContext } from '../contexts/AuthContext';
-import { atualizar, buscar, cadastrar } from '../services/Service';
-import { ToastAlerta } from '../utils/ToastAlerta';
-import { RotatingLines } from 'react-loader-spinner';
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Departamento from "../models/Departamento";
+import { AuthContext } from "../contexts/AuthContext";
+import { atualizar, buscar, cadastrar } from "../services/Service";
+import { ToastAlerta } from "../utils/ToastAlerta";
+import { RotatingLines } from "react-loader-spinner";
+import ColunaEsquerda from "../assets/img/ColunaEsquerda.png"
+import ColunaDireita from "../assets/img/ColunaDireita.png"
 
 function FormDepartamento() {
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
+  const [departamento, setDepartamento] = useState<Departamento>(
+    {} as Departamento
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loadingPage, setLoadingPage] = useState(true);
 
-const [departamento, setDepartamento] = useState<Departamento>({} as Departamento)
-const [isLoading, setIsLoading] = useState<boolean>(false)
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
+  const [mostrarModal, setMostrarModal] = useState(false);
 
-const { usuario, handleLogout } = useContext(AuthContext)
-const token = usuario.token
-
-const { id } = useParams<{ id: string }>();
-const { descricao } = useParams<{ descricao: string }>();
-
-async function buscarPorId(id: string) {
-        try {
-            await buscar(`/departamento/${id}`, setDepartamento, {
-                headers: { Authorization: token }
-            })
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
-                handleLogout()
-            }
-        }
-    }
-
-
-    async function buscarPorDescricao(descricao: string) {
-        try {
-            await buscar(`/departamento/descricao/${descricao}`, setDepartamento, {
-                headers: { Authorization: token }
-            })
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
-                handleLogout()
-            }
-        }
-    }
-
-     useEffect(() => {
-        if (token === '') {
-            ToastAlerta('Você precisa estar logado!', 'info')
-            navigate('/')
-        }
-    }, [token])
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-        if (id !== undefined) {
-            buscarPorId(id)
-        }
-    }, [id])
-
-
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-        setDepartamento({
-            ...departamento,
-            [e.target.name]: e.target.value
-        })
+    if (token === "") {
+      return;
     }
-
-    function retornar() {
-        navigate("/departamento")
+    if (!token) {
+      ToastAlerta("Você precisa estar Logado!", "info");
+      handleLogout();
+      navigate("/");
+    } else {
+      buscar(`/departamento/${id}`, setDepartamento, {
+        headers: { Authorization: token },
+      });
+      setLoadingPage(false);
     }
+  }, [token]);
 
+  function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setDepartamento({
+      ...departamento,
+      [e.target.name]: e.target.value,
+    });
+  }
 
-     async function gerarNovoDepartamento(e: ChangeEvent<HTMLFormElement>) {
-        e.preventDefault()
-        setIsLoading(true)
+  function retornar() {
+    navigate("/home");
+  }
 
-        if (id !== undefined) {
-            try {
-                await atualizar(`/departamento`, departamento, setDepartamento, {
-                    headers: { 'Authorization': token }
-                })
-                ToastAlerta('O Departamento foi atualizado com sucesso!', 'sucesso')
-            } catch (error: any) {
-                if (error.toString().includes('403')) {
-                    handleLogout();
-                } else {
-                    ToastAlerta('Erro ao atualizar o Departamento.', 'erro')
-                }
+  async function gerarNovoDepartamento(e: ChangeEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsLoading(true);
 
-            }
+    if (id !== undefined) {
+      try {
+        await atualizar(`/departamento`, departamento, setDepartamento, {
+          headers: { Authorization: token },
+        });
+        ToastAlerta("O Departamento foi atualizado com sucesso!", "sucesso");
+      } catch (error: any) {
+        if (error.toString().includes("403")) {
+          handleLogout();
         } else {
-            try {
-                await cadastrar(`/departamento`, departamento, setDepartamento, {
-                    headers: { 'Authorization': token }
-                })
-                ToastAlerta('O Departamento foi cadastrado com sucesso!', 'sucesso')
-            } catch (error: any) {
-                if (error.toString().includes('403')) {
-                    handleLogout();
-                } else {
-                    ToastAlerta('Erro ao cadastrar o Departamento.','erro')
-                }
-
-            }
+          ToastAlerta("Erro ao atualizar o Departamento.", "erro");
         }
-
-        setIsLoading(false)
-        retornar()
+      }
+    } else {
+      try {
+        await cadastrar(`/departamento`, departamento, setDepartamento, {
+          headers: { Authorization: token },
+        });
+        ToastAlerta("O Departamento foi cadastrado com sucesso!", "sucesso");
+      } catch (error: any) {
+        if (error.toString().includes("403")) {
+          handleLogout();
+        } else {
+          ToastAlerta("Erro ao cadastrar o Departamento.", "erro");
+        }
+      }
     }
 
+    setIsLoading(false);
+    retornar();
+  }
+
+  if (loadingPage) {
+    return (
+      <RotatingLines
+        strokeColor="black"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="24"
+        visible={true}
+      />
+    );
+  }
 
 
-    
   return (
     <>
-    <div className="container flex flex-col items-center justify-center mx-auto">
-            <h1 className="text-4xl text-center my-8">
-                {id === undefined ? 'Cadastrar Departamento' : 'Editar Departamento'}
+
+     
+    
+   
+ 
+
+      <div className="flex min-h-screen relative justify-between">
+        <img className="sticky h-screen " src={ColunaEsquerda} alt="Coluna Esquerda" />
+        <div className="flex flex-col gap-4 p-4">
+          
+            <h1 className="text-4xl text-center my-8 text-rh-primaryblue">
+              {id === undefined
+                ? "Cadastrar Departamento"
+                : "Editar Departamento"}
             </h1>
 
-            <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoDepartamento}>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="descricao">Descrição do Departamento</label>
-                    <input
-                        type="text"
-                        placeholder="Descreva aqui seu Departamento"
-                        name='descricao'
-                        className="border-2 border-slate-700 rounded p-2"
-                        value={departamento.descricao}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
-                </div>
-                <button
-                    className="rounded text-slate-100 bg-indigo-400 
-                               hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
-                    type="submit">
-                    {isLoading ?
-                        <RotatingLines
-                            strokeColor="white"
-                            strokeWidth="5"
-                            animationDuration="0.75"
-                            width="24"
-                            visible={true}
-                        /> :
-                        <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+            <form
+              className="flex flex-col gap-4 "
+              onSubmit={gerarNovoDepartamento}
+            >
+              <div className="flex flex-col gap-2 focus:ring-2 ">
+                <label className="text-rh-secondaryblue" htmlFor="nome">Nome do Departamento</label>
+                <input
+                  type="text"
+                  placeholder="Escreva o nome do Departamento"
+                  name="nome"
+                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  value={departamento.nome}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    atualizarEstado(e)
+                  }
+                />
 
-                    }
+                <label className="text-rh-secondaryblue" htmlFor="andar">Andar</label>
+                <input
+                  type="text"
+                  placeholder="Ex... 1º Andar"
+                  name="andar"
+                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  value={departamento.andar}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    atualizarEstado(e)
+                  }
+                />
+                <label className="text-rh-secondaryblue" htmlFor="ramal">Ramal</label>
+                <input
+                  type="text"
+                  placeholder="Por Ex: 123"
+                  name="ramal"
+                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  value={departamento.ramal}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    atualizarEstado(e)
+                  }
+                />
+
+                <label className="text-rh-secondaryblue" htmlFor="descricao">Descrição do Departamento</label>
+                <textarea
+                
+                  placeholder="Descreva aqui seu Departamento"
+                  name="descricao"
+                  className="resize-none h-20 w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  value={departamento.descricao}
+                  onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                    atualizarEstado(e)
+                  }
+                />
+
+
+
+              </div>
+              <div className="flex justify-between pb-[20px] pt-[10px]">
+                <button onClick={() => setMostrarModal(true)}
+                    className="rounded text-slate-100 bg-rh-primaryblue transition-colors duration-500
+                                    hover:bg-rh-secondaryblue w-[150px] py-2  flex justify-center"
+                    type="submit"
+                >
+                    {isLoading ? (
+                    <RotatingLines
+                        strokeColor="white"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        width="24"
+                        visible={true}
+                    />
+                    ) : (
+                    <span>{id === undefined ? "Cadastrar" : "Atualizar"}</span>
+                    )}
                 </button>
+
+                    
+
+
+                <Link to="/home"
+                    className="rounded text-slate-100 bg-rh-primarypurple 
+                                    transition-colors hover:bg-rh-secondarypurple duration-500 w-[150px] py-2  flex justify-center"
+                >
+                    Cancelar
+                </Link>
+              </div>
             </form>
-        </div>
+          </div>
+      
+         <img className="sticky h-screen" src={ColunaDireita} alt="Coluna Direita" />
+
+      </div>
     </>
-  )
+  );
 }
 
 export default FormDepartamento;
