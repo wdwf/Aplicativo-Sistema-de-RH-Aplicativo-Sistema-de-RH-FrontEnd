@@ -6,6 +6,8 @@ import { atualizar, buscar, cadastrar } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
 import { Hourglass, RotatingLines } from "react-loader-spinner";
 import Departamento from "../models/Departamento";
+import colbgleft from "../assets/img/colbgleft.png";
+import colbgright from "../assets/img/colbgright.png";
 
 export default function FormCargo() {
   const navigate = useNavigate();
@@ -155,100 +157,104 @@ export default function FormCargo() {
   }
 
   return (
-    <div className="container flex flex-col items-center justify-center mx-auto">
-      <h2 className="text-4xl text-center my-8">
-        {id === undefined ? 'Cadastrar Cargo' : 'Editar Cargo'}
-      </h2>
+    <div className="flex min-h-screen relative">
+      <img src={colbgleft} alt="decorativo" className="sticky top-0 h-screen" />
+      <div className="flex flex-col gap-4 p-4">
+        <h2 className="text-2xl font-semibold text-gray-800">
+          {id === undefined ? 'Cadastrar Cargo' : 'Editar Cargo'}
+        </h2>
 
-      <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoCargo}>
-        <div className="flex flex-col gap-2">
-          <div>
-            <label htmlFor="nome">Nome do Cargo</label>
-            <input
-              className="border-2 border-slate-700 rounded p-2"
-              type="text"
-              placeholder="..."
-              name='nome'
-              value={cargo.nome}
-              required
-              onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="nivel">Nivel do Cargo</label>
-            <input
-              className="border-2 border-slate-700 rounded p-2"
-              type="text"
-              placeholder="..."
-              name='nivel'
-              value={cargo.nivel}
-              required
-              onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="salario">Salario do Cargo</label>
-            <input
-              className="border-2 border-slate-700 rounded p-2"
-              type="number"
-              placeholder="..."
-              name='salario'
-              value={cargo.salario}
-              required
-              onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="descricao">Descrição do Cargo</label>
-            <textarea
-              name='descricao'
-              placeholder="..."
-              className="border-2 border-slate-700 rounded p-2"
-              id=""
-              value={cargo.descricao}
-              required
-              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => atualizarEstado(e)}
-            ></textarea>
-          </div>
+        <form className="flex flex-col gap-4" onSubmit={gerarNovoCargo}>
+          <div className="flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-2">
+              <label htmlFor="nome" className="w-full pl-3 font-normal">Nome do Cargo</label>
+              <input
+                className="border-2 border-slate-700 rounded p-2"
+                type="text"
+                placeholder="..."
+                name='nome'
+                value={cargo.nome}
+                required
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+              />
+            </div>
+            <div>
+              <label htmlFor="nivel">Nivel do Cargo</label>
+              <input
+                className="border-2 border-slate-700 rounded p-2"
+                type="text"
+                placeholder="..."
+                name='nivel'
+                value={cargo.nivel}
+                required
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+              />
+            </div>
+            <div>
+              <label htmlFor="salario">Salario do Cargo</label>
+              <input
+                className="border-2 border-slate-700 rounded p-2"
+                type="number"
+                placeholder="..."
+                name='salario'
+                value={cargo.salario}
+                required
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+              />
+            </div>
+            <div>
+              <label htmlFor="descricao">Descrição do Cargo</label>
+              <textarea
+                name='descricao'
+                placeholder="..."
+                className="border-2 border-slate-700 rounded p-2"
+                id=""
+                value={cargo.descricao}
+                required
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) => atualizarEstado(e)}
+              ></textarea>
+            </div>
 
-          <div className='flex flex-col gap-2'>
-            <label htmlFor="departamento" className="w-full pl-3 font-normal">Departamento</label>
-            <select
-              required
-              value={cargo.departamento?.id || ""}
-              name="departamento"
-              id="departamento"
-              className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary'
-              onChange={atualizarDepartamento}
-            >
-              <option value="" disabled>Selecione um departamento</option>
-              {listaDepartamentos.map((departamento) => (
-                <option key={departamento.id} value={departamento.id}>
-                  {departamento.nome}
-                </option>
-              ))}
-            </select>
+            <div className='flex flex-col gap-2'>
+              <label htmlFor="departamento" className="w-full pl-3 font-normal">Departamento</label>
+              <select
+                required
+                value={cargo.departamento?.id || ""}
+                name="departamento"
+                id="departamento"
+                className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary'
+                onChange={atualizarDepartamento}
+              >
+                <option value="" disabled>Selecione um departamento</option>
+                {listaDepartamentos.map((departamento) => (
+                  <option key={departamento.id} value={departamento.id}>
+                    {departamento.nome}
+                  </option>
+                ))}
+              </select>
 
+            </div>
+
+            <button
+              className="rounded text-slate-100 bg-indigo-400 
+                                hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
+              type="submit">
+              {isLoading ?
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                /> :
+                <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+              }
+            </button>
+            <Link to="/home" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-1/2 py-2 mx-auto flex justify-center">Cancelar</Link>
           </div>
-
-          <button
-            className="rounded text-slate-100 bg-indigo-400 
-                               hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
-            type="submit">
-            {isLoading ?
-              <RotatingLines
-                strokeColor="white"
-                strokeWidth="5"
-                animationDuration="0.75"
-                width="24"
-                visible={true}
-              /> :
-              <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
-            }
-          </button>
-          <Link to="/home" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-1/2 py-2 mx-auto flex justify-center">Cancelar</Link>
-        </div>
-      </form>
+        </form>
+      </div>
+      <img src={colbgright} alt="decorativo" className="sticky top-0 h-screen" />
     </div>
   )
 }

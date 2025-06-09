@@ -41,6 +41,7 @@ function App() {
               <Route path="/editar-departamento/:id" element={<FormDepartamento />} />
               <Route path="/deletar-departamento/:id" element={<DeleteDepartamento />} />
               <Route path="/cargos" element={<ListaCargo />} />
+              <Route path="/cadastrar-cargo" element={<FormCargo />} />
               <Route path="/cadastrar-cargo/:id" element={<FormCargo />} />
               <Route path="/editar-cargo/:id" element={<FormCargo />} />
               <Route path="/deletar-cargo/:id" element={<DeletarCargo />} />
