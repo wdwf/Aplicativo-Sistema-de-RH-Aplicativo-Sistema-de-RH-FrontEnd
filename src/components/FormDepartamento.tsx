@@ -104,15 +104,15 @@ function FormDepartamento() {
   return (
     <>
 
-      <div className="relative w-full h-screen">
+     
     
    
-  </div>
+ 
 
-      <div className="fixed inset-0 w-full  justify-between bg-transparent bg-opacity-50 backdrop-blur pt-15 flex items-center z-50 ">
-        <img className="left-0 top-0 h-full" src={ColunaEsquerda} alt="Coluna Esquerda" />
-        <div className="bg-blend-color-burn rounded-lg p-6 w-full max-w-2xl shadow-xl shadow-rh-secondarygrey ">
-          <div className="container flex flex-col items-center justify-center mx-auto border-3 rounded-xl">
+      <div className="flex min-h-screen relative justify-between">
+        <img className="sticky h-screen " src={ColunaEsquerda} alt="Coluna Esquerda" />
+        <div className="flex flex-col gap-4 p-4">
+          
             <h1 className="text-4xl text-center my-8 text-rh-primaryblue">
               {id === undefined
                 ? "Cadastrar Departamento"
@@ -120,7 +120,7 @@ function FormDepartamento() {
             </h1>
 
             <form
-              className="w-1/2 flex flex-col gap-4 "
+              className="flex flex-col gap-4 "
               onSubmit={gerarNovoDepartamento}
             >
               <div className="flex flex-col gap-2 focus:ring-2 ">
@@ -205,8 +205,8 @@ function FormDepartamento() {
               </div>
             </form>
           </div>
-        </div>
-         <img className="right-0 top-0 h-full" src={ColunaDireita} alt="Coluna Direita" />
+      
+         <img className="sticky h-screen" src={ColunaDireita} alt="Coluna Direita" />
 
       </div>
     </>
