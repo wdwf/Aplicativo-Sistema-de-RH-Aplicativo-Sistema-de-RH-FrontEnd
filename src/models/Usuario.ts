@@ -6,5 +6,5 @@ export default interface Usuario {
     usuario: string;
     senha: string;
     foto: string;
-    cargo?: Cargo[] | null;
+    cargo?: Cargo | null;
 }
