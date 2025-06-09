@@ -2,13 +2,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import Departamento from "../models/Departamento";
 import { buscar } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
 import { DNA, RotatingLines } from "react-loader-spinner";
 import CardDepartamento from "./CardDepartamento";
+import arrowBlack from "../assets/img/arrowBlack.png";
+
 
 function ListaDepartamento() {
   const navigate = useNavigate();
@@ -58,32 +60,34 @@ function ListaDepartamento() {
     );
   }
 
+
   return (
-    <>
-  
-       
-     
-      <div className="flex justify-center my-4 pt-50">
-        <div className="container flex flex-col"> 
-          <p className="text-black text-5xl pb-5">Departamentos</p>
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 
-                                    lg:grid-cols-3 gap-8"
-          >
-            {departamento.map((departamento) => (
-              <CardDepartamento
-                key={departamento.id}
-                departamento={departamento}
-              />
-            ))}
-          </div>
-        </div>
+    <div className="w-full p-6">
+      <div className="flex gap-3 ml-1 my-6 items-center">
+        <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">
+          <img src={arrowBlack} alt="Seta para voltar" className="-scale-x-100" width={24} height={24} />
+        </Link>
+        <h3 className="text-3xl font-medium text-rh-primarygrey mb-6">
+          Lista de Departamentos
+        </h3>
       </div>
-
-
-
-    </>
-  );
+      <div className="flex flex-wrap gap-4">
+        {
+          departamento.length === 0 && (
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <p className="text-xl font-semibold text-rh-primarygrey mt-4">Nenhum cargo cadastrado.</p>
+            </div>
+          )
+        }
+        {departamento.map((departamento) => (
+          <CardDepartamento
+            key={departamento.id}
+            departamento={departamento}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default ListaDepartamento;

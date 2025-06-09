@@ -9,25 +9,27 @@ interface CardDepartamentoProps {
 
 function CardDepartamento({ departamento }: CardDepartamentoProps) {
   return (
-    <div className="border flex flex-col rounded-2xl shadow-gray-400 shadow-lg overflow-hidden hover:shadow-rh-primarygrey transform hover:-translate-y-2 transition-all duration-300 justify-between">
-      <header className="flex py-4 px-6 bg-white text-black font-semibold ">
-        <img
-          className="h-[35px] w-[36px]"
-          src={LogoDepartamento}
-          alt="Logo do Departamento"
-        />
-        <div className="flex flex-col">
-          <h3 className="ml-5 font-light text-[15px]">Departamento</h3>
-          <h3 className="ml-5 text-rh-primaryblue text-2xl">
+    <div className="min-w-[420px] p-6 border flex flex-col flex-1 gap-4 rounded-2xl shadow-gray-400 shadow-lg overflow-hidden hover:shadow-rh-primarygrey transform hover:-translate-y-2 transition-all duration-300 justify-between bg-rh-primary-white">
+      <header className="flex bg-white text-black font-semibold items-center">
+        <span className="flex items-center justify-center h-[45px] w-[45px] border rounded">
+          <img
+            className="h-[24px] w-[24px]"
+            src={LogoDepartamento}
+            alt="Logo do Cargo"
+          />
+        </span>
+        <div className="flex flex-col ml-5">
+          <h3 className="font-light text-[15px]">Departamento</h3>
+          <h3 className="text-rh-primarygrey text-2xl">
             {departamento.nome}
           </h3>
         </div>
       </header>
 
-      <div className="flex justify-between gap-5 px-6">
+      <div className="flex justify-between gap-5">
         <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
           <p className="text-sm text-gray-600">Andar</p>
-          <p className="text-lg font-semibold">{departamento.andar}</p>
+          <p className="text-lg font-semibold">{departamento.andar}°</p>
         </div>
         <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
           <p className="text-sm text-gray-600">Ramal</p>
@@ -35,28 +37,26 @@ function CardDepartamento({ departamento }: CardDepartamentoProps) {
         </div>
       </div>
 
-      <div className="flex justify-between gap-5 py-6">
-          <div className="px-6">
-            <p className="text-sm text-gray-600 ">Descrição: </p>
-            <p className="text-lg line-clamp-2 h-[50px]">{departamento.descricao}</p>
-          </div>
-        </div>
+      <div className="bg-[#f3f3f4] rounded border border-gray-300 p-2">
+        <p className="text-sm text-gray-500">Descrição:</p>
+        <p className="text-sm line-clamp-2 h-[50px] overflow-y-scroll">{departamento.descricao}</p>
+      </div>
 
-      <div className="flex justify-center gap-15 h-[80px] pb-5 ">
+      <div className="flex w-full gap-3 ">
         <Link
-          to={`/editardepartamento/${departamento.id}`}
-          className=" text-slate-100 bg-rh-primarygrey transition-colors duration-500
-            rounded hover:bg-rh-secondaryblue w-1/3 py-2 flex items-center justify-center"
+          to={`/editar-departamento/${departamento.id}`}
+          className="w-full text-slate-100 bg-rh-primarygrey transition-colors duration-500
+          rounded hover:bg-rh-secondaryblue py-2 flex items-center justify-center"
         >
-          <button>Editar</button>
+          Editar
         </Link>
 
         <Link
-          to={`/deletardepartamento/${departamento.id}`}
-          className="text-slate-100 bg-red-400 transition-colors duration-500 hover:bg-red-700 w-1/3 p-2		          
-                     rounded flex items-center justify-center"
+          to={`/deletar-departamento/${departamento.id}`}
+          className="text-slate-100 bg-red-400 transition-colors duration-500 hover:bg-red-700 w-full p-2		          
+          rounded flex items-center justify-center"
         >
-          <button>Deletar</button>
+          Deletar
         </Link>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CardCargo from "./CardCargo";
 import Cargo from "../models/Cargo";
 import { useContext, useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { buscar } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
 import { Hourglass, RotatingLines } from "react-loader-spinner";
+import arrowBlack from "../assets/img/arrowBlack.png";
 
 export default function ListaCargo() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function ListaCargo() {
   }
 
   useEffect(() => {
-    console.log('token', token);
+    window.scrollTo(0, 0);
 
     if (token === '') return;
     if (!token) {
@@ -58,16 +59,28 @@ export default function ListaCargo() {
   }
 
   return (
-    <div className="flex justify-center w-full my-4">
-      <div className="container flex flex-col">
-        <div className="grid grid-cols-1 md:grid-cols-2 
-                                    lg:grid-cols-3 gap-8">
-          {
-            listaCargos.map((cargo) => (
-              <CardCargo key={cargo.id} cargo={cargo} />
-            ))
-          }
-        </div>
+    <div className="w-full p-6">
+      <div className="flex gap-3 ml-1 my-6 items-center">
+        <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">
+          <img src={arrowBlack} alt="Seta para voltar" className="-scale-x-100" width={24} height={24} />
+        </Link>
+        <h3 className="text-3xl font-medium text-rh-primarygrey mb-6">
+          Lista de Cargos
+        </h3>
+      </div>
+      <div className="flex flex-wrap gap-4">
+        {
+          listaCargos.length === 0 && (
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <p className="text-xl font-semibold text-rh-primarygrey mt-4">Nenhum cargo cadastrado.</p>
+            </div>
+          )
+        }
+        {
+          listaCargos.map((cargo) => (
+            <CardCargo key={cargo.id} cargo={cargo} />
+          ))
+        }
       </div>
     </div>
   )
