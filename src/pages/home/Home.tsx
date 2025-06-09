@@ -9,8 +9,11 @@ import ArrowBlack from '../../assets/img/arrowBlack.png';
 import { Link } from 'react-router';
 
 function Home() {
+
     window.scrollTo(0, 0);
+
     return (
+
         <>
             <div className="pt-6 pb-9">
                 <div className="rounded bg-rh-primary-50 w-full flex flex-col md:flex-row justify-between items-center px-6 py-3">

@@ -1,4 +1,3 @@
-
 import sobreImage from '../../assets/img/sobre.png'
 import visaoIcon from '../../assets/img/visao.png'
 import missaoIcon from '../../assets/img/missao.png'
@@ -6,7 +5,9 @@ import valoresIcon from '../../assets/img/valores.png'
 import portfolio from '../../assets/img/portifolio.png'
 
 export default function Sobre() {
+
   return (
+
     <section className="max-w-6xl mx-auto p-6 space-y-12">
       <h2 className="text-3xl font-bold border-b pb-2">Sobre</h2>
 
@@ -69,21 +70,21 @@ export default function Sobre() {
         <h4 className="text-2xl font-bold">Nosso Time</h4>
         <p className="text-sm text-gray-600 mt-2 max-w-md">
           Somos um grupo diverso de seis pessoas formadas no bootcamp da Generation Brasil.
-          Cada um chegou aqui por um caminho diferente: alguns buscando uma nova carreira, 
-          outros dados o primeiros passos na tecnologia. Temos apaixonados por front, back, design, 
-          lógica... Todos unidos pela vontade de aprender, crescer e transformar realidades. 
-          Nossa força está na pluralidade, no esforço coletivo e na paixão por criar soluções que 
-          fazem a diferença. Trabalhamos em conjunto para desenvolver, programar e testar as 
-          funcionalidades da aplicação, buscando aplicar os conhecimentos adquiridos ao longo do 
+          Cada um chegou aqui por um caminho diferente: alguns buscando uma nova carreira,
+          outros dados o primeiros passos na tecnologia. Temos apaixonados por front, back, design,
+          lógica... Todos unidos pela vontade de aprender, crescer e transformar realidades.
+          Nossa força está na pluralidade, no esforço coletivo e na paixão por criar soluções que
+          fazem a diferença. Trabalhamos em conjunto para desenvolver, programar e testar as
+          funcionalidades da aplicação, buscando aplicar os conhecimentos adquiridos ao longo do
           curso e simular um cenário real de desenvolvimento em equipe. </p>
 
-          <p className="text-sm text-gray-600 mt-2 max-w-md">Conheça mais sobre a equipe:</p>
+        <p className="text-sm text-gray-600 mt-2 max-w-md">Conheça mais sobre a equipe:</p>
 
-          <img
-    src={portfolio}
-    alt="QR Code"
-    className="mt-4 w-32 h-32 object-contain"
-  />
+        <img
+          src={portfolio}
+          alt="QR Code"
+          className="mt-4 w-32 h-32 object-contain"
+        />
       </div>
     </section>
   );

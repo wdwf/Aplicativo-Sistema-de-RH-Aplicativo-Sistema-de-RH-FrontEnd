@@ -1,14 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import CardCargo from "./CardCargo";
-import Cargo from "../models/Cargo";
+import Cargo from "../../models/Cargo";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { buscar } from "../services/Service";
-import { ToastAlerta } from "../utils/ToastAlerta";
+import { AuthContext } from "../../contexts/AuthContext";
+import { buscar } from "../../services/Service";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 import { Hourglass, RotatingLines } from "react-loader-spinner";
-import arrowBlack from "../assets/img/arrowBlack.png";
+import arrowBlack from "../../assets/img/arrowBlack.png";
+import CardCargo from "./CardCargo";
 
 export default function ListaCargo() {
+
   const navigate = useNavigate();
 
   const [listaCargos, setListaCargos] = useState<Cargo[]>([])

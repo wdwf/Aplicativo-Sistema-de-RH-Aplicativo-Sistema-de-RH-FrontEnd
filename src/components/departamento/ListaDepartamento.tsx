@@ -1,18 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
-import Departamento from "../models/Departamento";
-import { buscar } from "../services/Service";
-import { ToastAlerta } from "../utils/ToastAlerta";
+import { AuthContext } from "../../contexts/AuthContext";
+import Departamento from "../../models/Departamento";
+import { buscar } from "../../services/Service";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 import { DNA, RotatingLines } from "react-loader-spinner";
 import CardDepartamento from "./CardDepartamento";
-import arrowBlack from "../assets/img/arrowBlack.png";
+import arrowBlack from "../../assets/img/arrowBlack.png";
 
 
 function ListaDepartamento() {
+
   const navigate = useNavigate();
 
   const [departamento, setDepartamento] = useState<Departamento[]>([]);
@@ -62,6 +60,7 @@ function ListaDepartamento() {
 
 
   return (
+
     <div className="w-full p-6">
       <div className="flex gap-3 ml-1 my-6 items-center">
         <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">

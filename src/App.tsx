@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
 import Footer from './components/Footer'
@@ -9,24 +8,24 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
 import Login from './pages/login/Login'
 import Cadastro from './pages/cadastro/Cadastro'
-import FormDepartamento from './components/FormDepartamento'
-import ListaDepartamento from './components/ListaDepartamento'
-import DeleteDepartamento from './components/DeleteDepartamento'
+import ListaDepartamento from './components/departamento/ListaDepartamento'
+import DeleteDepartamento from './components/departamento/DeleteDepartamento'
 import Sobre from './pages/sobre/Sobre'
-import ListaCargo from './components/ListaCargo'
-import FormCargo from './components/FormCargo'
-import DeletarCargo from './components/DeletarCargo'
-import CalculoSalario from './components/CalculoSalario'
-import Perfil from './pages/Perfil'
-import EditarPerfil from './pages/EditarPerfil'
+import ListaCargo from './components/cargo/ListaCargo'
 import Planejamos from './pages/futuro/Planejamos'
-
+import NotFound from './pages/notFound/NotFound'
+import FormDepartamento from './components/departamento/FormDepartamento'
+import FormCargo from './components/cargo/FormCargo'
+import DeletarCargo from './components/cargo/DeletarCargo'
+import EditarPerfil from './pages/perfil/EditarPerfil'
+import Perfil from './pages/perfil/Perfil'
+import CalculoSalario from './components/CalculoSalario'
 
 
 function App() {
 
-
   return (
+
     <div className="max-w-[1440px] mx-auto">
       <AuthProvider>
         <ToastContainer />
@@ -39,6 +38,7 @@ function App() {
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/home" element={<Home />} />
               <Route path="/sobre" element={<Sobre />} />
+              <Route path="/perfil" element={<Perfil />} />
               <Route path="/features-futuras" element={<Planejamos />} />
               <Route path="/calcular-salario" element={<CalculoSalario />} />
               <Route path="/departamentos" element={<ListaDepartamento />} />
@@ -50,6 +50,7 @@ function App() {
               <Route path="/cadastrar-cargo/:id" element={<FormCargo />} />
               <Route path="/editar-cargo/:id" element={<FormCargo />} />
               <Route path="/deletar-cargo/:id" element={<DeletarCargo />} />
+              <Route path="*" element={<NotFound />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/editar-perfil" element={<EditarPerfil />} />
             </Routes>

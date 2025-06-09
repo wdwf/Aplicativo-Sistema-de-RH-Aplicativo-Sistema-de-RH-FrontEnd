@@ -1,15 +1,16 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Cargo from "../models/Cargo";
-import { AuthContext } from "../contexts/AuthContext";
-import { atualizar, buscar, cadastrar } from "../services/Service";
-import { ToastAlerta } from "../utils/ToastAlerta";
 import { Hourglass, RotatingLines } from "react-loader-spinner";
-import Departamento from "../models/Departamento";
-import colbgleft from "../assets/img/colbgleft.png";
-import colbgright from "../assets/img/colbgright.png";
+import colbgleft from "../../assets/img/colbgleft.png";
+import colbgright from "../../assets/img/colbgright.png";
+import Departamento from "../../models/Departamento";
+import { AuthContext } from "../../contexts/AuthContext";
+import { atualizar, buscar, cadastrar } from "../../services/Service";
+import { ToastAlerta } from "../../utils/ToastAlerta";
+import Cargo from "../../models/Cargo";
 
 export default function FormCargo() {
+
   const navigate = useNavigate();
 
   const [cargo, setCargo] = useState<Cargo>({

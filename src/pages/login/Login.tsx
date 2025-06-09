@@ -34,7 +34,9 @@ function Login() {
         e.preventDefault()
         handleLogin(usuarioLogin)
     }
+
     return (
+
         <div className="flex min-h-screen">
             <div className="w-1/2 bg-white flex flex-col justify-center items-center py-12">
                 <div className="w-full max-w-md">
@@ -73,46 +75,55 @@ function Login() {
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer flex justify-center items-center">
-                        {isLoading ? <RotatingLines
-                            strokeColor="grey"
-                            strokeWidth="5"
-                            animationDuration="0.75"
-                            width="24"
-                            visible={true}
-                        /> :
-                            <span>Entrar</span>
-                        }
-                    </button>
+                        <div className="mb-6">
+                            <label className="block text-text mb-1" htmlFor="senha">Senha</label>
+                            <input
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                placeholder="********"
+                                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                                value={usuarioLogin.senha}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            />
+                        </div>
 
-                    <p className="text-center text-text-tertiary mt-6">
-                        Não tem uma conta?{" "}
-                        <Link to="/cadastro" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
-                            Cadastrar <span>→</span>
-                        </Link>
-                    </p>
-                </form>
+                        <button
+                            type="submit"
+                            className="w-full bg-rh-primarygrey text-white font-semibold hover:bg-rh-secondaryblue py-2 rounded transition cursor-pointer flex justify-center items-center">
+                            {isLoading ? <RotatingLines
+                                strokeColor="grey"
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                width="24"
+                                visible={true}
+                            /> :
+                                <span>Entrar</span>
+                            }
+                        </button>
+
+                        <p className="text-center text-text-tertiary mt-6">
+                            Não tem uma conta?{" "}
+                            <Link to="/cadastro" className="text-black font-semibold hover:underline inline-flex items-center gap-1">
+                                Cadastrar <span>→</span>
+                            </Link>
+                        </p>
+                    </form>
                 </div>
             </div>
             <div className="w-1/2 relative flex items-end justify-center px-1 overflow-hidden group ">
-                <img 
+                <img
                     src={Bg}
                     alt="Imagem normal"
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-0"
                 />
-                <img 
+                <img
                     src={Bg2}
                     alt="Imagem hover"
                     className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 />
             </div>
-
         </div>
-         
-        
-        
     )
 }
 
