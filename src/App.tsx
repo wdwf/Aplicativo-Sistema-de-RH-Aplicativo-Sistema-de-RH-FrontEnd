@@ -17,9 +17,10 @@ import ListaCargo from './components/ListaCargo'
 import FormCargo from './components/FormCargo'
 import DeletarCargo from './components/DeletarCargo'
 import CalculoSalario from './components/CalculoSalario'
+import Perfil from './pages/Perfil'
+import EditarPerfil from './pages/EditarPerfil'
 import Planejamos from './pages/futuro/Planejamos'
 import NotFound from './pages/notFound/NotFound'
-import Perfil from './pages/Perfil'
 
 
 
@@ -52,6 +53,8 @@ function App() {
               <Route path="/editar-cargo/:id" element={<FormCargo />} />
               <Route path="/deletar-cargo/:id" element={<DeletarCargo />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/perfil" element={<Perfil />} />
+              <Route path="/editar-perfil" element={<EditarPerfil />} />
             </Routes>
           </div>
           <Footer />
