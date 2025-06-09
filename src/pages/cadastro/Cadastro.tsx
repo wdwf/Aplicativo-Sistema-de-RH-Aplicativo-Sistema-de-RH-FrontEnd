@@ -1,9 +1,9 @@
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from 'react'
-import { buscar, cadastrarUsuario } from '../../services/Service'
+import { Link, useNavigate } from 'react-router-dom'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import {  cadastrarUsuario } from '../../services/Service'
 import Usuario from '../../models/Usuario'
 import { RotatingLines } from 'react-loader-spinner'
-import { AuthContext } from '../../contexts/AuthContext'
+
 import { ToastAlerta } from '../../utils/ToastAlerta'
 import Bg from "../../assets/img/Bg.png"
 import Bg2 from "../../assets/img/Bg2.png"
@@ -11,12 +11,7 @@ import Logo from "../../assets/img/Logo.png"
 
 function Cadastro() {
 
-  const navigate = useNavigate()
-
-  const { id } = useParams<{ id: string }>();
-
-  const { usuario: usuarioContext, handleLogout } = useContext(AuthContext)
-  const token = usuarioContext.token
+  const navigate = useNavigate() 
 
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -99,12 +94,6 @@ function Cadastro() {
 
           <h1 className="text-rh-primarygrey text-4xl text-center ">Cadastre-se</h1>
           <p className="text-rh-secondarygrey text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
-
-          <form onSubmit={cadastrarNovoUsuario}>
-
-                    <h1 className="text-rh-primarygrey text-4xl text-center ">Cadastre-se</h1>
-                    <p className="text-rh-secondarygrey text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
-              
 
      
         <form onSubmit={cadastrarNovoUsuario}>
