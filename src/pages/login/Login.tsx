@@ -47,33 +47,20 @@ function Login() {
 
                     <h1 className="text-rh-primarygrey text-4xl text-center ">Acesse a Plataforma</h1>
                     <p className="text-rh-secondarygrey text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
-              
-                <form onSubmit={login}>
-                    <div className="mb-4">
-                        <label className="block text-text mb-1" htmlFor="usuario">E-mail</label>
-                        <input
-                            type="email"
-                            id="usuario"
-                            name="usuario"
-                            placeholder="Exemplo@email.com"
-                            className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-                            value={usuarioLogin.usuario}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                        />
-                    </div>
 
-                    <div className="mb-6">
-                        <label className="block text-text mb-1" htmlFor="senha">Senha</label>
-                        <input
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            placeholder="********"
-                            className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-                            value={usuarioLogin.senha}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                        />
-                    </div>
+                    <form onSubmit={login}>
+                        <div className="mb-4">
+                            <label className="block text-text mb-1" htmlFor="usuario">E-mail</label>
+                            <input
+                                type="email"
+                                id="usuario"
+                                name="usuario"
+                                placeholder="Exemplo@email.com"
+                                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+                                value={usuarioLogin.usuario}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                            />
+                        </div>
 
                         <div className="mb-6">
                             <label className="block text-text mb-1" htmlFor="senha">Senha</label>
@@ -82,7 +69,7 @@ function Login() {
                                 id="senha"
                                 name="senha"
                                 placeholder="********"
-                                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
                                 value={usuarioLogin.senha}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                             />

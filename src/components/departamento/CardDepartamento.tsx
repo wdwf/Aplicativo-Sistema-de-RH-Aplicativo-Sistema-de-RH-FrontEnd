@@ -29,7 +29,7 @@ function CardDepartamento({ departamento }: CardDepartamentoProps) {
       <div className="flex justify-between gap-5">
         <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
           <p className="text-sm text-gray-600">Andar</p>
-          <p className="text-lg font-semibold">{departamento.andar}°</p>
+          <p className="text-lg font-semibold">{departamento.andar}</p>
         </div>
         <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
           <p className="text-sm text-gray-600">Ramal</p>
