@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Cargo from "../models/Cargo"
-import LogoCargo from "../assets/img/LogoCargo.png";
+import LogoCargo from "../../assets/img/LogoCargo.png";
+import Cargo from "../../models/Cargo";
 
 
 interface CardCargoProps {
@@ -8,6 +8,7 @@ interface CardCargoProps {
 }
 
 export default function CardCargo({ cargo }: CardCargoProps) {
+
   return (
     <div className="min-w-[420px] p-6 border flex flex-col flex-1 gap-4 rounded-2xl shadow-gray-400 shadow-lg overflow-hidden hover:shadow-rh-primarygrey transform hover:-translate-y-2 transition-all duration-300 justify-between bg-rh-primary-white">
       <header className="flex bg-white text-black font-semibold items-center">

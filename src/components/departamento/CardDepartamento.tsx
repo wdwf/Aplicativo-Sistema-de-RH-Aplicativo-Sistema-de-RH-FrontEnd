@@ -1,13 +1,13 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Departamento from "../models/Departamento";
-import LogoDepartamento from "../assets/img/LogoDepartamento.png";
+import LogoDepartamento from "../../assets/img/LogoDepartamento.png";
+import Departamento from "../../models/Departamento";
 
 interface CardDepartamentoProps {
   departamento: Departamento;
 }
 
 function CardDepartamento({ departamento }: CardDepartamentoProps) {
+
   return (
     <div className="min-w-[420px] p-6 border flex flex-col flex-1 gap-4 rounded-2xl shadow-gray-400 shadow-lg overflow-hidden hover:shadow-rh-primarygrey transform hover:-translate-y-2 transition-all duration-300 justify-between bg-rh-primary-white">
       <header className="flex bg-white text-black font-semibold items-center">

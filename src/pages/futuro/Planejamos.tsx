@@ -30,9 +30,10 @@ const planosFuturos = [
 ]
 
 function Planejamos() {
+
   return (
+
     <section className="max-w-6xl mx-auto p-6 space-y-12">
-      
 
       <img
         src={planejamentoImg}
@@ -41,8 +42,6 @@ function Planejamos() {
       />
 
       <h2 className="text-3xl font-bold border-b pb-2">O que planejamos para o futuro</h2>
-    
-     
 
       <div className="space-y-4">
         {planosFuturos.map((plano, index) => (
@@ -63,8 +62,7 @@ function Planejamos() {
           </Disclosure>
         ))}
       </div>
-       </section>
-
+    </section>
   )
 }
 

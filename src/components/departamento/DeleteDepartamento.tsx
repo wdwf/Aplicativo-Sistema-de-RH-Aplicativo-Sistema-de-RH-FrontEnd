@@ -1,14 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
-import Departamento from '../models/Departamento';
-import { ToastAlerta } from '../utils/ToastAlerta';
-import { buscar, deletar } from '../services/Service';
-import { RotatingLines } from 'react-loader-spinner';
-import DeletarCargo from './DeletarCargo';
-import LogoDepartamento from "../assets/img/LogoDepartamento.png";
+import { AuthContext } from '../../contexts/AuthContext';
+import Departamento from '../../models/Departamento';
+import { ToastAlerta } from '../../utils/ToastAlerta';
+import { buscar, deletar } from '../../services/Service';
+import LogoDepartamento from "../../assets/img/LogoDepartamento.png";
 
 
 function DeleteDepartamento() {
@@ -38,7 +34,6 @@ function DeleteDepartamento() {
       }
     }
   }
-
 
   useEffect(() => {
     if (token === '') {
@@ -83,10 +78,7 @@ function DeleteDepartamento() {
     navigate("/departamentos")
   }
 
-
-
   return (
-
 
     <div className='container w-1/3 mx-auto'>
       <h1 className='text-4xl text-center my-4'>Deletar Departamento</h1>

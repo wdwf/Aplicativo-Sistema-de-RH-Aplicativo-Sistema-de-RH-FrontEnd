@@ -5,6 +5,7 @@ import { useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
 
 function Navbar() {
+
     const { usuario, handleLogout } = useContext(AuthContext)
     const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ function Navbar() {
 
 
     return (
+
         <nav className="bg-white w-full z-20 border-b border-rh-secondarygrey  dark:border-rh-secondarygrey">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <Link to="/home">

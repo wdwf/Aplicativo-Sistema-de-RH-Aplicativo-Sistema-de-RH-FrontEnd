@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Departamento from "../models/Departamento";
-import { AuthContext } from "../contexts/AuthContext";
-import { atualizar, buscar, cadastrar } from "../services/Service";
-import { ToastAlerta } from "../utils/ToastAlerta";
 import { RotatingLines } from "react-loader-spinner";
-import ColunaEsquerda from "../assets/img/ColunaEsquerda.png"
-import ColunaDireita from "../assets/img/ColunaDireita.png"
+import ColunaEsquerda from "../../assets/img/ColunaEsquerda.png"
+import ColunaDireita from "../../assets/img/ColunaDireita.png"
+import Departamento from "../../models/Departamento";
+import { AuthContext } from "../../contexts/AuthContext";
+import { ToastAlerta } from "../../utils/ToastAlerta";
+import { atualizar, buscar, cadastrar } from "../../services/Service";
 
 function FormDepartamento() {
+
   const navigate = useNavigate();
 
   const [departamento, setDepartamento] = useState<Departamento>(
@@ -100,15 +99,9 @@ function FormDepartamento() {
     );
   }
 
-
   return (
+
     <>
-
-
-
-
-
-
       <div className="flex min-h-screen relative justify-between">
         <img className="sticky h-screen " src={ColunaEsquerda} alt="Coluna Esquerda" />
         <div className="flex flex-col gap-4 p-4">
