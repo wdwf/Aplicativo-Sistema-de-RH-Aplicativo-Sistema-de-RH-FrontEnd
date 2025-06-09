@@ -9,32 +9,10 @@ import ArrowBlack from '../../assets/img/arrowBlack.png';
 import { Link } from 'react-router';
 
 function Home() {
-
+    window.scrollTo(0, 0);
     return (
         <>
-            <div className="py-6">
-
-                {/* <div>
-                    <div className="flex flex-col gap-4 items-center
-                                    justify-center py-4">
-                        <h2 className='text-5xl font-bold font-serif'>
-                            RH Corp:
-                        </h2>
-                        <p className='text-xl font-serif'>
-                            Organização e segurança para o seu RH
-                        </p>
-
-                    </div>
-
-                    <div id="imagem" className="flex justify-center">
-                        <img
-                            src="https://img.freepik.com/fotos-gratis/designer-trabalhando-no-modelo-3d_23-2149371896.jpg?ga=GA1.1.682989809.1746536640&semt=ais_hybrid&w=740"
-                            alt="Imagem da Página Home"
-                            className="w-2/3"
-                        />
-                    </div>
-
-                </div> */}
+            <div className="pt-6 pb-9">
                 <div className="rounded bg-rh-primary-50 w-full flex justify-between items-center px-6 py-3">
                     <div className='flex flex-col gap-2'>
                         <p className="text-4xl font-semibold text-rh-primarygrey">Potencialize seu time.</p>
@@ -49,7 +27,7 @@ function Home() {
                         Funcionalidades
                     </h3>
                     <div className='flex flex-wrap gap-4'>
-                        <Link to="/departamento"
+                        <Link to="/cadastrar-cargo"
                             className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
                             style={{ backgroundImage: `url(${BtnDep})` }}
                         >
@@ -57,7 +35,7 @@ function Home() {
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
                             <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
                         </Link>
-                        <Link to="/cadastrardepartamento"
+                        <Link to="/cadastrar-departamento"
                             className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
                             style={{ backgroundImage: `url(${BtnCar})` }}
                         >
@@ -65,7 +43,7 @@ function Home() {
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
                             <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
                         </Link>
-                        <Link to="/editardepartamento/1"
+                        <Link to="/calcular-salario"
                             className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
                             style={{ backgroundImage: `url(${BtnCal})` }}
                         >
@@ -76,7 +54,7 @@ function Home() {
                     </div>
                 </div>
                 <div className='flex gap-4 px-6 mt-6'>
-                    <Link to="/" className='hover:bg-blue-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
+                    <Link to="/cargos" className='hover:bg-blue-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
                         <div className='flex flex-col pt-4'>
                             <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
                             <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Cargos</p>
@@ -84,7 +62,7 @@ function Home() {
                         </div>
                         <img src={BtnListCargo} alt="imagem ilustrativa" className='h-[80%]' />
                     </Link>
-                    <Link to="/" className='hover:bg-purple-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
+                    <Link to="/departamentos" className='hover:bg-purple-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
                         <div className='flex flex-col pt-4'>
                             <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
                             <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Departamento</p>
