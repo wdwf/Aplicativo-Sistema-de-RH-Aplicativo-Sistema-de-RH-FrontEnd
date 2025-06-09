@@ -7,29 +7,32 @@ import Navbar from './components/Navbar'
 import { AuthProvider } from './contexts/AuthContext'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
-import Login from './pages/Login'
+import Login from './pages/login/Login'
 import Cadastro from './pages/cadastro/Cadastro'
 import FormDepartamento from './components/FormDepartamento'
 import ListaDepartamento from './components/ListaDepartamento'
 import DeleteDepartamento from './components/DeleteDepartamento'
+import Sobre from './pages/sobre/Sobre'
 
 
 
 function App() {
- 
+
 
   return (
-       <AuthProvider>
+    <div className="max-w-[1440px] mx-auto">
+      <AuthProvider>
         <ToastContainer />
-          <BrowserRouter>
+        <BrowserRouter>
           <Navbar />
           <div className="min-h-[80vh]">
             <Routes>
-               <Route path="/" element={<Login />} />
+              <Route path="/" element={<Login />} />
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
-               <Route path="/departamento" element={<ListaDepartamento />} />
+              <Route path="/sobre" element={<Sobre />} />
+              <Route path="/departamento" element={<ListaDepartamento />} />
               <Route path="/cadastrardepartamento" element={<FormDepartamento />} />
               <Route path="/editardepartamento/:id" element={<FormDepartamento />} />
               <Route path="/deletardepartamento/:id" element={<DeleteDepartamento />} />
@@ -37,7 +40,8 @@ function App() {
           </div>
           <Footer />
         </BrowserRouter>
-        </AuthProvider> 
+      </AuthProvider>
+    </div>
   )
 }
 
