@@ -16,6 +16,7 @@ import Sobre from './pages/sobre/Sobre'
 import ListaCargo from './components/ListaCargo'
 import FormCargo from './components/FormCargo'
 import DeletarCargo from './components/DeletarCargo'
+import CalculoSalario from './components/CalculoSalario'
 
 
 
@@ -36,6 +37,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/sobre" element={<Sobre />} />
               <Route path="/features-futuras" element={<Sobre />} />
+              <Route path="/calcular-salario" element={<CalculoSalario />} />
               <Route path="/departamentos" element={<ListaDepartamento />} />
               <Route path="/cadastrar-departamento" element={<FormDepartamento />} />
               <Route path="/editar-departamento/:id" element={<FormDepartamento />} />
