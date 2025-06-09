@@ -129,7 +129,7 @@ function FormDepartamento() {
                   type="text"
                   placeholder="Escreva o nome do Departamento"
                   name="nome"
-                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                   value={departamento.nome}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     atualizarEstado(e)
@@ -141,7 +141,7 @@ function FormDepartamento() {
                   type="text"
                   placeholder="Ex... 1º Andar"
                   name="andar"
-                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                   value={departamento.andar}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     atualizarEstado(e)
@@ -152,7 +152,7 @@ function FormDepartamento() {
                   type="text"
                   placeholder="Por Ex: 123"
                   name="ramal"
-                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                   value={departamento.ramal}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     atualizarEstado(e)
@@ -164,7 +164,7 @@ function FormDepartamento() {
                 
                   placeholder="Descreva aqui seu Departamento"
                   name="descricao"
-                  className="resize-none h-20 w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-secondaryblue focus:ring-2 focus:ring-rh-secondaryblue outline-none text-shadow-rh-primarygrey"
+                  className="resize-none h-20 w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                   value={departamento.descricao}
                   onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                     atualizarEstado(e)
@@ -176,8 +176,8 @@ function FormDepartamento() {
               </div>
               <div className="flex justify-between pb-[20px] pt-[10px]">
                 <button onClick={() => setMostrarModal(true)}
-                    className="rounded text-slate-100 bg-rh-primaryblue transition-colors duration-500
-                                    hover:bg-rh-secondaryblue w-[150px] py-2  flex justify-center"
+                    className="rounded text-slate-100 bg-rh-primarypurple transition-colors duration-500
+                                    hover:bg-rh-secondarypurple w-[150px] py-2  flex justify-center"
                     type="submit"
                 >
                     {isLoading ? (
@@ -197,8 +197,8 @@ function FormDepartamento() {
 
 
                 <Link to="/home"
-                    className="rounded text-slate-100 bg-rh-primarypurple 
-                                    transition-colors hover:bg-rh-secondarypurple duration-500 w-[150px] py-2  flex justify-center"
+                    className="rounded text-slate-100 bg-rh-primarygrey
+                                    transition-colors hover:bg-rh-secondaryblue duration-500 w-[150px] py-2  flex justify-center"
                 >
                     Cancelar
                 </Link>
