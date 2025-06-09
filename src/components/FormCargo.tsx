@@ -167,9 +167,9 @@ export default function FormCargo() {
         <form className="flex flex-col gap-4" onSubmit={gerarNovoCargo}>
           <div className="flex flex-col gap-2">
             <div className="w-full flex flex-col gap-2">
-              <label htmlFor="nome" className="w-full pl-3 font-normal">Nome do Cargo</label>
+              <label htmlFor="nome" className="w-full pl-3 text-sm font-normal">Nome do Cargo</label>
               <input
-                className="border-2 border-slate-700 rounded p-2"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
                 placeholder="..."
                 name='nome'
@@ -178,10 +178,10 @@ export default function FormCargo() {
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
-            <div>
-              <label htmlFor="nivel">Nivel do Cargo</label>
+            <div className="w-full flex flex-col gap-2">
+              <label htmlFor="nivel" className="w-full pl-3 text-sm font-normal">Nivel do Cargo</label>
               <input
-                className="border-2 border-slate-700 rounded p-2"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
                 placeholder="..."
                 name='nivel'
@@ -191,9 +191,9 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="salario">Salario do Cargo</label>
+              <label htmlFor="salario" className="w-full pl-3 text-sm font-normal">Salario do Cargo</label>
               <input
-                className="border-2 border-slate-700 rounded p-2"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="number"
                 placeholder="..."
                 name='salario'
@@ -203,11 +203,11 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="descricao">Descrição do Cargo</label>
+              <label htmlFor="descricao" className="w-full pl-3 text-sm font-normal">Descrição do Cargo</label>
               <textarea
                 name='descricao'
                 placeholder="..."
-                className="border-2 border-slate-700 rounded p-2"
+                className="w-full resize-none rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 id=""
                 value={cargo.descricao}
                 required
@@ -216,13 +216,13 @@ export default function FormCargo() {
             </div>
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor="departamento" className="w-full pl-3 font-normal">Departamento</label>
+              <label htmlFor="departamento" className="w-full pl-3 text-sm font-normal">Departamento</label>
               <select
                 required
                 value={cargo.departamento?.id || ""}
                 name="departamento"
                 id="departamento"
-                className='resize-none w-full rounded-sm border-border bg-white px-3 py-2 text-md placeholder:text-muted-foreground text-text border-2 focus:outline-none focus:ring-2 focus:ring-primary'
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 onChange={atualizarDepartamento}
               >
                 <option value="" disabled>Selecione um departamento</option>
@@ -234,23 +234,23 @@ export default function FormCargo() {
               </select>
 
             </div>
-
-            <button
-              className="rounded text-slate-100 bg-indigo-400 
-                                hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
-              type="submit">
-              {isLoading ?
-                <RotatingLines
-                  strokeColor="white"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="24"
-                  visible={true}
-                /> :
-                <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
-              }
-            </button>
-            <Link to="/home" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-1/2 py-2 mx-auto flex justify-center">Cancelar</Link>
+            <div className='flex gap-2'>
+              <button
+                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 bg-rh-primaryblue hover:rh-secondaryblue"
+                type="submit">
+                {isLoading ?
+                  <RotatingLines
+                    strokeColor="white"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="24"
+                    visible={true}
+                  /> :
+                  <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                }
+              </button>
+              <Link to="/home" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
+            </div>
           </div>
         </form>
       </div>
