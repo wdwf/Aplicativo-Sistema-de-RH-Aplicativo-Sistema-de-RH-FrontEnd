@@ -33,9 +33,14 @@ function FormDepartamento() {
       handleLogout();
       navigate("/");
     } else {
-      buscar(`/departamento/${id}`, setDepartamento, {
-        headers: { Authorization: token },
-      });
+      if (id !== undefined) {
+        buscar(`/departamento/${id}`, (data: Departamento) => {
+          const numeroAndar = parseInt(data.andar); // remove o "° Andar"
+          setDepartamento({ ...data, andar: numeroAndar.toString() });
+        }, {
+          headers: { Authorization: token },
+        });
+      }
       setLoadingPage(false);
     }
   }, [token]);
@@ -54,10 +59,18 @@ function FormDepartamento() {
   async function gerarNovoDepartamento(e: ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
+    console.log("ID do departamento:", id);
+
+
+
 
     if (id !== undefined) {
       try {
-        await atualizar(`/departamento`, departamento, setDepartamento, {
+        const departamentoCorreto = {
+          ...departamento,
+          andar: `${parseInt(departamento.andar)}° Andar`,
+        }
+        await atualizar(`/departamento`, departamentoCorreto, setDepartamento, {
           headers: { Authorization: token },
         });
         ToastAlerta("O Departamento foi atualizado com sucesso!", "sucesso");
@@ -70,7 +83,11 @@ function FormDepartamento() {
       }
     } else {
       try {
-        await cadastrar(`/departamento`, departamento, setDepartamento, {
+        const departamentoCorreto = {
+          ...departamento,
+          andar: `${departamento.andar}° Andar`,
+        }
+        await cadastrar(`/departamento`, departamentoCorreto, setDepartamento, {
           headers: { Authorization: token },
         });
         ToastAlerta("O Departamento foi cadastrado com sucesso!", "sucesso");
@@ -131,8 +148,8 @@ function FormDepartamento() {
 
               <label className="text-rh-secondaryblue" htmlFor="andar">Andar</label>
               <input
-                type="text"
-                placeholder="Ex... 1º Andar"
+                type="number"
+                placeholder="Digite o numero do andar do Departamento"
                 name="andar"
                 className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                 value={departamento.andar}
@@ -189,7 +206,7 @@ function FormDepartamento() {
 
 
 
-              <Link to="/home"
+              <Link to="/departamentos"
                 className="rounded text-slate-100 bg-rh-primarygrey
                                     transition-colors hover:bg-rh-secondaryblue duration-500 w-[150px] py-2  flex justify-center"
               >
