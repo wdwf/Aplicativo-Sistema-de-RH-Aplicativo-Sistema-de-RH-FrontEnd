@@ -129,6 +129,7 @@ export default function FormCargo() {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (token === '') return;
     if (!token) {
       ToastAlerta('Você precisa estar logado!', 'info')
@@ -157,11 +158,12 @@ export default function FormCargo() {
   }
 
   return (
-    <div className="flex min-h-screen relative">
+    <div className="flex min-h-screen relative justify-between">
       <img src={colbgleft} alt="decorativo" className="sticky top-0 h-screen" />
-      <div className="flex flex-col gap-4 p-4">
-        <h2 className="text-2xl font-semibold text-gray-800">
-          {id === undefined ? 'Cadastrar Cargo' : 'Editar Cargo'}
+
+      <div className="flex items-center flex-col gap-4 p-4">
+        <h2 className="text-5xl font-medium text-gray-800 my-2">
+          {id === undefined ? 'Criar Cargo' : 'Atualizando Cargo'}
         </h2>
 
         <form className="flex flex-col gap-4" onSubmit={gerarNovoCargo}>
@@ -234,9 +236,9 @@ export default function FormCargo() {
               </select>
 
             </div>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 mt-6'>
               <button
-                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 bg-rh-primaryblue hover:rh-secondaryblue"
+                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-rh-primary-white bg-rh-primaryblue hover:bg-rh-secondaryblue"
                 type="submit">
                 {isLoading ?
                   <RotatingLines
@@ -249,11 +251,12 @@ export default function FormCargo() {
                   <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
                 }
               </button>
-              <Link to="/home" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
+              <Link to="/cargos" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
             </div>
           </div>
         </form>
       </div>
+
       <img src={colbgright} alt="decorativo" className="sticky top-0 h-screen" />
     </div>
   )
