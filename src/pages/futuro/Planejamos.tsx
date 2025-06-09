@@ -1,6 +1,7 @@
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import planejamentoImg from '../../assets/img/planejamento.jpg'
+import { LuMouse } from "react-icons/lu";
 
 const planosFuturos = [
   {
@@ -31,20 +32,18 @@ const planosFuturos = [
 
 function Planejamos() {
   return (
-    <section className="max-w-6xl mx-auto p-6 space-y-12">
-      
-
+    <section className="w-full mx-auto pb-6 flex flex-col items-center">
       <img
         src={planejamentoImg}
         alt="Planejamento futuro"
-        className="w-full h-auto object-cover rounded"
+        className="w-full object-cover"
       />
+      <LuMouse className='w-8 h-8 animate-bounce' />
 
-      <h2 className="text-3xl font-bold border-b pb-2">O que planejamos para o futuro</h2>
-    
-     
 
-      <div className="space-y-4">
+      <div className="space-y-4 w-full max-w-3xl mt-6 px-7">
+        <h2 className="text-3xl font-bold border-b pb-2">O que planejamos para o futuro</h2>
+
         {planosFuturos.map((plano, index) => (
           <Disclosure key={index}>
             {({ open }) => (
@@ -63,7 +62,7 @@ function Planejamos() {
           </Disclosure>
         ))}
       </div>
-       </section>
+    </section>
 
   )
 }

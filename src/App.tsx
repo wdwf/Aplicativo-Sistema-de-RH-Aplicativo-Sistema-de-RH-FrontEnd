@@ -18,6 +18,8 @@ import FormCargo from './components/FormCargo'
 import DeletarCargo from './components/DeletarCargo'
 import CalculoSalario from './components/CalculoSalario'
 import Planejamos from './pages/futuro/Planejamos'
+import NotFound from './pages/notFound/NotFound'
+import Perfil from './pages/Perfil'
 
 
 
@@ -37,6 +39,7 @@ function App() {
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/home" element={<Home />} />
               <Route path="/sobre" element={<Sobre />} />
+              <Route path="/perfil" element={<Perfil />} />
               <Route path="/features-futuras" element={<Planejamos />} />
               <Route path="/calcular-salario" element={<CalculoSalario />} />
               <Route path="/departamentos" element={<ListaDepartamento />} />
@@ -48,6 +51,7 @@ function App() {
               <Route path="/cadastrar-cargo/:id" element={<FormCargo />} />
               <Route path="/editar-cargo/:id" element={<FormCargo />} />
               <Route path="/deletar-cargo/:id" element={<DeletarCargo />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           <Footer />
