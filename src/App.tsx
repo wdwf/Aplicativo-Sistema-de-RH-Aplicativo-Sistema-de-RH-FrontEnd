@@ -12,13 +12,13 @@ import ListaDepartamento from './components/departamento/ListaDepartamento'
 import DeleteDepartamento from './components/departamento/DeleteDepartamento'
 import Sobre from './pages/sobre/Sobre'
 import ListaCargo from './components/cargo/ListaCargo'
-import CalculoSalario from './components/metodo-especial/CalculoSalario'
 import Planejamos from './pages/futuro/Planejamos'
 import FormDepartamento from './components/departamento/FormDepartamento'
 import FormCargo from './components/cargo/FormCargo'
 import DeletarCargo from './components/cargo/DeletarCargo'
 import EditarPerfil from './pages/perfil/EditarPerfil'
 import Perfil from './pages/perfil/Perfil'
+import CalculoSalario from './components/CalculoSalario'
 
 
 function App() {
