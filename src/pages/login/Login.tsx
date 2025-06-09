@@ -54,7 +54,7 @@ function Login() {
                             id="usuario"
                             name="usuario"
                             placeholder="Exemplo@email.com"
-                            className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                            className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
                             value={usuarioLogin.usuario}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
@@ -67,7 +67,7 @@ function Login() {
                             id="senha"
                             name="senha"
                             placeholder="********"
-                            className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+                            className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
                             value={usuarioLogin.senha}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />

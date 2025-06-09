@@ -113,7 +113,7 @@ const token = usuarioContext.token
               id="nome"
               name="nome"
               placeholder="Digite seu nome completo"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuario.nome}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
@@ -126,7 +126,7 @@ const token = usuarioContext.token
               id="usuario"
               name="usuario"
               placeholder="Digite seu e-mail"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuario.usuario}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
@@ -138,7 +138,7 @@ const token = usuarioContext.token
               id="foto"
               name="foto"
               placeholder="Cole o Link da sua Imagem"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuario.foto}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
@@ -151,7 +151,7 @@ const token = usuarioContext.token
               id="senha"
               name="senha"
               placeholder="Digite sua senha"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuario.senha}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
             />
@@ -164,7 +164,7 @@ const token = usuarioContext.token
               id="confirmarSenha"
               name="confirmarSenha"
               placeholder="Digite novamente sua senha"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={confirmaSenha}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>handleConfirmarSenha(e)}
             />
