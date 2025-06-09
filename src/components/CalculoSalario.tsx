@@ -147,22 +147,24 @@ function CalculoSalario() {
       <div className={`flex ${resultado ? "flex-row gap-8 items-start" : "flex-col items-justify "} justify-center`} >
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 gap-15 w-full ">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg p-8">
-            <button
+            
+
+            <div className="text-center relative mb-4">
+              <button
               type="button"
               onClick={() => navigate("/home")}
-              className="absolute top-3 right-3 p-2 bg-rh-primarygrey text-white rounded-full hover:bg-rh-secondaryblue"
+              className="flex absolute right-0 p-2 bg-rh-primarygrey text-white rounded-full hover:-translate-y-1 transition-all duration-500 hover:bg-rh-secondaryblue"
               aria-label="Fechar modal"
             >
               <X size={20} />
             </button>
-
-            <div className="text-center mb-4">
               <h1 className="text-3xl font-bold text-rh-primarygrey mb-2">
                 Calcular Salário
               </h1>
               <p className="text-1x1 text-rh-secondarygrey">
                 Preencha os dados abaixo
               </p>
+              
             </div>
 
             <form

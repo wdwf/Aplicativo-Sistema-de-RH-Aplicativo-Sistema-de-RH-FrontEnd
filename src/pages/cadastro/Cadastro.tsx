@@ -102,69 +102,76 @@ function Cadastro() {
 
           <form onSubmit={cadastrarNovoUsuario}>
 
-            <div className="mb-2">
-              <label className="block text-text mb-1" htmlFor="usuario">Nome</label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                placeholder="Digite seu nome completo"
-                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                value={usuario.nome}
+                    <h1 className="text-rh-primarygrey text-4xl text-center ">Cadastre-se</h1>
+                    <p className="text-rh-secondarygrey text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
+              
+
+     
+        <form onSubmit={cadastrarNovoUsuario}>
+
+          <div className="mb-2">
+            <label className="block text-text mb-1" htmlFor="usuario">Nome</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              placeholder="Digite seu nome completo"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              value={usuario.nome}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
-            <div className="mb-2">
-              <label htmlFor="usuario" className="block text-text mb-1">E-mail</label>
-              <input
-                type="email"
-                id="usuario"
-                name="usuario"
-                placeholder="Digite seu e-mail"
-                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                value={usuario.usuario}
+          <div className="mb-2">
+            <label htmlFor="usuario" className="block text-text mb-1">E-mail</label>
+            <input
+              type="email"
+              id="usuario"
+              name="usuario"
+              placeholder="Digite seu e-mail"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              value={usuario.usuario}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-              />
-            </div>
-            <div className="mb-2">
-              <label htmlFor="foto" className=" block text-text mb-1">Foto</label>
-              <input
-                type="text"
-                id="foto"
-                name="foto"
-                placeholder="Cole o Link da sua Imagem"
-                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                value={usuario.foto}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-              />
-            </div>
-
-            <div className="mb-2">
-              <label htmlFor="senha" className="block text-text mb-1">Senha</label>
-              <input
-                type="password"
-                id="senha"
-                name="senha"
-                placeholder="Digite sua senha"
-                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                value={usuario.senha}
+            />
+          </div>
+          <div className="mb-2">
+            <label htmlFor="foto" className=" block text-text mb-1">Foto</label>
+            <input
+              type="text"
+              id="foto"
+              name="foto"
+              placeholder="Cole o Link da sua Imagem"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              value={usuario.foto}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
-            <div className="mb-6">
-              <label htmlFor="confirmarSenha" className="block text-text mb-1">Confirmar Senha</label>
-              <input
-                type="password"
-                id="confirmarSenha"
-                name="confirmarSenha"
-                placeholder="Digite novamente sua senha"
-                className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                value={confirmaSenha}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)}
+          <div className="mb-2">
+            <label htmlFor="senha" className="block text-text mb-1">Senha</label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              placeholder="Digite sua senha"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              value={usuario.senha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
+
+          <div className="mb-6">
+            <label htmlFor="confirmarSenha" className="block text-text mb-1">Confirmar Senha</label>
+            <input
+              type="password"
+              id="confirmarSenha"
+              name="confirmarSenha"
+              placeholder="Digite novamente sua senha"
+              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              value={confirmaSenha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>handleConfirmarSenha(e)}
+            />
+          </div>
 
             <button
               type="submit"

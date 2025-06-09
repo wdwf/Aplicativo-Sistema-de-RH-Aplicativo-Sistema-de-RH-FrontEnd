@@ -148,7 +148,7 @@ export default function EditarPerfil() {
               id="nome"
               name="nome"
               placeholder="Digite seu nome completo"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuarioEditar.nome}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -165,7 +165,7 @@ export default function EditarPerfil() {
               id="usuario"
               name="usuario"
               placeholder="Exemplo@email.com"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuarioEditar.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -182,7 +182,7 @@ export default function EditarPerfil() {
               id="senha"
               name="senha"
               placeholder="Minimo 8 caracteres"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuarioEditar.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -199,7 +199,7 @@ export default function EditarPerfil() {
               id="foto"
               name="foto"
               placeholder="Coloque o link da foto aqui"
-              className="w-full px-4 py-2 text-rh-secondarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
               value={usuarioEditar.foto}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -233,7 +233,7 @@ export default function EditarPerfil() {
           <div className="flex justify-center gap-6">
             <button
               type="submit"
-              className="bg-rh-primaryblue text-rh-primary-50 px-10 py-2 rounded hover:bg-rh-secondaryblue transition-colors"
+              className="bg-rh-primaryblue text-rh-primary-50 px-10 py-2 rounded hover:bg-rh-primarypurple transition-colors"
             >
               Atualizar
             </button>
@@ -241,7 +241,7 @@ export default function EditarPerfil() {
             <button
               type="button"
               className="bg-rh-primarygrey text-rh-primary-50 px-10 py-2 rounded hover:bg-gray-800 transition-colors"
-              onClick={() => navigate("/perfil")} // ou use a função desejada
+              onClick={() => navigate("/perfil")} 
             >
               Cancelar
             </button>

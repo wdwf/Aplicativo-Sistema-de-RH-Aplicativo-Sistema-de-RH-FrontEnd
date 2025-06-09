@@ -49,7 +49,7 @@ function Planejamos() {
           <Disclosure key={index}>
             {({ open }) => (
               <div className="border-b border-gray-300 pb-4">
-                <Disclosure.Button className="flex justify-between w-full text-left font-semibold text-black text-lg">
+                <Disclosure.Button className="flex cursor-pointer justify-between w-full text-left font-semibold text-black text-lg">
                   {plano.titulo}
                   <ChevronUpIcon
                     className={`w-4 h-4 text-black transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
