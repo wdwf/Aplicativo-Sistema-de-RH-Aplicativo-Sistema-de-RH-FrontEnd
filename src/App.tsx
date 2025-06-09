@@ -17,6 +17,8 @@ import ListaCargo from './components/ListaCargo'
 import FormCargo from './components/FormCargo'
 import DeletarCargo from './components/DeletarCargo'
 import CalculoSalario from './components/CalculoSalario'
+import Perfil from './pages/Perfil'
+import EditarPerfil from './pages/EditarPerfil'
 
 
 
@@ -31,7 +33,7 @@ function App() {
           <Navbar />
           <div className="min-h-[80vh]">
             <Routes>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<EditarPerfil />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/home" element={<Home />} />
