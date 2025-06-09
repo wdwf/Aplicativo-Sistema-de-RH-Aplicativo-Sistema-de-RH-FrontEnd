@@ -31,6 +31,7 @@ const planosFuturos = [
 ]
 
 function Planejamos() {
+
   return (
     <section className="w-full mx-auto pb-6 flex flex-col items-center">
       <img
@@ -63,7 +64,6 @@ function Planejamos() {
         ))}
       </div>
     </section>
-
   )
 }
 

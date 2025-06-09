@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { buscar, deletar } from '../services/Service';
-import Cargo from '../models/Cargo';
-import { AuthContext } from '../contexts/AuthContext';
-import { ToastAlerta } from '../utils/ToastAlerta';
+import { Link, useNavigate, useParams } from 'react-router'
 import { Hourglass, RotatingLines } from 'react-loader-spinner';
-import colbgleft from "../assets/img/colbgleft.png";
-import colbgright from "../assets/img/colbgright.png";
+import colbgleft from "../../assets/img/colbgleft.png";
+import colbgright from "../../assets/img/colbgright.png";
+import Cargo from '../../models/Cargo';
+import { AuthContext } from '../../contexts/AuthContext';
+import { buscar, deletar } from '../../services/Service';
+import { ToastAlerta } from '../../utils/ToastAlerta';
 
 export default function DeletarCargo() {
+
   const navigate = useNavigate();
 
   const [cargo, setCargo] = useState<Cargo>({} as Cargo)

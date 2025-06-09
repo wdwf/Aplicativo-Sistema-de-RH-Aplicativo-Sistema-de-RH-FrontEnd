@@ -1,5 +1,4 @@
 import { createContext, type ReactNode, useEffect, useState } from "react"
-
 import type UsuarioLogin from "../models/UsuarioLogin"
 import { login } from "../services/Service"
 import { ToastAlerta } from "../utils/ToastAlerta"
@@ -58,7 +57,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         localStorage.removeItem("@AppAuth:usuario");
     }
 
-    // Carrega dados do localStorage ao iniciar
     useEffect(() => {
         const storedUser = localStorage.getItem("@AppAuth:usuario");
         if (storedUser) {
