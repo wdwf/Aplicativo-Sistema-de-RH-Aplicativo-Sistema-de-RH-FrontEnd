@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: poppins, sans-serif;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+@theme {
+  --color-rh-primary-white: #fff;
+  --color-rh-primary-50: #f4faff;
+  --color-rh-primaryblue: #0995fd;
+  --color-rh-secondaryblue: #0369b5;
+  --color-rh-primarypurple: #9778f6;
+  --color-rh-secondarypurple: #551abc;
+  --color-rh-primarygrey: #212120;
+  --color-rh-secondarygrey: #848681;
+  --color-rh-secondary-red: #fb5767;
+}
