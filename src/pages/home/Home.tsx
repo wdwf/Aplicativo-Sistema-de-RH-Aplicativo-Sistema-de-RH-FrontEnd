@@ -4,14 +4,54 @@ import BtnCar from '../../assets/img/btn2.png';
 import BtnCal from '../../assets/img/btn3.png';
 import BtnListCargo from '../../assets/img/btn4.png';
 import BtnListDep from '../../assets/img/btn5.png';
-import ArrowWhite from '../../assets/img/arrow.png';
-import ArrowBlack from '../../assets/img/arrowBlack.png';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FaArrowRight } from 'react-icons/fa';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { buscar } from '../../services/Service';
+import Usuario from '../../models/Usuario';
+import { ToastAlerta } from '../../utils/ToastAlerta';
 
 function Home() {
 
     window.scrollTo(0, 0);
+    const navigate = useNavigate();
+
+    const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
+    const [usuarioData, setUsuarioData] = useState<Usuario>({} as Usuario);
+
+    async function buscarUserPorId(id: string) {
+        try {
+            await buscar(
+                `/usuario/${id}`, setUsuarioData,
+                {
+                    headers: {
+                        Authorization: usuario.token,
+                    },
+                }
+            );
+        } catch (error: any) {
+            if (error.toString().includes("403")) {
+                handleLogout();
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        if (usuario.token === "") {
+            return;
+        }
+        if (!usuario.token) {
+            ToastAlerta("Você precisa estar Logado!", "info");
+            handleLogout();
+            navigate("/");
+        } else {
+            if (usuario.id) {
+                buscarUserPorId(String(usuario.id))
+            }
+        }
+    }, [usuario.token]);
 
     return (
 
@@ -73,8 +113,19 @@ function Home() {
                             <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Departamento</p>
                             <FaArrowRight width={25} height={25} className='text-rh-primarygrey w-7 h-7 mt-2' />
                         </div>
-                        <img src={BtnListDep} alt="imagem ilustrativa" className='h-[80%]  hidden md:block' />
+                        <img src={BtnListDep} alt="imagem ilustrativa" className='h-[80%] hidden md:block' />
                     </Link>
+                    {
+                        usuarioData.cargo?.nome === "Recursos Humanos" &&
+                        <Link to="/gerenciar-perfis" className='md:min-w-[372px] flex-1 hover:bg-purple-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
+                            <div className='flex flex-col pt-4'>
+                                <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
+                                <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Departamento</p>
+                                <FaArrowRight width={25} height={25} className='text-rh-primarygrey w-7 h-7 mt-2' />
+                            </div>
+                            <img src={BtnListDep} alt="imagem ilustrativa" className='h-[80%] hidden md:block' />
+                        </Link>
+                    }
                 </div>
             </div>
         </>

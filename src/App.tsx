@@ -20,6 +20,8 @@ import DeletarCargo from './components/cargo/DeletarCargo'
 import EditarPerfil from './pages/perfil/EditarPerfil'
 import Perfil from './pages/perfil/Perfil'
 import CalculoSalario from './components/CalculoSalario'
+import TabelaGerencia from './pages/tabelaGerencia/TabelaGerencia'
+import EditarPerfilTabela from './pages/perfil/EditarPerfilTabela'
 
 
 function App() {
@@ -53,6 +55,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
               <Route path="/perfil" element={<Perfil />} />
               <Route path="/editar-perfil" element={<EditarPerfil />} />
+              <Route path="/editar-perfil/:id" element={<EditarPerfilTabela />} />
+              <Route path="/gerenciar-perfis" element={<TabelaGerencia />} />
             </Routes>
           </div>
           <Footer />

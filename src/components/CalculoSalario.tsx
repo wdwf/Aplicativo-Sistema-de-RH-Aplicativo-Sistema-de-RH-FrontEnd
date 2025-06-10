@@ -105,9 +105,11 @@ function CalculoSalario() {
     const horasExcedentesTrabalhadas = horas - 220
     const valorHoraNormal = salario / 220 // 220 horas mensais contando 44 horas semanais
     const valorHoraExtra = valorHoraNormal * 1.5 // 50% a mais para horas extras
+    const valorFinal = valorHoraExtra * horasExcedentesTrabalhadas
 
     setValorHorasExtras(horasExcedentesTrabalhadas > 0 ? valorHoraExtra * horasExcedentesTrabalhadas : 0)
-    setSalarioProporsional(valorHoraNormal * horas)
+    // setSalarioProporsional(valorHoraNormal * horas)
+    setSalarioProporsional(salario + valorFinal)
   }
 
   function calcularDescontosDetalhados(valorDesconto: number) {
@@ -118,8 +120,10 @@ function CalculoSalario() {
       plano: 0.03,
     }
 
-    const valorInss = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.inss : 0;
-    const valorIr = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.ir : 0;
+    const valorInss = salarioProporsional * percentuais.inss;
+    const valorIr = salarioProporsional * percentuais.ir;
+    // const valorInss = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.inss : 0;
+    // const valorIr = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.ir : 0;
     const valorVt = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.vt : 0;
     const valorPlano = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.plano : 0;
     const totalDesconto = valorInss + valorIr + valorVt + valorPlano;
