@@ -259,58 +259,60 @@ function CalculoSalario() {
           </div>
           {isOpen && (
             <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-2xl border text-rh-primarygrey">
-              <h2 className="text-3xl font-bold text-rh-primarygrey">Recibo</h2>
+              <h2 className="text-xl font-semibold text-rh-primarygrey">Recibo</h2>
               <p className="text-rh-secondarygrey mb-4">Referente ao Mês / Ano</p>
-              <p className="text-2xl font-semibold text-rh-primarygrey mb-3">Junho/2025</p>
+              <p className="font-semibold text-rh-primarygrey mb-3">Junho/2025</p>
 
-              <div className="bg-gray-100 border rounded-lg p-4 mb-2">
-                <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Empregador</p>
-                <p className="font-bold text-rh-secondarygrey">RHCORP</p>
-                <p className="font-bold text-rh-secondarygrey">CNPJ: 000.000.000-00</p>
+              <div className="bg-gray-100 border rounded-lg p-2 mb-2">
+                <p className="text-sm font-semibold text-rh-primarygrey mb-0.5">Empregador</p>
+                <p className="text-xs font-semibold text-rh-secondarygrey">RHCORP</p>
+                <p className="text-xs font-semibold text-rh-secondarygrey">CNPJ: 000.000.000-00</p>
               </div>
 
-              <div className="bg-gray-100 border rounded-lg p-3 grid grid-cols-4 gap-15 mb-2">
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Colaborador</p>
-                  <p className="font-bold text-rh-secondarygrey">{usuarioSelecionado.nome}</p>
+              {/* <div className="bg-gray-100 border rounded-lg p-3 grid grid-cols-4 gap-15 mb-2"> */}
+              <div className="bg-gray-100 border rounded-lg p-3 flex gap-6 mb-2">
+                <div className="min-w-22">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Colaborador</p>
+                  <p className="text-xs font-semibold text-rh-secondarygrey">{usuarioSelecionado.nome}</p>
                 </div>
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Funcional</p>
-                  <p className="font-bold text-rh-secondarygrey">0.000.000</p>
+                <div className="min-w-36">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Funcional</p>
+                  <p className="text-xs font-semibold text-rh-secondarygrey">0.000.000</p>
                 </div>
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Cargo</p>
-                  <p className="font-bold text-rh-secondarygrey">{usuarioSelecionado.cargo.nome}</p>
+                <div className="min-w-36">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Cargo</p>
+                  <p className="text-xs font-semibold text-rh-secondarygrey">{usuarioSelecionado.cargo.nome}</p>
                 </div>
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Nível</p>
-                  <p className="font-bold text-rh-secondarygrey">{usuarioSelecionado.cargo.nivel}</p>
+                <div className="min-w-36">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Nível</p>
+                  <p className="text-xs font-semibold text-rh-secondarygrey">{usuarioSelecionado.cargo.nivel}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-4 gap-15 bg-gray-100 border rounded-lg p-3 text-sm mb-2">
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Salário Base</p>
-                  <p className="font-bold text-rh-secondarygrey">
+              <div className="flex gap-6 bg-gray-100 border rounded-lg p-3 mb-2">
+                {/* <div className="grid grid-cols-4 gap-15 bg-gray-100 border rounded-lg p-3 mb-2"> */}
+                <div className="min-w-22 flex flex-col justify-between">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Salário Base</p>
+                  <p className="text-xs font-bold text-rh-secondarygrey">
                     {usuarioSelecionado.cargo.salario.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
                   </p>
                 </div>
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Salário Proporcional</p>
-                  <p className="font-bold text-rh-secondarygrey">
+                <div className="min-w-36 flex flex-col justify-between">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Salário Proporcional</p>
+                  <p className="text-xs font-bold text-rh-secondarygrey">
                     {salarioProporsional.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
                   </p>
                 </div>
 
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Horas Extras</p>
-                  <p className="font-bold text-green-900">
+                <div className="min-w-36 flex flex-col justify-between">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Horas Extras</p>
+                  <p className="text-xs font-bold text-green-900">
                     {valorHorasExtras.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
                   </p>
                 </div>
-                <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Bônus</p>
-                  <p className="font-bold text-green-900">
+                <div className="min-w-36 flex flex-col justify-between">
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Bônus</p>
+                  <p className="text-xs font-bold text-green-900">
                     {bonus.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
                   </p>
                 </div>
@@ -318,30 +320,31 @@ function CalculoSalario() {
 
               <div className="grid grid-cols-4 gap-15 bg-gray-100 border border-b-0 rounded-t-lg p-3 text-sm ">
                 <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">INSS (8%): </p>
-                  <p className="text-red-500 font-semibold"> {valoresDesconto.inss.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">INSS (8%): </p>
+                  <p className="text-xs text-red-500 font-semibold"> {valoresDesconto.inss.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
                 </div>
                 <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">IR (10%):</p>
-                  <p className="text-red-500 font-semibold"> {valoresDesconto.ir.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">IR (10%):</p>
+                  <p className="text-xs text-red-500 font-semibold"> {valoresDesconto.ir.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
                 </div>
                 <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">VT (6%): </p>
-                  <p className="text-red-500 font-semibold">{valoresDesconto.vt.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">VT (6%): </p>
+                  <p className="text-xs text-red-500 font-semibold">{valoresDesconto.vt.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
                 </div>
                 <div>
-                  <p className="text-1x1 font-bold text-rh-primarygrey mb-1">Plano (3%): </p>
-                  <p className="text-red-500 font-semibold"> {valoresDesconto.plano.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
+                  <p className="text-sm font-bold text-rh-primarygrey mb-1">Plano (3%): </p>
+                  <p className="text-xs text-red-500 font-semibold"> {valoresDesconto.plano.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</p>
                 </div>
               </div>
-              <div className="text-center grid grid-cols-2  bg-gray-100 border border-t-0 rounded-b-lg text-sm mb-2">
-                <div className="font-extrabold text-red-500 ">Descontos Totais: </div>
-                <div className=" text-red-800 font-bold"> {valoresDesconto.valorTotal.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</div>
+              <hr />
+              <div className="text-center grid grid-cols-2 py-0.5 bg-gray-100 border border-t-0 rounded-b-lg text-sm mb-2">
+                <div className="text-sm font-extrabold text-red-500 ">Descontos Totais: </div>
+                <div className="text-sm text-red-800 font-bold"> {valoresDesconto.valorTotal.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</div>
               </div>
 
               <div className="grid grid-cols-2 gap-2 bg-gray-100 border rounded-lg p-4 text-center text-sm">
-                <p className="text-rh-secondarypurple  font-bold text-2xl">Salário Líquido</p>
-                <p className="text-rh-secondarypurple font-bold text-2xl">
+                <p className="text-rh-secondarypurple  font-bold text-lg">Salário Líquido:</p>
+                <p className="text-rh-secondarypurple font-bold text-lg">
                   {salarioLiquido.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
                 </p>
               </div>
