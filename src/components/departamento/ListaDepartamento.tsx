@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import Departamento from "../../models/Departamento";
 import { buscar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import { DNA, RotatingLines } from "react-loader-spinner";
+import { RotatingLines } from "react-loader-spinner";
 import CardDepartamento from "./CardDepartamento";
-import arrowBlack from "../../assets/img/arrowBlack.png";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 
 function ListaDepartamento() {
 
   const navigate = useNavigate();
-
+  window.scrollTo(0, 0);
   const [departamento, setDepartamento] = useState<Departamento[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadinPage, setIsLoadingPage] = useState<boolean>(true);
@@ -64,7 +64,7 @@ function ListaDepartamento() {
     <div className="w-full p-6">
       <div className="flex gap-3 ml-1 my-6 items-center">
         <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">
-          <img src={arrowBlack} alt="Seta para voltar" className="-scale-x-100" width={24} height={24} />
+          <IoArrowBackSharp className="w-7 h-7 text-rh-primarygrey" />
         </Link>
         <h3 className="text-3xl font-medium text-rh-primarygrey mb-6">
           Lista de Departamentos

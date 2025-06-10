@@ -4,6 +4,7 @@ import bgperfil from "../../assets/img/bgPerfil.png";
 import { AuthContext } from "../../contexts/AuthContext";
 import Usuario from "../../models/Usuario";
 import { buscar } from "../../services/Service";
+import noPicture from "../../assets/img/noPicture.png";
 
 
 export default function Perfil() {
@@ -56,16 +57,23 @@ export default function Perfil() {
 
   return (
 
-    <div className="relative flex justify-center">
-      <img src={bgperfil} alt="" />
-      <div className="absolute z-10 top-40 text-center flex flex-col items-center">
-        <img src={usuario.foto} alt="" className="rounded-full border-10 border-white max-w-[200px] " />
-        <p className="mt-10 mb-2 font-semibold text-4xl">
+    <div className="h-screen relative flex justify-center">
+      <img src={bgperfil} alt="" className="cover max-h-[607px] h-fit" />
+      <div className="absolute z-10 top-[100px] text-center flex flex-col items-center">
+        <img src={usuario.foto.length > 10 ? usuario.foto : noPicture} alt="" className="rounded-full border-10 border-white max-w-[200px] " />
+        <p className="mt-6 mb-2 font-semibold text-4xl">
           {usuario.nome}
         </p>
-        <p className="mb-10 text-3xl ">
-          {usuarioPerfil.cargo?.nome}, {usuarioPerfil.cargo?.nivel}
-        </p>
+        <div className="flex justify-between gap-5 py-4">
+          <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
+            <p className="text-sm text-gray-600">Cargo</p>
+            <p className="text-lg font-semibold">{usuarioPerfil.cargo?.nome}</p>
+          </div>
+          <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
+            <p className="text-sm text-gray-600">Nivel</p>
+            <p className="text-lg font-semibold">{usuarioPerfil.cargo?.nivel}</p>
+          </div>
+        </div>
         <Link to="/editar-perfil" className="bg-rh-secondarypurple text-rh-primary-50 px-10 py-2 rounded hover:bg-gray-800 transition-colors">
           Editar Perfil
         </Link>

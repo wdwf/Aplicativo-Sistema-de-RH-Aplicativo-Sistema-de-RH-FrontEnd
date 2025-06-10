@@ -1,16 +1,20 @@
 import { useContext, useState, useEffect, ChangeEvent } from "react";
-import { useNavigate } from "react-router";
-import { AuthContext } from "../contexts/AuthContext";
-import { atualizar, buscar, deletar } from "../services/Service";
-import { ToastAlerta } from "../utils/ToastAlerta";
+import { useNavigate, useParams } from "react-router";
 import { RotatingLines } from "react-loader-spinner";
-import bgeditar1 from "../assets/img/bgeditar1.png";
-import bgeditar2 from "../assets/img/bgeditar2.png";
-import Cargo from "../models/Cargo";
-import Usuario from "../models/Usuario";
+import bgeditar1 from "../../assets/img/bgeditar1.png";
+import bgeditar2 from "../../assets/img/bgeditar2.png";
+import { AuthContext } from "../../contexts/AuthContext";
+import Cargo from "../../models/Cargo";
+import Usuario from "../../models/Usuario";
+import { atualizar, buscar } from "../../services/Service";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
-export default function EditarPerfil() {
+
+
+export default function EditarPerfilTabela() {
+
   const navigate = useNavigate();
+
   const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [listaCargos, setListaCargos] = useState<Cargo[]>([]);
@@ -22,6 +26,8 @@ export default function EditarPerfil() {
     foto: "",
     cargo: null,
   });
+
+  const { id } = useParams<{ id: string }>();
 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioEditar({
@@ -40,7 +46,7 @@ export default function EditarPerfil() {
             id,
             nome,
             usuario,
-            senha: "", 
+            senha: "",
             foto,
             cargo,
           });
@@ -71,7 +77,7 @@ export default function EditarPerfil() {
   }
 
   function retornar() {
-    navigate("/login");
+    navigate("/gerenciar-perfis");
   }
 
   async function handleSubmit(e: ChangeEvent<HTMLFormElement>) {
@@ -85,8 +91,6 @@ export default function EditarPerfil() {
       });
 
       ToastAlerta("Dados atualizados com sucesso!", "sucesso");
-      ToastAlerta("Por motivos de segurança o usuario foi deslogado", "info");
-      handleLogout();
       setIsLoading(false);
       retornar();
     } catch (error) {
@@ -115,9 +119,9 @@ export default function EditarPerfil() {
       handleLogout();
       navigate("/");
     } else {
-      if (usuario.id) {
+      if (id) {
         buscarCargo();
-        buscarUserPorId(String(usuario.id)).then(() => {
+        buscarUserPorId(String(id)).then(() => {
           setUsuarioEditar((prevData) => ({
             ...prevData,
             senha: "",
@@ -127,12 +131,13 @@ export default function EditarPerfil() {
     }
   }, [usuario.token]);
 
+
   return (
 
     <div className="flex min-h-screen relative justify-between">
       <img src={bgeditar1} alt="decorativo" className="sticky top-0 h-screen" />
 
-      <div className="w-full max-w-md m-auto px-4">
+      <div className="w-full max-w-md m-auto px-4 my-6">
         <h2 className="font-medium text-4xl mb-8 text-center">Seus Dados</h2>
 
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -145,7 +150,7 @@ export default function EditarPerfil() {
               id="nome"
               name="nome"
               placeholder="Digite seu nome completo"
-              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primaryblue"
               value={usuarioEditar.nome}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -162,7 +167,7 @@ export default function EditarPerfil() {
               id="usuario"
               name="usuario"
               placeholder="Exemplo@email.com"
-              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primaryblue"
               value={usuarioEditar.usuario}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -179,7 +184,7 @@ export default function EditarPerfil() {
               id="senha"
               name="senha"
               placeholder="Minimo 8 caracteres"
-              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primaryblue"
               value={usuarioEditar.senha}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -196,7 +201,7 @@ export default function EditarPerfil() {
               id="foto"
               name="foto"
               placeholder="Coloque o link da foto aqui"
-              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+              className="w-full px-4 py-2 text-rh-primarygrey border border-border rounded focus:outline-none focus:ring-2 focus:ring-rh-primaryblue"
               value={usuarioEditar.foto}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 atualizarEstado(e)
@@ -230,7 +235,7 @@ export default function EditarPerfil() {
           <div className="flex justify-center gap-6">
             <button
               type="submit"
-              className="bg-rh-primaryblue text-rh-primary-50 px-10 py-2 rounded hover:bg-rh-primarypurple transition-colors"
+              className="bg-rh-primaryblue text-rh-primary-50 px-10 py-2 rounded hover:bg-rh-secondaryblue transition-colors"
             >
               Atualizar
             </button>
@@ -238,16 +243,17 @@ export default function EditarPerfil() {
             <button
               type="button"
               className="bg-rh-primarygrey text-rh-primary-50 px-10 py-2 rounded hover:bg-gray-800 transition-colors"
-              onClick={() => navigate("/perfil")} 
+              onClick={() => navigate("/gerenciar-perfis")} // ou use a função desejada
             >
               Cancelar
             </button>
-            
+
           </div>
         </form>
       </div>
 
       <img src={bgeditar2} alt="decorativo" className="sticky top-0 h-screen" />
+
     </div>
   );
 }

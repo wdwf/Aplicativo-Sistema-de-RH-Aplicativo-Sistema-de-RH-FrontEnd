@@ -4,13 +4,55 @@ import BtnCar from '../../assets/img/btn2.png';
 import BtnCal from '../../assets/img/btn3.png';
 import BtnListCargo from '../../assets/img/btn4.png';
 import BtnListDep from '../../assets/img/btn5.png';
-import ArrowWhite from '../../assets/img/arrow.png';
-import ArrowBlack from '../../assets/img/arrowBlack.png';
-import { Link } from 'react-router';
+import BtnListTable from '../../assets/img/btn4.png';
+import { Link, useNavigate } from 'react-router';
+import { FaArrowRight } from 'react-icons/fa';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { buscar } from '../../services/Service';
+import Usuario from '../../models/Usuario';
+import { ToastAlerta } from '../../utils/ToastAlerta';
 
 function Home() {
 
     window.scrollTo(0, 0);
+    const navigate = useNavigate();
+
+    const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
+    const [usuarioData, setUsuarioData] = useState<Usuario>({} as Usuario);
+
+    async function buscarUserPorId(id: string) {
+        try {
+            await buscar(
+                `/usuario/${id}`, setUsuarioData,
+                {
+                    headers: {
+                        Authorization: usuario.token,
+                    },
+                }
+            );
+        } catch (error: any) {
+            if (error.toString().includes("403")) {
+                handleLogout();
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        if (usuario.token === "") {
+            return;
+        }
+        if (!usuario.token) {
+            ToastAlerta("Você precisa estar Logado!", "info");
+            handleLogout();
+            navigate("/");
+        } else {
+            if (usuario.id) {
+                buscarUserPorId(String(usuario.id))
+            }
+        }
+    }, [usuario.token]);
 
     return (
 
@@ -31,48 +73,61 @@ function Home() {
                     </h3>
                     <div className='flex flex-wrap gap-4 md:justify-center'>
                         <Link to="/cadastrar-cargo"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
+                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnDep})` }}
                         >
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
-                            <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                         </Link>
                         <Link to="/cadastrar-departamento"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
+                            className={`w-full max-w-[420px] h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCar})` }}
                         >
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
-                            <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                         </Link>
                         <Link to="/calcular-salario"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
+                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCal})` }}
                         >
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Calcular</p>
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Salario</p>
-                            <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                         </Link>
                     </div>
                 </div>
-                <div className='flex gap-4 px-6 mt-6 flex-wrap md:justify-center'>
-                    <Link to="/cargos" className='md:min-w-[372px] min-w-[224px] flex-1 hover:bg-blue-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
-                        <div className='flex flex-col pt-4'>
-                            <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
-                            <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Cargos</p>
-                            <img src={ArrowBlack} alt="Seta" className='mt-2' width={25} />
-                        </div>
-                        <img src={BtnListCargo} alt="imagem ilustrativa" className='h-[80%] hidden md:block' />
+                <div className='flex gap-4 px-6 mt-6 flex-wrap justify-center'>
+                    <Link to="/cargos"
+                        className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                        style={{ backgroundImage: `url(${BtnDep})` }}
+                    >
+                        <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Listar</p>
+                        <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
+                        <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                     </Link>
-                    <Link to="/departamentos" className='md:min-w-[372px] flex-1 hover:bg-purple-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
-                        <div className='flex flex-col pt-4'>
-                            <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
-                            <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Departamento</p>
-                            <img src={ArrowBlack} alt="Seta" className='mt-2' width={25} />
-                        </div>
-                        <img src={BtnListDep} alt="imagem ilustrativa" className='h-[80%]  hidden md:block' />
+                    <Link to="/departamentos"
+                        className={`w-full max-w-[420px] h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                        style={{ backgroundImage: `url(${BtnCar})` }}
+                    >
+                        <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Listar</p>
+                        <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
+                        <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                     </Link>
+
+
+                    {
+                        usuarioData.cargo?.nome === "Recursos Humanos" &&
+                        <Link to="/gerenciar-perfis"
+                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                            style={{ backgroundImage: `url(${BtnCal})` }}
+                        >
+                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Gerenciar</p>
+                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Perfis</p>
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                        </Link>
+                    }
                 </div>
             </div>
         </>

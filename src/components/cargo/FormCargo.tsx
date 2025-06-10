@@ -130,6 +130,8 @@ export default function FormCargo() {
   }
 
   useEffect(() => {
+    console.log("aqui");
+
     window.scrollTo(0, 0);
     if (token === '') return;
     if (!token) {
