@@ -7,6 +7,7 @@ import BtnListDep from '../../assets/img/btn5.png';
 import ArrowWhite from '../../assets/img/arrow.png';
 import ArrowBlack from '../../assets/img/arrowBlack.png';
 import { Link } from 'react-router';
+import { FaArrowRight } from 'react-icons/fa';
 
 function Home() {
 
@@ -31,28 +32,28 @@ function Home() {
                     </h3>
                     <div className='flex flex-wrap gap-4 md:justify-center'>
                         <Link to="/cadastrar-cargo"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
+                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnDep})` }}
                         >
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
-                            <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                         </Link>
                         <Link to="/cadastrar-departamento"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
+                            className={`w-full max-w-[420px] h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCar})` }}
                         >
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
-                            <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                         </Link>
                         <Link to="/calcular-salario"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col`}
+                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCal})` }}
                         >
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Calcular</p>
                             <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Salario</p>
-                            <img src={ArrowWhite} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
                         </Link>
                     </div>
                 </div>
@@ -61,15 +62,16 @@ function Home() {
                         <div className='flex flex-col pt-4'>
                             <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
                             <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Cargos</p>
-                            <img src={ArrowBlack} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primarygrey w-7 h-7 mt-2' />
                         </div>
+
                         <img src={BtnListCargo} alt="imagem ilustrativa" className='h-[80%] hidden md:block' />
                     </Link>
                     <Link to="/departamentos" className='md:min-w-[372px] flex-1 hover:bg-purple-100 transition delay-150 duration-300 ease-in-out border flex px-6 justify-between border-rh-secondarygrey rounded w-2xl h-40'>
                         <div className='flex flex-col pt-4'>
                             <p className='text-xl font-semibold text-rh-primarygrey tracking-wide'>Listar</p>
                             <p className='text-xl font-semibold text-rh-primarygray tracking-wide'>Departamento</p>
-                            <img src={ArrowBlack} alt="Seta" className='mt-2' width={25} />
+                            <FaArrowRight width={25} height={25} className='text-rh-primarygrey w-7 h-7 mt-2' />
                         </div>
                         <img src={BtnListDep} alt="imagem ilustrativa" className='h-[80%]  hidden md:block' />
                     </Link>
