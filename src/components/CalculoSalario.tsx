@@ -89,8 +89,15 @@ function CalculoSalario() {
       ToastAlerta("Preencha os campos corretamente", "info")
       return;
     }
-    valoresDetalhados()
-    calcularDescontosDetalhados(Number(descontos))
+    const { salarioProporcionalCalculado, valorHorasExtrasCalculado } = valoresDetalhados();
+
+    // valoresDetalhados()
+    // calcularDescontosDetalhados(Number(descontos))
+
+    setSalarioProporsional(salarioProporcionalCalculado);
+    setValorHorasExtras(valorHorasExtrasCalculado);
+
+    calcularDescontosDetalhados(salarioProporcionalCalculado, Number(descontos));
     setIsOpen(true)
   }
 
@@ -102,17 +109,25 @@ function CalculoSalario() {
     }
     const salario = usuarioSelecionado.cargo?.salario || 0
 
-    const horasExcedentesTrabalhadas = horas - 220
-    const valorHoraNormal = salario / 220 // 220 horas mensais contando 44 horas semanais
-    const valorHoraExtra = valorHoraNormal * 1.5 // 50% a mais para horas extras
-    const valorFinal = valorHoraExtra * horasExcedentesTrabalhadas
+    // const horasExcedentesTrabalhadas = horas - 220
+    // const valorHoraNormal = salario / 220 // 220 horas mensais contando 44 horas semanais
+    // const valorHoraExtra = valorHoraNormal * 1.5 // 50% a mais para horas extras
+    // const valorFinal = valorHoraExtra * horasExcedentesTrabalhadas
 
-    setValorHorasExtras(horasExcedentesTrabalhadas > 0 ? valorHoraExtra * horasExcedentesTrabalhadas : 0)
-    // setSalarioProporsional(valorHoraNormal * horas)
-    setSalarioProporsional(salario + valorFinal)
+    // setValorHorasExtras(horasExcedentesTrabalhadas > 0 ? valorHoraExtra * horasExcedentesTrabalhadas : 0)
+    // // setSalarioProporsional(valorHoraNormal * horas)
+    // setSalarioProporsional(salario + valorFinal)
+    const horasExcedentesTrabalhadas = horas - 220;
+    const valorHoraNormal = salario / 220;
+    const valorHoraExtra = valorHoraNormal * 1.5;
+    const valorHorasExtrasCalculado = horasExcedentesTrabalhadas > 0 ? valorHoraExtra * horasExcedentesTrabalhadas : 0;
+    const salarioProporcionalCalculado = salario + valorHorasExtrasCalculado;
+
+    return { salarioProporcionalCalculado, valorHorasExtrasCalculado };
   }
 
-  function calcularDescontosDetalhados(valorDesconto: number) {
+  function calcularDescontosDetalhados(salarioBaseParaDescontos: number, valorDesconto: number) {
+    // function calcularDescontosDetalhados(valorDesconto: number) {
     const percentuais = {
       inss: 0.08,
       ir: 0.10,
@@ -120,13 +135,21 @@ function CalculoSalario() {
       plano: 0.03,
     }
 
-    const valorInss = salarioProporsional * percentuais.inss;
-    const valorIr = salarioProporsional * percentuais.ir;
-    // const valorInss = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.inss : 0;
-    // const valorIr = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.ir : 0;
-    const valorVt = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.vt : 0;
-    const valorPlano = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.plano : 0;
-    const totalDesconto = valorInss + valorIr + valorVt + valorPlano;
+
+    // const valorInss = salarioProporsional * percentuais.inss;
+    // const valorIr = salarioProporsional * percentuais.ir;
+    // // const valorInss = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.inss : 0;
+    // // const valorIr = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.ir : 0;
+    // const valorVt = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.vt : 0;
+    // const valorPlano = usuarioSelecionado.cargo?.salario ? usuarioSelecionado.cargo.salario * percentuais.plano : 0;
+    // const totalDesconto = valorInss + valorIr + valorVt + valorPlano;
+
+    const valorInss = salarioBaseParaDescontos * percentuais.inss;
+    const valorIr = salarioBaseParaDescontos * percentuais.ir;
+    const valorVt = usuarioSelecionado.cargo?.salario * percentuais.vt || 0;
+    const valorPlano = usuarioSelecionado.cargo?.salario * percentuais.plano || 0;
+    const totalDesconto = valorInss + valorIr + valorVt + valorPlano + valorDesconto;
+
 
     setValoresDescontos({
       inss: valorInss,
@@ -135,10 +158,13 @@ function CalculoSalario() {
       plano: valorPlano,
       valorTotal: totalDesconto
     })
+    // setSalarioLiquido(
+    //   (usuarioSelecionado.cargo?.salario || 0) + valorHorasExtras + Number(bonus) - totalDesconto
+    // )
     setSalarioLiquido(
-      (usuarioSelecionado.cargo?.salario || 0) + valorHorasExtras + Number(bonus) - totalDesconto
-    )
-    console.log("Valores Descontos:", totalDesconto);
+      salarioBaseParaDescontos + Number(bonus) - totalDesconto
+    );
+
   }
 
   const options = listUsuarios.map(user => ({

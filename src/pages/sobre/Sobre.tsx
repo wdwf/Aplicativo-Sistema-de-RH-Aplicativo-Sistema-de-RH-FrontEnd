@@ -4,6 +4,12 @@ import missaoIcon from '../../assets/img/missao.png'
 import valoresIcon from '../../assets/img/valores.png'
 import portfolio from '../../assets/img/portifolio.png'
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
+import Larissa from "../../assets/img/Larissa.jpg"
+import Rodrigo from "../../assets/img/Rodrigo.jpg"
+import Elisa from "../../assets/img/Elisa.jpg"
+import Ruan from "../../assets/img/Ruan.jpg"
+import Giulia from "../../assets/img/Giulia.jpg"
+import Weslley from "../../assets/img/Wesley.jpg"
 
 export default function Sobre() {
   return (
@@ -94,37 +100,37 @@ export default function Sobre() {
             {[
               {
                 nome: 'Elisa Bicudo',
-                foto: "src/assets/img/Elisa.jpg",
+                foto: Elisa,
                 linkedin: 'https://www.linkedin.com/in/elisa-bicudo-lopes/',
                 github: 'https://github.com/eblopes23'
               },
               {
                 nome: 'Giulia Lopes',
-                foto: "src/assets/img/Giulia.jpg",
+                foto: Giulia,
                 linkedin: 'https://www.linkedin.com/in/giulia-l-ferreira/',
                 github: 'https://github.com/Giulia-L-Ferreira'
               },
               {
                 nome: 'Larissa Soares',
-                foto: "src/assets/img/Larissa.jpg",
+                foto: Larissa,
                 linkedin: 'https://www.linkedin.com/in/larissa-soares-da-silva/',
                 github: 'https://github.com/LarissaSoaresSilva'
               },
               {
                 nome: 'Rodrigo Henrique',
-                foto: "src/assets/img/Rodrigo.jpg",
+                foto: Rodrigo,
                 linkedin: 'https://www.linkedin.com/in/rodrigohenrikeh/',
                 github: 'https://github.com/rodrigohenrikeh'
               },
               {
                 nome: 'Ruan Barreto',
-                foto: "src/assets/img/Ruan.jpg",
+                foto: Ruan,
                 linkedin: 'https://www.linkedin.com/in/ruan-barreto/',
                 github: 'https://github.com/BarretoRuan'
               },
               {
                 nome: 'Weslley Ferreira',
-                foto: "src/assets/img/Wesley.jpg",
+                foto: Weslley,
                 linkedin: 'https://www.linkedin.com/in/weslleyferreira/',
                 github: 'https://github.com/wdwf'
               },

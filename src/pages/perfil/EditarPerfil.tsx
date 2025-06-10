@@ -237,7 +237,17 @@ export default function EditarPerfil() {
               type="submit"
               className="bg-rh-primaryblue text-rh-primary-50 px-10 py-2 rounded hover:bg-rh-secondaryblue transition-colors"
             >
-              Atualizar
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                />
+              ) : (
+                <span>Atualizar</span>
+              )}
             </button>
 
             <button
