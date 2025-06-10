@@ -127,10 +127,10 @@ export default function TabelaGerencia() {
                 </TableCell>
                 <TableCell>
                   <div className='flex flex-col gap-1'>
-                    <span>{user.usuario}</span>
+                    <span>{user.cargo.nome}</span>
                   </div>
                 </TableCell>
-                <TableCell>{user.cargo?.nome}</TableCell>
+                <TableCell>{user.cargo?.salario.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</TableCell>
                 <TableCell>
                   <Link to={`/editar-perfil/${user.id}`} className="flex items-center justify-center w-9 h-9 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors">
                     <FaPen />
