@@ -1,13 +1,11 @@
 import { useContext, useState, useEffect, ChangeEvent } from "react";
 import { useNavigate } from "react-router";
-
 import { AuthContext } from "../contexts/AuthContext";
 import { atualizar, buscar, deletar } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerta";
 import { RotatingLines } from "react-loader-spinner";
 import bgeditar1 from "../assets/img/bgeditar1.png";
 import bgeditar2 from "../assets/img/bgeditar2.png";
-import ListaCargo from "../components/ListaCargo";
 import Cargo from "../models/Cargo";
 import Usuario from "../models/Usuario";
 
@@ -42,7 +40,7 @@ export default function EditarPerfil() {
             id,
             nome,
             usuario,
-            senha: "", // sempre limpar a senha
+            senha: "", 
             foto,
             cargo,
           });
@@ -129,9 +127,8 @@ export default function EditarPerfil() {
     }
   }, [usuario.token]);
 
-  console.log(listaCargos);
-
   return (
+
     <div className="flex min-h-screen relative justify-between">
       <img src={bgeditar1} alt="decorativo" className="sticky top-0 h-screen" />
 

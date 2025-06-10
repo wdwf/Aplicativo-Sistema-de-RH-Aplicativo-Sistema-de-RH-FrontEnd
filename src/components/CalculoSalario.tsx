@@ -46,9 +46,10 @@ function CalculoSalario() {
   }, [token])
 
   useEffect(() => {
+
     const usuarioSelecionado = usuarios.find((u) => u.id === usuarioId)
     if (usuarioSelecionado?.cargo) {
-      setSalarioBase(usuarioSelecionado.cargo.salario)
+      setSalarioBase(Number(usuarioSelecionado.cargo.salario))
     }
   }, [usuarioId, usuarios])
 
