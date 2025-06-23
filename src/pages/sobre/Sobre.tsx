@@ -135,11 +135,11 @@ export default function Sobre() {
                 github: 'https://github.com/wdwf'
               },
             ].map((membro) => (
-              <div key={membro.nome} className="flex items-center gap-3"> {/* Aumentei o gap */}
+              <div key={membro.nome} className="flex items-center gap-3 antialiased"> {/* Aumentei o gap */}
                 <img
                   src={membro.foto}
                   alt={membro.nome}
-                  className="w-20 h-20 object-cover rounded-full border-2 border-gray-300" // Aumentei o tamanho para w-20 h-20 (80px)
+                  className="w-20 h-auto object-contain object-center border-2 rounded-full border-rh-primarygrey img-suave" // Aumentei o tamanho para w-20 h-20 (80px)
                 />
                 <div>
                   <span className="font-bold text-base">{membro.nome}</span> {/* Aumentei o tamanho do nome para text-base */}
