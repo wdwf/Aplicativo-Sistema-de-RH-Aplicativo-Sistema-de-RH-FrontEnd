@@ -18,7 +18,7 @@ export default function DeletarCargo() {
 
 
   const { usuario, handleLogout } = useContext(AuthContext)
-  const token = usuario.token
+  const token = usuario?.token
 
   const { id } = useParams<{ id: string }>();
 

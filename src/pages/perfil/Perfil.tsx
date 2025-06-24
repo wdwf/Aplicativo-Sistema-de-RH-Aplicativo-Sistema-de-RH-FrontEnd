@@ -39,7 +39,7 @@ export default function Perfil() {
         },
         {
           headers: {
-            Authorization: usuario.token,
+            Authorization: usuario?.token,
           },
         }
       );
@@ -51,7 +51,7 @@ export default function Perfil() {
   }
 
   useEffect(() => {
-    buscarUserPorId(String(usuario.id))
+    buscarUserPorId(String(usuario?.id))
 
   }, [])
 
@@ -60,9 +60,9 @@ export default function Perfil() {
     <div className="h-screen relative flex justify-center">
       <img src={bgperfil} alt="" className="cover max-h-[607px] h-fit" />
       <div className="absolute z-10 top-[100px] text-center flex flex-col items-center">
-        <img src={usuario.foto.length > 10 ? usuario.foto : noPicture} alt="" className="rounded-full border-10 border-white max-w-[200px] " />
+        <img src={usuario?.foto.length > 10 ? usuario?.foto : noPicture} alt="" className="rounded-full border-10 border-white max-w-[200px] " />
         <p className="mt-6 mb-2 font-semibold text-4xl">
-          {usuario.nome}
+          {usuario?.nome}
         </p>
         <div className="flex justify-between gap-5 py-4">
           <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">

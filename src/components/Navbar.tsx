@@ -26,7 +26,7 @@ function Navbar() {
 
                     <div className="flex gap-1.5">
                         {
-                            usuario.token !== "" ? (
+                            usuario?.token !== "" ? (
                                 <div className="flex items-center space-x-8 rtl:space-x-reverse">
                                     <button className=" flex p-1 gap-1.5 items-center relative overflow-hidden group">
                                         <FaUserTie />
@@ -39,7 +39,7 @@ function Navbar() {
                             ) : null
                         }
                         {
-                            usuario.token === "" ? (
+                            usuario?.token === "" ? (
                                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
                                     <Link to="/login" type="button" className="text-white bg-rh-primarygrey hover:bg-rh-secondaryblue focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded text-sm px-4 py-2 text-center transition delay-150 duration-300 ease-in-out">Entrar</Link>
                                     <Link to="/cadastro" type="button" className="text-white bg-rh-primarygrey hover:bg-rh-secondaryblue focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded text-sm px-4 py-2 text-center transition delay-150 duration-300 ease-in-out">Cadastrar</Link>
@@ -56,7 +56,7 @@ function Navbar() {
                     <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:border-gray-700">
 
                         {
-                            usuario.token !== "" ? (
+                            usuario?.token !== "" ? (
                                 <li className="relative overflow-hidden group">
                                     <Link to="/home" className="block py-2 px-3 text-rh-primarygrey rounded-sm hover:bg-white md:p-0">Home</Link>
                                     <span className="absolute bottom-0 left-0 w-0 h-1 bg-rh-primarygrey transition-all duration-300 group-hover:w-full"></span>

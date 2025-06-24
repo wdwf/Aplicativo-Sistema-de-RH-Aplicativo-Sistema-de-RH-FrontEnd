@@ -5,8 +5,8 @@ import { ToastAlerta } from "../utils/ToastAlerta"
 
 
 interface AuthContextProps {
-    usuario: UsuarioLogin
-    setUsuario: React.Dispatch<React.SetStateAction<UsuarioLogin>>
+    usuario: UsuarioLogin | null
+    setUsuario: React.Dispatch<React.SetStateAction<UsuarioLogin | null>>
     handleLogout(): void
     handleLogin(usuario: UsuarioLogin): Promise<void>
     isLoading: boolean
@@ -20,14 +20,7 @@ export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: AuthProviderProps) {
 
-    const [usuario, setUsuario] = useState<UsuarioLogin>({
-        id: 0,
-        nome: "",
-        usuario: "",
-        senha: "",
-        foto: "",
-        token: ""
-    })
+    const [usuario, setUsuario] = useState<UsuarioLogin | null>(null)
     const [isLoading, setIsLoading] = useState(false)
 
     async function handleLogin(usuarioLogin: UsuarioLogin) {
@@ -38,6 +31,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setUsuario(userData);
                 localStorage.setItem("@AppAuth:usuario", JSON.stringify(userData));
             })
+            //Buscar cargo e injetar no token por padrão
             ToastAlerta("Usuário foi autenticado com sucesso!", "sucesso")
         } catch (error) {
             ToastAlerta("Os dados do Usuário estão inconsistentes!", "erro")
@@ -46,14 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     function handleLogout() {
-        setUsuario({
-            id: 0,
-            nome: "",
-            usuario: "",
-            senha: "",
-            foto: "",
-            token: ""
-        })
+        setUsuario(null)
         localStorage.removeItem("@AppAuth:usuario");
     }
 

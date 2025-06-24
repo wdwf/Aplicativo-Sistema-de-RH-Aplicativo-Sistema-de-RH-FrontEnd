@@ -25,7 +25,7 @@ export default function TabelaGerencia() {
   window.scrollTo(0, 0);
   const [listaUsuarios, setListaUsuarios] = useState<Usuario[]>([])
   const { usuario, handleLogout } = useContext(AuthContext)
-  const token = usuario.token
+  const token = usuario?.token
 
   const [usuariosFiltrados, setUsuariosFiltrados] = useState<Usuario[]>([])
   const [busca, setBusca] = useState('')
@@ -66,7 +66,7 @@ export default function TabelaGerencia() {
   useEffect(() => {
     const resultado = listaUsuarios.filter(user =>
       user.nome.toLowerCase().includes(busca.toLowerCase()) ||
-      user.usuario.toLowerCase().includes(busca.toLowerCase()) ||
+      user.usuario?.toLowerCase().includes(busca.toLowerCase()) ||
       user.cargo?.nome?.toLowerCase().includes(busca.toLowerCase())
     )
     setUsuariosFiltrados(resultado)

@@ -18,7 +18,7 @@ function ListaDepartamento() {
   const [isLoadinPage, setIsLoadingPage] = useState<boolean>(true);
 
   const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const token = usuario?.token;
 
   async function buscarDepartamento() {
     try {

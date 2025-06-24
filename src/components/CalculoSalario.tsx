@@ -34,7 +34,7 @@ function CalculoSalario() {
 
   const navigate = useNavigate()
   const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const token = usuario?.token;
 
   const [usuarioId, setUsuarioId] = useState<number>()
   const [horasTrabalhadas, setHorasTrabalhadas] = useState<number | string>("")

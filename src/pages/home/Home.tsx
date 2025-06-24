@@ -27,7 +27,7 @@ function Home() {
                 `/usuario/${id}`, setUsuarioData,
                 {
                     headers: {
-                        Authorization: usuario.token,
+                        Authorization: usuario?.token,
                     },
                 }
             );
@@ -40,19 +40,21 @@ function Home() {
 
 
     useEffect(() => {
-        if (usuario.token === "") {
-            return;
-        }
-        if (!usuario.token) {
+        if (!usuario?.token) {
             ToastAlerta("Você precisa estar Logado!", "info");
-            handleLogout();
             navigate("/");
         } else {
-            if (usuario.id) {
-                buscarUserPorId(String(usuario.id))
+            if (usuario?.id) {
+                buscarUserPorId(String(usuario?.id))
             }
         }
-    }, [usuario.token]);
+    }, [usuario?.token]);
+
+    if (!usuario?.token) {
+        return (
+            <h1>Carregando...</h1>
+        )
+    }
 
     return (
 

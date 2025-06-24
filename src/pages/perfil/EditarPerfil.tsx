@@ -51,7 +51,7 @@ export default function EditarPerfil() {
         },
         {
           headers: {
-            Authorization: usuario.token,
+            Authorization: usuario?.token,
           },
         }
       );
@@ -65,7 +65,7 @@ export default function EditarPerfil() {
   async function buscarCargo() {
     try {
       await buscar("/cargo", setListaCargos, {
-        headers: { Authorization: usuario.token },
+        headers: { Authorization: usuario?.token },
       });
     } catch (error: any) {
       if (error.toString().includes("403")) {
@@ -84,7 +84,7 @@ export default function EditarPerfil() {
     try {
       await atualizar("/usuario/atualizar", usuarioEditar, setUsuario, {
         headers: {
-          Authorization: usuario.token,
+          Authorization: usuario?.token,
         },
       });
 
@@ -111,17 +111,17 @@ export default function EditarPerfil() {
   }
 
   useEffect(() => {
-    if (usuario.token === "") {
+    if (usuario?.token === "") {
       return;
     }
-    if (!usuario.token) {
+    if (!usuario?.token) {
       ToastAlerta("Você precisa estar Logado!", "info");
       handleLogout();
       navigate("/");
     } else {
-      if (usuario.id) {
+      if (usuario?.id) {
         buscarCargo();
-        buscarUserPorId(String(usuario.id)).then(() => {
+        buscarUserPorId(String(usuario?.id)).then(() => {
           setUsuarioEditar((prevData) => ({
             ...prevData,
             senha: "",
@@ -129,7 +129,7 @@ export default function EditarPerfil() {
         });
       }
     }
-  }, [usuario.token]);
+  }, [usuario?.token]);
 
 
   return (
