@@ -134,7 +134,7 @@ function FormDepartamento() {
             onSubmit={gerarNovoDepartamento}
           >
             <div className=" w-full flex flex-col gap-2 focus:ring-2">
-              <label className="text-rh-secondaryblue" htmlFor="nome">Nome do Departamento</label>
+              <label className="text-rh-secondarypurple" htmlFor="nome">Nome do Departamento</label>
               <input
                 type="text"
                 placeholder="Escreva o nome do Departamento"
@@ -146,7 +146,7 @@ function FormDepartamento() {
                 }
               />
 
-              <label className="text-rh-secondaryblue" htmlFor="andar">Andar</label>
+              <label className="text-rh-secondarypurple" htmlFor="andar">Andar</label>
               <input
                 type="number"
                 placeholder="Digite o numero do andar do Departamento"
@@ -157,7 +157,7 @@ function FormDepartamento() {
                   atualizarEstado(e)
                 }
               />
-              <label className="text-rh-secondaryblue" htmlFor="ramal">Ramal</label>
+              <label className="text-rh-secondarypurple" htmlFor="ramal">Ramal</label>
               <input
                 type="text"
                 placeholder="Por Ex: 123"
@@ -169,7 +169,7 @@ function FormDepartamento() {
                 }
               />
 
-              <label className="text-rh-secondaryblue" htmlFor="descricao">Descrição do Departamento</label>
+              <label className="text-rh-secondarypurple" htmlFor="descricao">Descrição do Departamento</label>
               <textarea
 
                 placeholder="Descreva aqui seu Departamento"
@@ -199,7 +199,7 @@ function FormDepartamento() {
                   <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
                 }
               </button>
-              <Link to="/departamentos" className="rounded text-slate-100 bg-gray-800 hover:bg-red-700 transition-colors duration-500 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
+              <Link to="/departamentos" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-950 transition-colors duration-500 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
             </div>
           </form>
         </div>

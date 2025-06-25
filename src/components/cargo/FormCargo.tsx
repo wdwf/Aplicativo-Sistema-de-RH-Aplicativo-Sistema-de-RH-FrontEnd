@@ -172,7 +172,7 @@ export default function FormCargo() {
         <form className="flex flex-col gap-4" onSubmit={gerarNovoCargo}>
           <div className="flex flex-col gap-2">
             <div className="w-full flex flex-col gap-2">
-              <label htmlFor="nome" className="text-rh-secondarypurple">Nome do Cargo</label>
+              <label htmlFor="nome" className="text-rh-secondaryblue">Nome do Cargo</label>
               <input
                 className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
@@ -184,7 +184,7 @@ export default function FormCargo() {
               />
             </div>
             <div className="w-full flex flex-col gap-2">
-              <label htmlFor="nivel" className="text-rh-secondarypurple">Nivel do Cargo</label>
+              <label htmlFor="nivel" className="text-rh-secondaryblue">Nivel do Cargo</label>
               <input
                 className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
@@ -196,7 +196,7 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="salario" className="text-rh-secondarypurple">Salario Bruto do Cargo</label>
+              <label htmlFor="salario" className="text-rh-secondaryblue">Salario Bruto do Cargo</label>
               <input
                 className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="number"
@@ -208,7 +208,7 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="descricao" className="text-rh-secondarypurple">Descrição do Cargo</label>
+              <label htmlFor="descricao" className="text-rh-secondaryblue">Descrição do Cargo</label>
               <textarea
                 name='descricao'
                 placeholder="Descreva aqui seu Cargo"
@@ -221,7 +221,7 @@ export default function FormCargo() {
             </div>
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor="departamento" className="text-rh-secondarypurple">Departamento</label>
+              <label htmlFor="departamento" className="text-rh-secondaryblue">Departamento</label>
               <select
                 required
                 value={cargo.departamento?.id || ""}
@@ -254,7 +254,7 @@ export default function FormCargo() {
                   <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
                 }
               </button>
-              <Link to="/cargos" className="rounded text-slate-100 bg-gray-800 hover:bg-red-700 transition-colors duration-500 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
+              <Link to="/cargos" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-950 transition-colors duration-500 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
             </div>
           </div>
         </form>
