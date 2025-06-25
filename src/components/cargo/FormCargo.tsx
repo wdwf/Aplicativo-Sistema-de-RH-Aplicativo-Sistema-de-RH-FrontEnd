@@ -149,32 +149,34 @@ export default function FormCargo() {
   }, [token, id])
 
   if (loadingPage) {
-    return <Hourglass
-      visible={true}
-      height="80"
-      width="80"
-      ariaLabel="hourglass-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-      colors={['#306cce', '#72a1ed']}
-    />
+    return <div className="flex justify-center items-center h-screen w-full">
+      <Hourglass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="hourglass-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        colors={['#306cce', '#72a1ed']}
+      />
+    </div>
   }
 
   return (
-    <div className="flex min-h-screen relative justify-between">
-      <img src={colbgleft} alt="decorativo" className="sticky top-0 h-screen" />
+    <div className="flex flex-col md:flex-row min-h-screen relative md:justify-between items-center md:items-start overflow-hidden">
+      <img src={colbgleft} alt="decorativo" className="hidden md:block sticky top-0 h-screen w-auto object-cover flex-shrink-0" />
 
-      <div className="flex items-center flex-col gap-4 p-4">
-        <h2 className="text-4xl text-center my-8 text-rh-primaryblue">
-          {id === undefined ? 'Cadastrar Cargo' : 'Atualizando Cargo'}
+      <div className="flex items-center flex-col gap-4 p-4 py-8 md:py-4 w-full max-w-lg mx-auto md:max-w-xl lg:max-w-2xl">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-gray-800 my-2 text-center">
+          {id === undefined ? 'Criar Cargo' : 'Atualizando Cargo'}
         </h2>
 
-        <form className="flex flex-col gap-4" onSubmit={gerarNovoCargo}>
+        <form className="flex flex-col gap-4 w-full max-w-sm sm:max-w-md md:max-w-lg" onSubmit={gerarNovoCargo}>
           <div className="flex flex-col gap-2">
             <div className="w-full flex flex-col gap-2">
-              <label htmlFor="nome" className="text-rh-secondaryblue">Nome do Cargo</label>
+              <label htmlFor="nome" className="w-full pl-3 text-sm md:text-base lg:text-lg font-normal text-gray-700">Nome do Cargo</label>
               <input
-                className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
                 placeholder="Escreva o nome do Cargo"
                 name='nome'
@@ -184,9 +186,9 @@ export default function FormCargo() {
               />
             </div>
             <div className="w-full flex flex-col gap-2">
-              <label htmlFor="nivel" className="text-rh-secondaryblue">Nivel do Cargo</label>
+              <label htmlFor="nivel" className="w-full pl-3 text-sm md:text-base lg:text-lg font-normal text-gray-700">Nivel do Cargo</label>
               <input
-                className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
                 placeholder="Ex: Estagiário, Junior, Pleno, Sênior... "
                 name='nivel'
@@ -196,9 +198,9 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="salario" className="text-rh-secondaryblue">Salario Bruto do Cargo</label>
+              <label htmlFor="salario" className="w-full pl-3 text-sm md:text-base lg:text-lg font-normal text-gray-700">Salario Bruto do Cargo</label>
               <input
-                className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="number"
                 placeholder="Escreva o valor do salário"
                 name='salario'
@@ -208,11 +210,11 @@ export default function FormCargo() {
               />
             </div>
             <div>
-              <label htmlFor="descricao" className="text-rh-secondaryblue">Descrição do Cargo</label>
+              <label htmlFor="descricao" className="w-full pl-3 text-sm md:text-base lg:text-lg font-normal text-gray-700">Descrição do Cargo</label>
               <textarea
                 name='descricao'
-                placeholder="Descreva aqui seu Cargo"
-                className="w-full resize-none rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
+                placeholder="..."
+                className="w-full resize-y rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200 min-h-[100px] md:min-h-[120px] lg:min-h-[150px]"
                 id=""
                 value={cargo.descricao}
                 required
@@ -221,13 +223,13 @@ export default function FormCargo() {
             </div>
 
             <div className='flex flex-col gap-2'>
-              <label htmlFor="departamento" className="text-rh-secondaryblue">Departamento</label>
+              <label htmlFor="departamento" className="w-full pl-3 text-sm md:text-base lg:text-lg font-normal text-gray-700">Departamento</label>
               <select
                 required
                 value={cargo.departamento?.id || ""}
                 name="departamento"
                 id="departamento"
-                className="w-full rounded-sm text-rh-primarygrey border-2 border-rh-primarygrey bg-white px-3 py-2 text-md placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:border-rh-primaryblue focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
+                className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 onChange={atualizarDepartamento}
               >
                 <option value="" disabled>Selecione um departamento</option>
@@ -239,9 +241,13 @@ export default function FormCargo() {
               </select>
 
             </div>
-            <div className='flex gap-2 mt-6'>
+            <div className='flex flex-col sm:flex-row gap-2 mt-6'>
               <button
-                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-rh-primary-white bg-rh-primaryblue hover:bg-rh-secondaryblue transition-colors duration-500"
+                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium 
+                           focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring 
+                           disabled:cursor-not-allowed disabled:opacity-50 
+                           text-rh-primary-white bg-rh-primaryblue hover:bg-rh-secondaryblue 
+                           transition-colors duration-300 text-base md:text-lg lg:text-xl"
                 type="submit">
                 {isLoading ?
                   <RotatingLines
@@ -254,13 +260,14 @@ export default function FormCargo() {
                   <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
                 }
               </button>
-              <Link to="/cargos" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-950 transition-colors duration-500 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
+              <Link to="/cargos" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-900 w-full py-2 mx-auto flex justify-center text-center 
+                                           transition-colors duration-300 text-base md:text-lg lg:text-xl">Cancelar</Link>
             </div>
           </div>
         </form>
       </div>
 
-      <img src={colbgright} alt="decorativo" className="sticky top-0 h-screen" />
+      <img src={colbgright} alt="decorativo" className="hidden md:block sticky top-0 h-screen w-auto object-cover flex-shrink-0" />
     </div>
   )
 }

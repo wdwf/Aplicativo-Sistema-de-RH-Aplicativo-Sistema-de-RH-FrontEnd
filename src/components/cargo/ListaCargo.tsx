@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { buscar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import { Hourglass } from "react-loader-spinner";
+import { Hourglass, RotatingLines } from "react-loader-spinner";
 import CardCargo from "./CardCargo";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { Search } from "lucide-react";
@@ -69,27 +69,30 @@ export default function ListaCargo() {
 
   if (loadingPage) {
     return (
-      <Hourglass
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="hourglass-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        colors={["#306cce", "#72a1ed"]}
-      />
+      <div className="flex justify-center items-center h-screen w-full">
+        <RotatingLines
+          strokeColor="white"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="80"
+          visible={true}
+        />
+      </div>
     );
   }
 
   return (
-    <div className="w-full p-6">
-      <div className="flex gap-3 ml-1 my-6 items-center">
-        <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">
-          <IoArrowBackSharp className="w-7 h-7" />
+    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-7xl">
+
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center mb-6 sm:mb-8">
+        <Link to="/home" className="flex items-center rounded-full p-2 sm:p-3 hover:bg-gray-200 
+                                     hover:-translate-x-1 sm:hover:-translate-x-2 transition-all duration-300">
+
+          <IoArrowBackSharp className="w-6 h-6 sm:w-7 sm:h-7 text-rh-primarygrey" />
         </Link>
 
         <div className="w-full flex flex-wrap justify-between items-center mb-6">
-          <h3 className="text-3xl font-medium text-rh-primarygrey">Lista de Cargos</h3>
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-rh-primarygrey mt-2 sm:mt-0">Lista de Cargos</h3>
 
           <div className="flex items-center px-3 py-1.5 border border-gray-600 rounded-lg text-sm w-72 gap-3">
             <input
@@ -106,14 +109,14 @@ export default function ListaCargo() {
       </div>
 
       {cargosFiltrados.length === 0 ? (
-        <div className="flex flex-col items-center justify-center w-full h-full">
-          <p className="text-xl font-semibold text-rh-primarygrey mt-4">
+        <div className="flex flex-col items-center justify-center w-full min-h-[calc(100vh-250px)]">
+          <p className="text-xl md:text-2xl font-semibold text-rh-primarygrey mt-4">
             Nenhum cargo encontrado.
           </p>
         </div>
       ) : (
         <div>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             {cargosPaginados.map((cargo) => (
               <CardCargo key={cargo.id} cargo={cargo} />
             ))}
