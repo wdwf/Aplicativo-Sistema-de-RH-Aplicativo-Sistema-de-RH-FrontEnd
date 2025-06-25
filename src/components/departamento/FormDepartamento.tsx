@@ -119,45 +119,45 @@ function FormDepartamento() {
   return (
 
     <>
-      <div className="flex min-h-screen relative justify-between">
+      <div className="flex min-h-screen justify-between">
         <img className="sticky h-screen " src={ColunaEsquerda} alt="Coluna Esquerda" />
         <div className="flex flex-col gap-4 p-4">
 
-          <h1 className="text-4xl text-center my-8 text-rh-primaryblue">
+          <h1 className="text-4xl text-center my-8 text-rh-primarypurple">
             {id === undefined
               ? "Cadastrar Departamento"
               : "Editar Departamento"}
           </h1>
-
+                  {/* aqui eu deixei um padding de 6 para ajustar o tamanho dos campos do forms */}
           <form
-            className="flex flex-col gap-4 "
+            className="flex flex-col gap-2 px-6" 
             onSubmit={gerarNovoDepartamento}
           >
-            <div className="flex flex-col gap-2 focus:ring-2 ">
-              <label className="text-rh-secondaryblue" htmlFor="nome">Nome do Departamento</label>
+            <div className=" w-full flex flex-col gap-2 focus:ring-2">
+              <label className="text-rh-secondarypurple" htmlFor="nome">Nome do Departamento</label>
               <input
                 type="text"
                 placeholder="Escreva o nome do Departamento"
                 name="nome"
-                className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
+                className="w-full p-2 rounded-sm border-2 border-rh-primarygrey px-3 py-2 text-md focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                 value={departamento.nome}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   atualizarEstado(e)
                 }
               />
 
-              <label className="text-rh-secondaryblue" htmlFor="andar">Andar</label>
+              <label className="text-rh-secondarypurple" htmlFor="andar">Andar</label>
               <input
                 type="number"
                 placeholder="Digite o numero do andar do Departamento"
                 name="andar"
-                className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
+                className="w-full p-2 rounded border-2 border-rh-primarygrey px-3 py-2 text-md focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
                 value={departamento.andar}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   atualizarEstado(e)
                 }
               />
-              <label className="text-rh-secondaryblue" htmlFor="ramal">Ramal</label>
+              <label className="text-rh-secondarypurple" htmlFor="ramal">Ramal</label>
               <input
                 type="text"
                 placeholder="Por Ex: 123"
@@ -169,7 +169,7 @@ function FormDepartamento() {
                 }
               />
 
-              <label className="text-rh-secondaryblue" htmlFor="descricao">Descrição do Departamento</label>
+              <label className="text-rh-secondarypurple" htmlFor="descricao">Descrição do Departamento</label>
               <textarea
 
                 placeholder="Descreva aqui seu Departamento"
@@ -184,34 +184,22 @@ function FormDepartamento() {
 
 
             </div>
-            <div className="flex justify-between pb-[20px] pt-[10px]">
-              <button onClick={() => setMostrarModal(true)}
-                className="rounded text-slate-100 bg-rh-primarypurple transition-colors duration-500
-                                    hover:bg-rh-secondarypurple w-[150px] py-2  flex justify-center"
-                type="submit"
-              >
-                {isLoading ? (
+            <div className='flex gap-2 mt-6'>
+              <button
+                className="flex justify-center items-center w-full cursor-pointer rounded-sm border-none px-3 py-2 font-medium  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 text-rh-primary-white bg-rh-primarypurple hover:bg-rh-secondarypurple transition-colors duration-500"
+                type="submit">
+                {isLoading ?
                   <RotatingLines
                     strokeColor="white"
                     strokeWidth="5"
                     animationDuration="0.75"
                     width="24"
                     visible={true}
-                  />
-                ) : (
-                  <span>{id === undefined ? "Cadastrar" : "Atualizar"}</span>
-                )}
+                  /> :
+                  <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                }
               </button>
-
-
-
-
-              <Link to="/departamentos"
-                className="rounded text-slate-100 bg-rh-primarygrey
-                                    transition-colors hover:bg-rh-secondaryblue duration-500 w-[150px] py-2  flex justify-center"
-              >
-                Cancelar
-              </Link>
+              <Link to="/departamentos" className="rounded text-slate-100 bg-gray-800 hover:bg-gray-950 transition-colors duration-500 w-full py-2 mx-auto flex justify-center">Cancelar</Link>
             </div>
           </form>
         </div>
