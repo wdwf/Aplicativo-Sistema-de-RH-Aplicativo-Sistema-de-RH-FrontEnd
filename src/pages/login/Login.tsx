@@ -18,7 +18,7 @@ function Login() {
     )
 
     useEffect(() => {
-        if (usuario.token !== "") {
+        if (usuario?.token) {
             navigate('/home')
         }
     }, [usuario])
@@ -37,19 +37,19 @@ function Login() {
 
     return (
 
-        <div className="flex min-h-screen">
-            <div className="w-1/2 bg-white flex flex-col justify-center items-center py-12">
+        <div className="flex flex-col md:flex-row min-h-screen">
+            <div className="w-full lg:w-1/2 bg-white flex flex-col justify-center items-center py-8 px-4 md:py-12">
                 <div className="w-full max-w-md">
-                    <div className="flex flex-col mb-4 md:items-center">
-                        <img src={Logo} alt="Logo Fitlab" className="h-16" />
+                    <div className="flex flex-col mb-4 items-center">
+                        <img src={Logo} alt="Logo Fitlab" className="h-12 md:h-16 mb-2" />
                     </div>
 
 
-                    <h1 className="text-rh-primarygrey text-4xl text-center ">Acesse a Plataforma</h1>
-                    <p className="text-rh-secondarygrey text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
+                    <h1 className="text-rh-primarygrey text-3xl md:text-4xl text-center mb-2 ">Acesse a Plataforma</h1>
+                    <p className="text-rh-secondarygrey text-sm md:text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
 
-                    <form onSubmit={login}>
-                        <div className="mb-4">
+                    <form className="space-y-4" onSubmit={login}>
+                        <div>
                             <label className="block text-text mb-1" htmlFor="usuario">E-mail</label>
                             <input
                                 type="email"
@@ -62,7 +62,7 @@ function Login() {
                             />
                         </div>
 
-                        <div className="mb-6">
+                        <div>
                             <label className="block text-text mb-1" htmlFor="senha">Senha</label>
                             <input
                                 type="password"
@@ -98,7 +98,7 @@ function Login() {
                     </form>
                 </div>
             </div>
-            <div className="w-1/2 relative flex items-end justify-center px-1 overflow-hidden group ">
+            <div className="hidden lg:flex lg:w-1/2 relative items-end justify-center px-1 overflow-hidden group ">
                 <img
                     src={Bg}
                     alt="Imagem normal"

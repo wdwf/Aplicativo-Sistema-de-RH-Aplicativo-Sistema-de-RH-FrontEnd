@@ -33,3 +33,7 @@ input[type="number"] {
   --color-rh-secondarygrey: #848681;
   --color-rh-secondary-red: #fb5767;
 }
+
+.img-suave {
+  image-rendering: smooth;
+}

@@ -15,7 +15,7 @@ export default function EditarPerfilTabela() {
 
   const navigate = useNavigate();
 
-  const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
+  const { usuario, setUsuario, handleLogout, isAuthLoading } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [listaCargos, setListaCargos] = useState<Cargo[]>([]);
   const [usuarioEditar, setUsuarioEditar] = useState<Usuario>({
@@ -53,7 +53,7 @@ export default function EditarPerfilTabela() {
         },
         {
           headers: {
-            Authorization: usuario.token,
+            Authorization: usuario?.token,
           },
         }
       );
@@ -67,7 +67,7 @@ export default function EditarPerfilTabela() {
   async function buscarCargo() {
     try {
       await buscar("/cargo", setListaCargos, {
-        headers: { Authorization: usuario.token },
+        headers: { Authorization: usuario?.token },
       });
     } catch (error: any) {
       if (error.toString().includes("403")) {
@@ -86,7 +86,7 @@ export default function EditarPerfilTabela() {
     try {
       await atualizar("/usuario/atualizar", usuarioEditar, setUsuario, {
         headers: {
-          Authorization: usuario.token,
+          Authorization: usuario?.token,
         },
       });
 
@@ -111,37 +111,51 @@ export default function EditarPerfilTabela() {
   }
 
   useEffect(() => {
-    if (usuario.token === "") {
-      return;
-    }
-    if (!usuario.token) {
-      ToastAlerta("Você precisa estar Logado!", "info");
-      handleLogout();
-      navigate("/");
-    } else {
-      if (id) {
-        buscarCargo();
-        buscarUserPorId(String(id)).then(() => {
-          setUsuarioEditar((prevData) => ({
-            ...prevData,
-            senha: "",
-          }));
-        });
+    window.scrollTo(0, 0);
+    if (!isAuthLoading) {
+      if (!usuario.token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
+      } else {
+        if (id) {
+          buscarCargo();
+          buscarUserPorId(String(id)).then(() => {
+            setUsuarioEditar((prevData) => ({
+              ...prevData,
+              senha: "",
+            }));
+          });
+        }
       }
     }
-  }, [usuario.token]);
+  }, [isAuthLoading, usuario?.token]);
 
+  if (isAuthLoading) {
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
+  }
+
+  if (!usuario?.token) {
+    return null;
+  }
 
   return (
 
-    <div className="flex min-h-screen relative justify-between">
-      <img src={bgeditar1} alt="decorativo" className="sticky top-0 h-screen" />
+    <div className="flex flex-col md:flex-row min-h-screen relative overflow-hidden">
+      <img src={bgeditar1} alt="decorativo" className="hidden md:block absolute md:sticky md:top-0 md:h-screen md:w-1/4 object-cover" />
 
-      <div className="w-full max-w-md m-auto px-4 my-6">
-        <h2 className="font-medium text-4xl mb-8 text-center">Seus Dados</h2>
+      <div className="w-full md:w-1/2 flex flex-col justify-center m-auto px-4 py-8">
+        <h2 className="font-medium text-3xl md:text-4xl mb-6 text-center">Seus Dados</h2>
 
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
-          <div className="mb-2">
+        <form className="flex flex-col gap-4 md:gap-6" onSubmit={handleSubmit}>
+          <div>
             <label className="block text-text mb-1" htmlFor="nome">
               Nome
             </label>
@@ -158,7 +172,7 @@ export default function EditarPerfilTabela() {
             />
           </div>
 
-          <div className="mb-2">
+          <div>
             <label className="block text-text mb-1" htmlFor="usuario">
               Email
             </label>
@@ -175,7 +189,7 @@ export default function EditarPerfilTabela() {
             />
           </div>
 
-          <div className="mb-2">
+          <div>
             <label className="block text-text mb-1" htmlFor="senha">
               Senha
             </label>
@@ -192,7 +206,7 @@ export default function EditarPerfilTabela() {
             />
           </div>
 
-          <div className="mb-2">
+          <div>
             <label className="block text-text mb-1" htmlFor="foto">
               Foto
             </label>
@@ -209,7 +223,7 @@ export default function EditarPerfilTabela() {
             />
           </div>
 
-          <div className="mb-2">
+          <div>
             <label className="block text-text mb-1" htmlFor="cargo">
               Cargo
             </label>
@@ -232,17 +246,28 @@ export default function EditarPerfilTabela() {
             </select>
           </div>
 
-          <div className="flex justify-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
             <button
               type="submit"
-              className="bg-rh-primaryblue text-rh-primary-50 px-10 py-2 rounded hover:bg-rh-secondaryblue transition-colors"
+              className="bg-rh-primaryblue text-rh-primary-50 px-6 py-2 rounded hover:bg-rh-secondaryblue transition-colors w-full sm:w-auto flex justify-center items-center"
+              disabled={isLoading}
             >
-              Atualizar
+              {isLoading ? (
+                <RotatingLines
+                  strokeColor="white"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="24"
+                  visible={true}
+                />
+              ) : (
+                <span>Atualizar</span>
+              )}
             </button>
 
             <button
               type="button"
-              className="bg-rh-primarygrey text-rh-primary-50 px-10 py-2 rounded hover:bg-gray-800 transition-colors"
+              className="bg-rh-primarygrey text-rh-primary-50 px-6 py-2 rounded hover:bg-gray-800 transition-colors w-full sm:w-auto"
               onClick={() => navigate("/gerenciar-perfis")} // ou use a função desejada
             >
               Cancelar
@@ -252,7 +277,7 @@ export default function EditarPerfilTabela() {
         </form>
       </div>
 
-      <img src={bgeditar2} alt="decorativo" className="sticky top-0 h-screen" />
+      <img src={bgeditar2} alt="decorativo" className="hidden md:block absolute md:sticky md:top-0 md:h-screen md:w-1/4 object-cover" />
 
     </div>
   );

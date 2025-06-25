@@ -18,7 +18,7 @@ function Home() {
     window.scrollTo(0, 0);
     const navigate = useNavigate();
 
-    const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
+    const { usuario, setUsuario, handleLogout, isAuthLoading } = useContext(AuthContext);
     const [usuarioData, setUsuarioData] = useState<Usuario>({} as Usuario);
 
     async function buscarUserPorId(id: string) {
@@ -27,7 +27,7 @@ function Home() {
                 `/usuario/${id}`, setUsuarioData,
                 {
                     headers: {
-                        Authorization: usuario.token,
+                        Authorization: usuario?.token,
                     },
                 }
             );
@@ -40,92 +40,98 @@ function Home() {
 
 
     useEffect(() => {
-        if (usuario.token === "") {
-            return;
-        }
-        if (!usuario.token) {
-            ToastAlerta("Você precisa estar Logado!", "info");
-            handleLogout();
-            navigate("/");
-        } else {
-            if (usuario.id) {
-                buscarUserPorId(String(usuario.id))
+        if (!isAuthLoading) {
+            if (!usuario?.token) {
+                ToastAlerta("Você precisa estar Logado!", "info");
+                navigate("/");
+            } else {
+                if (usuario?.id) {
+                    buscarUserPorId(String(usuario?.id))
+                }
             }
         }
-    }, [usuario.token]);
+    }, [isAuthLoading, usuario?.token]);
+
+    if (isAuthLoading) {
+        return <h1>Carregando ...</h1>;
+    }
+
+    if (!usuario?.token) {
+        return null;
+    }
 
     return (
 
         <>
-            <div className="pt-6 pb-9">
-                <div className="rounded bg-rh-primary-50 w-full flex flex-col md:flex-row justify-between items-center px-6 py-3">
-                    <div className='flex flex-col gap-2'>
-                        <p className="text-4xl font-semibold text-rh-primarygrey">Potencialize seu time.</p>
-                        <p className="text-4xl font-semibold text-rh-primarygrey">Construa futuros.</p>
-                        <span className="font-extralight text-md text-rh-primarygrey">#rhcorp</span>
+            <div className="pt-6 pb-9 px-4 md:px-6">
+                <div className="rounded bg-rh-primary-50 w-full flex flex-col md:flex-row justify-between items-center p-4 md:p-6">
+                    <div className='flex flex-col gap-2 text-center md:text-left mb-4 md:mb-0'>
+                        <p className="text-2xl md:text-4xl font-semibold text-rh-primarygrey leading-tight">Potencialize seu time.</p>
+                        <p className="text-2xl md:text-4xl font-semibold text-rh-primarygrey leading-tight">Construa futuros.</p>
+                        <span className="font-extralight text-sm md:text-md text-rh-primarygrey">#rhcorp</span>
                     </div>
-                    <img src={Banner} alt="banner" className='w-2/4' />
+                    <img src={Banner} alt="banner" className='w-full md:w-2/4 max-h-48 md:max-h-full object-contain' />
                 </div>
 
-                <div className='flex flex-col gap-4 px-6'>
-                    <h3 className='text-3xl font-medium py-2.5 text-rh-primarygrey'>
+                <div className='flex flex-col gap-4 mt-6'>
+                    <h3 className='text-2xl md:text-3xl font-medium py-2.5 text-rh-primarygrey text-center md:text-left'>
                         Funcionalidades
                     </h3>
-                    <div className='flex flex-wrap gap-4 md:justify-center'>
+                    <div className='flex flex-col md:flex-row flex-wrap gap-4 justify-center'>
                         <Link to="/cadastrar-cargo"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                            className={`w-full max-w-[420px] h-[160px] md:h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col justify-end hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnDep})` }}
                         >
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
-                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
+                            <FaArrowRight width={20} height={20} className='text-rh-primary-white w-6 h-6 mt-1' />
                         </Link>
                         <Link to="/cadastrar-departamento"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                            className={`w-full max-w-[420px] h-[160px] md:h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col justify-end hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCar})` }}
                         >
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
-                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Cadastrar</p>
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
+                            <FaArrowRight width={20} height={20} className='text-rh-primary-white w-6 h-6 mt-1' />
                         </Link>
                         <Link to="/calcular-salario"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                            className={`w-full max-w-[420px] h-[160px] md:h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col justify-end hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCal})` }}
                         >
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Calcular</p>
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Salario</p>
-                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Calcular</p>
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Salario</p>
+                            <FaArrowRight width={20} height={20} className='text-rh-primary-white w-6 h-6 mt-1' />
                         </Link>
                     </div>
                 </div>
-                <div className='flex gap-4 px-6 mt-6 flex-wrap justify-center'>
+                <div className='flex flex-col md:flex-row flex-wrap gap-4 mt-6 justify-center'>
                     <Link to="/cargos"
-                        className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                        className={`w-full max-w-[420px] h-[160px] md:h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col justify-end hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                         style={{ backgroundImage: `url(${BtnDep})` }}
                     >
-                        <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Listar</p>
-                        <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
-                        <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                        <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Listar</p>
+                        <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Cargo</p>
+                        <FaArrowRight width={20} height={20} className='text-rh-primary-white w-6 h-6 mt-1' />
                     </Link>
                     <Link to="/departamentos"
-                        className={`w-full max-w-[420px] h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                        className={`w-full max-w-[420px] h-[160px] md:h-[200px] bg-cover  bg-center rounded-sm p-6 flex flex-col justify-end hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                         style={{ backgroundImage: `url(${BtnCar})` }}
                     >
                         <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Listar</p>
                         <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Departamento</p>
-                        <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                        <FaArrowRight width={20} height={20} className='text-rh-primary-white w-6 h-6 mt-1' />
                     </Link>
 
 
                     {
                         usuarioData.cargo?.nome === "Recursos Humanos" &&
                         <Link to="/gerenciar-perfis"
-                            className={`w-full max-w-[420px] h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
+                            className={`w-full max-w-[420px] h-[160px] md:h-[200px] bg-cover bg-center rounded-sm p-6 flex flex-col justify-end hover:shadow-[6px_6px_0px_rgba(0,0,0,1)] transition-all duration-300 ease-in-out`}
                             style={{ backgroundImage: `url(${BtnCal})` }}
                         >
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Gerenciar</p>
-                            <p className='text-xl font-semibold text-rh-primary-50 tracking-wide'>Perfis</p>
-                            <FaArrowRight width={25} height={25} className='text-rh-primary-white w-7 h-7 mt-2' />
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Gerenciar</p>
+                            <p className='text-lg md:text-xl font-semibold text-rh-primary-50 tracking-wide'>Perfis</p>
+                            <FaArrowRight width={20} height={20} className='text-rh-primary-white w-6 h-6 mt-1' />
                         </Link>
                     }
                 </div>
