@@ -17,8 +17,7 @@ export default function ListaCargo() {
   const [busca, setBusca] = useState('');
   const [loadingPage, setLoadingPage] = useState(true);
 
-  const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const { usuario, handleLogout, isAuthLoading } = useContext(AuthContext);
 
   // Paginação e ordenação
   const [paginaAtual, setPaginaAtual] = useState(0);
@@ -30,7 +29,7 @@ export default function ListaCargo() {
       await buscar("/cargo", (res: Cargo[]) => {
         setCargo(res);
       }, {
-        headers: { Authorization: token }
+        headers: { Authorization: usuario.token }
       });
       setLoadingPage(false);
     } catch (error: any) {
@@ -43,14 +42,16 @@ export default function ListaCargo() {
   }
 
   useEffect(() => {
-    if (!token) {
-      ToastAlerta("Você precisa estar logado!", "info");
-      handleLogout();
-      navigate("/");
-    } else {
-      buscarCargos();
+    window.scrollTo(0, 0);
+    if (!isAuthLoading) {
+      if (!usuario.token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
+      } else {
+        buscarCargos();
+      }
     }
-  }, [token]);
+  }, [isAuthLoading, usuario?.token]);
 
   useEffect(() => {
     setPaginaAtual(0);
@@ -67,44 +68,45 @@ export default function ListaCargo() {
   );
   const totalPaginas = Math.ceil(cargosFiltrados.length / itensPorPagina);
 
-  if (loadingPage) {
-    return (
-      <div className="flex justify-center items-center h-screen w-full">
-        <RotatingLines
-          strokeColor="white"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="80"
-          visible={true}
-        />
-      </div>
-    );
+  if (isAuthLoading) {
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
+  }
+
+  if (!usuario?.token) {
+    return null;
   }
 
   return (
     <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-7xl">
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center mb-6 sm:mb-8">
-        <Link to="/home" className="flex items-center rounded-full p-2 sm:p-3 hover:bg-gray-200 
-                                     hover:-translate-x-1 sm:hover:-translate-x-2 transition-all duration-300">
+      <div className="flex flex-col md:flex-row md:justify-between gap-3 sm:gap-4 items-start lg:items-center mb-6 sm:mb-8">
+        <div className="flex gap-6 items-center">
+          <Link to="/home" className="flex items-center rounded-full p-2 sm:p-3 hover:bg-gray-200 
+                                      hover:-translate-x-1 sm:hover:-translate-x-2 transition-all duration-300">
 
-          <IoArrowBackSharp className="w-6 h-6 sm:w-7 sm:h-7 text-rh-primarygrey" />
-        </Link>
+            <IoArrowBackSharp className="w-6 h-6 sm:w-7 sm:h-7 text-rh-primarygrey" />
+          </Link>
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-rh-primarygrey sm:mt-0">Lista de Cargos</h3>
+        </div>
 
-        <div className="w-full flex flex-wrap justify-between items-center mb-6">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-rh-primarygrey mt-2 sm:mt-0">Lista de Cargos</h3>
-
-          <div className="flex items-center px-3 py-1.5 border border-gray-600 rounded-lg text-sm w-72 gap-3">
-            <input
-              type="text"
-              placeholder="Buscar cargo"
-              className="bg-transparent flex-1 outline-none border-0 p-0 text-sm focus:ring-0"
-              onChange={(e) => setBusca(e.target.value)}
-              autoComplete="off"
-              value={busca}
-            />
-            <Search className="size-4 text-rh-primarygrey" />
-          </div>
+        <div className="flex w-full md:max-w-[300px] items-center px-3 py-1.5 border border-gray-600 rounded-lg text-sm w-72 gap-3">
+          <input
+            type="text"
+            placeholder="Buscar cargo"
+            className="bg-transparent flex-1 outline-none border-0 p-0 text-sm focus:ring-0"
+            onChange={(e) => setBusca(e.target.value)}
+            autoComplete="off"
+            value={busca}
+          />
+          <Search className="size-4 text-rh-primarygrey" />
         </div>
       </div>
 

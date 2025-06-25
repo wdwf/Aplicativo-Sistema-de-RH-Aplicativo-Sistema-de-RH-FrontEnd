@@ -72,8 +72,8 @@ function Cadastro() {
 
   return (
 
-    <div className="flex flex-col md:flex-row min-h-screen">
-      <div className="hidden md:flex md:w-1/2 relative items-end justify-center overflow-hidden group">
+    <div className="flex flex-col lg:flex-row min-h-screen">
+      <div className="hidden lg:flex lg:w-1/2 relative items-end justify-center px-1 overflow-hidden group">
         <img
           src={Bg}
           alt="Imagem normal"
@@ -86,7 +86,7 @@ function Cadastro() {
         />
       </div>
 
-      <div className=" w-full md:w-1/2 bg-white flex flex-col justify-center items-center py-8 px-4 md:py-12">
+      <div className=" w-full lg:w-1/2 bg-white flex flex-col justify-center items-center py-8 px-4 md:py-12">
         <div className="w-full max-w-md">
           <div className="flex flex-col mb-4 items-center">
             <img src={Logo} alt="Logo Rh Corp" className="h-12 md:h-16 mb-2" />

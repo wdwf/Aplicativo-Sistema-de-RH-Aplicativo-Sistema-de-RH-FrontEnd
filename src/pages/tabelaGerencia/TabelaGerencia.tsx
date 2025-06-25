@@ -207,17 +207,6 @@ export default function TabelaGerencia() {
   }, [listaUsuarios]);
 
   useEffect(() => {
-    if (token === '') return;
-    if (!token) {
-      ToastAlerta('Você precisa estar logado!', 'info');
-      handleLogout();
-      navigate('/');
-    } else {
-      buscarCargos();
-    }
-  }, [token]);
-
-  useEffect(() => {
     aplicarFiltros();
   }, [busca, filtrosCargo, filtrosDepartamento, listaUsuarios]);
 
@@ -258,7 +247,15 @@ export default function TabelaGerencia() {
 
 
   if (isAuthLoading) {
-    return <h1>Carregando ...</h1>;
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
   }
 
   if (!usuario?.token) {

@@ -5,11 +5,12 @@ import { ToastAlerta } from "../utils/ToastAlerta";
 import { buscar } from "../services/Service";
 import bgperfil from "../assets/img/bgPerfil.png";
 import Usuario from "../models/Usuario";
+import { RotatingLines } from "react-loader-spinner";
 
 export default function Perfil() {
   const navigate = useNavigate();
 
-  const { usuario, handleLogout } = useContext(AuthContext);
+  const { usuario, handleLogout, isAuthLoading } = useContext(AuthContext);
 
   const [usuarioPerfil, setUsuarioPerfil] = useState<Usuario>({
     id: Number(""),
@@ -49,9 +50,32 @@ export default function Perfil() {
   }
 
   useEffect(() => {
-    buscarUserPorId(String(usuario?.id))
+    window.scrollTo(0, 0);
+    if (!isAuthLoading) {
+      if (!usuario?.token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
+      } else {
+        buscarUserPorId(String(usuario?.id))
+      }
+    }
+  }, [isAuthLoading, usuario?.token])
 
-  }, [])
+  if (isAuthLoading) {
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
+  }
+
+  if (!usuario?.token) {
+    return null;
+  }
 
   return (
     <div className="relative flex flex-col items-center min-h-screen">
@@ -59,7 +83,7 @@ export default function Perfil() {
         className="w-full h-48 md:h-64 object-cover object-center absolute top-0 left-0 z-0"
       />
       <div className="absolute z-10 top-24 md:top-32 text-center flex flex-col items-center bg-white p-6 rounded-lg shadow-lg mx-4 w-11/12 max-w-sm sm:max-w-md lg:max-w-lg">
-        <img src={usuario.foto} alt="foto do usuario" className="rounded-full border-4 md:border-8 border-white w-24 h-24 md:w-32 md:h-32 object-cover -mt-16 md:-mt-20 shadow-md " />
+        <img src={usuario?.foto} alt="foto do usuario" className="rounded-full border-4 md:border-8 border-white w-24 h-24 md:w-32 md:h-32 object-cover -mt-16 md:-mt-20 shadow-md " />
         <p className="mt-6 mb-1 font-semibold text-2xl md:text-4xl">
           {usuario.nome}
         </p>

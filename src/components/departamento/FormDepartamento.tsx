@@ -18,30 +18,29 @@ function FormDepartamento() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [loadingPage, setLoadingPage] = useState(true);
 
-  const { usuario, handleLogout } = useContext(AuthContext);
+  const { usuario, handleLogout, isAuthLoading } = useContext(AuthContext);
   const token = usuario?.token;
   const [mostrarModal, setMostrarModal] = useState(false);
 
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    if (token === "") {
-      return;
-    }
-    if (!token) {
-      ToastAlerta("Você precisa estar Logado!", "info");
-      handleLogout();
-      navigate("/");
-    } else {
-      if (id !== undefined) {
-        buscar(`/departamento/${id}`, (data: Departamento) => {
-          const numeroAndar = parseInt(data.andar); // remove o "° Andar"
-          setDepartamento({ ...data, andar: numeroAndar.toString() });
-        }, {
-          headers: { Authorization: token },
-        });
+    window.scrollTo(0, 0);
+    if (!isAuthLoading) {
+      if (!token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
+      } else {
+        if (id !== undefined) {
+          buscar(`/departamento/${id}`, (data: Departamento) => {
+            const numeroAndar = parseInt(data.andar); // remove o "° Andar"
+            setDepartamento({ ...data, andar: numeroAndar.toString() });
+          }, {
+            headers: { Authorization: token },
+          });
+        }
+        setLoadingPage(false);
       }
-      setLoadingPage(false);
     }
   }, [token]);
 
@@ -104,18 +103,16 @@ function FormDepartamento() {
     retornar();
   }
 
-  if (loadingPage) {
-    return (
-      <div className="flex justify-center items-center h-screen w-full">
-        <RotatingLines
-          strokeColor="black"
-          strokeWidth="5"
-          animationDuration="0.75"
-          width="24"
-          visible={true}
-        />
-      </div>
-    );
+  if (isAuthLoading) {
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
   }
 
   return (
@@ -123,9 +120,9 @@ function FormDepartamento() {
     <>
       <div className="flex min-h-screen relative justify-between">
         <img className="sticky h-screen hidden md:block w-auto " src={ColunaEsquerda} alt="Coluna Esquerda" />
-        <div className="flex flex-col gap-4 p-4 sm:p-6 md:p-8 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto">
+        <div className="md:w-[500px] flex flex-col gap-4 p-4 sm:p-6 md:p-8 w-full sm:w-2/3 mx-auto">
 
-          <h1 className="text-2xl sm:text-3xl md:text-4xl text-center my-4 sm:my-6 md:my-8 text-rh-primaryblue">
+          <h1 className="text-2xl sm:text-3xl text-wrap md:text-4xl text-center my-4 sm:my-6 md:my-8 text-rh-primarygrey">
             {id === undefined
               ? "Cadastrar Departamento"
               : "Editar Departamento"}
@@ -136,7 +133,7 @@ function FormDepartamento() {
             onSubmit={gerarNovoDepartamento}
           >
             <div className="flex flex-col gap-2">
-              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="nome">Nome do Departamento</label>
+              <label className="text-rh-primarygrey text-sm sm:text-base" htmlFor="nome">Nome do Departamento</label>
               <input
                 type="text"
                 placeholder="Escreva o nome do Departamento"
@@ -150,7 +147,7 @@ function FormDepartamento() {
                 }
               />
 
-              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="andar">Andar</label>
+              <label className="text-rh-primarygrey text-sm sm:text-base" htmlFor="andar">Andar</label>
               <input
                 type="number"
                 placeholder="Digite o numero do andar do Departamento"
@@ -163,7 +160,7 @@ function FormDepartamento() {
                   atualizarEstado(e)
                 }
               />
-              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="ramal">Ramal</label>
+              <label className="text-rh-primarygrey text-sm sm:text-base" htmlFor="ramal">Ramal</label>
               <input
                 type="text"
                 placeholder="Por Ex: 123"
@@ -177,7 +174,7 @@ function FormDepartamento() {
                 }
               />
 
-              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="descricao">Descrição do Departamento</label>
+              <label className="text-rh-primarygrey text-sm sm:text-base" htmlFor="descricao">Descrição do Departamento</label>
               <textarea
 
                 placeholder="Descreva aqui seu Departamento"

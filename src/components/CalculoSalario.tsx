@@ -7,6 +7,7 @@ import Usuario from "../models/Usuario"
 import { AuthContext } from "../contexts/AuthContext"
 import { X } from "lucide-react"
 import { useReactToPrint } from "react-to-print";
+import { RotatingLines } from "react-loader-spinner"
 
 
 
@@ -35,7 +36,7 @@ interface UsuarioSelecionado {
 function CalculoSalario() {
 
   const navigate = useNavigate()
-  const { usuario, handleLogout } = useContext(AuthContext);
+  const { usuario, handleLogout, isAuthLoading } = useContext(AuthContext);
   const token = usuario?.token;
 
   const [usuarioId, setUsuarioId] = useState<number>()
@@ -73,16 +74,15 @@ function CalculoSalario() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (token === '') return;
-    if (!token) {
-      ToastAlerta('Você precisa estar logado!', 'info')
-      handleLogout();
-      navigate('/')
+    if (!isAuthLoading) {
+      if (!usuario.token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
+      } else {
+        buscarUsuarios()
+      }
     }
-    else {
-      buscarUsuarios()
-    }
-  }, [token])
+  }, [isAuthLoading, token])
 
 
   useEffect(() => {
@@ -181,15 +181,30 @@ function CalculoSalario() {
     }),
   };
 
+  if (isAuthLoading) {
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
+  }
+
+  if (!usuario?.token) {
+    return null;
+  }
 
   return (
     <>
-<div className="fixed inset-0 z-40 bg-white/30 backdrop-blur-sm" />
+      <div className="fixed inset-0 z-40 bg-white/30 backdrop-blur-sm" />
 
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8 overflow-y-auto">
-        
+
         <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center gap-4 sm:gap-8 w-full">
-        
+
           <div className={`bg-white rounded-xl shadow-2xl w-full max-w-sm sm:max-w-md p-6 sm:p-8 flex-shrink-0 flex-1 max-h-[calc(100vh-2rem)] overflow-y-auto ${isOpen ? 'hidden' : 'block'} sm:block`}>
             <div className="text-center relative mb-4">
               <button
@@ -362,7 +377,7 @@ function CalculoSalario() {
                   {salarioLiquido.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
                 </p>
               </div>
-              
+
               <div className="flex justify-center">
                 <button onClick={reactToPrintFn} className="bg-rh-primarygrey text-white p-2 rounded hover:bg-rh-secondaryblue w-full text-base sm:text-lg print:hidden">
                   Imprimir

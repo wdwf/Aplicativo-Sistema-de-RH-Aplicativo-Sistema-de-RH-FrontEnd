@@ -140,6 +140,7 @@ export default function Sobre() {
                   src={membro.foto}
                   alt={membro.nome}
                   className="w-20 h-20 object-cover object-center rounded-full border-2 border-rh-primarygrey flex-shrink-0" // Aumentei o tamanho para w-20 h-20 (80px)
+                  style={{ overflowClipMargin: "unset" }}
                 />
                 <div>
                   <span className="font-bold text-base md:text-lg">{membro.nome}</span> {/* Aumentei o tamanho do nome para text-base */}

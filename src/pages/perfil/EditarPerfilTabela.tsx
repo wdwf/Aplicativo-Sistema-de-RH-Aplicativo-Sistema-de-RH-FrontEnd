@@ -15,7 +15,7 @@ export default function EditarPerfilTabela() {
 
   const navigate = useNavigate();
 
-  const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
+  const { usuario, setUsuario, handleLogout, isAuthLoading } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [listaCargos, setListaCargos] = useState<Cargo[]>([]);
   const [usuarioEditar, setUsuarioEditar] = useState<Usuario>({
@@ -111,26 +111,40 @@ export default function EditarPerfilTabela() {
   }
 
   useEffect(() => {
-    if (usuario?.token === "") {
-      return;
-    }
-    if (!usuario?.token) {
-      ToastAlerta("Você precisa estar Logado!", "info");
-      handleLogout();
-      navigate("/");
-    } else {
-      if (id) {
-        buscarCargo();
-        buscarUserPorId(String(id)).then(() => {
-          setUsuarioEditar((prevData) => ({
-            ...prevData,
-            senha: "",
-          }));
-        });
+    window.scrollTo(0, 0);
+    if (!isAuthLoading) {
+      if (!usuario.token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
+      } else {
+        if (id) {
+          buscarCargo();
+          buscarUserPorId(String(id)).then(() => {
+            setUsuarioEditar((prevData) => ({
+              ...prevData,
+              senha: "",
+            }));
+          });
+        }
       }
     }
-  }, [usuario?.token]);
+  }, [isAuthLoading, usuario?.token]);
 
+  if (isAuthLoading) {
+    return <div className="flex justify-center items-center h-screen w-full">
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="80"
+        visible={true}
+      />
+    </div>;
+  }
+
+  if (!usuario?.token) {
+    return null;
+  }
 
   return (
 

@@ -25,7 +25,7 @@ export default function FormCargo() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [loadingPage, setLoadingPage] = useState(true);
 
-  const { usuario, handleLogout } = useContext(AuthContext)
+  const { usuario, handleLogout, isAuthLoading } = useContext(AuthContext)
   const token = usuario?.token
   const { id } = useParams<{ id: string }>();
 
@@ -87,7 +87,6 @@ export default function FormCargo() {
           salario: Number(cargo.salario),
           id: Number(cargo.id)
         }
-        console.log(cargoConvertido);
 
         await atualizar(`/cargo`, cargoConvertido, setCargo, {
           headers: { 'Authorization': token }
@@ -130,36 +129,37 @@ export default function FormCargo() {
   }
 
   useEffect(() => {
-    console.log("aqui");
-
     window.scrollTo(0, 0);
-    if (token === '') return;
-    if (!token) {
-      ToastAlerta('Você precisa estar logado!', 'info')
-      handleLogout();
-      navigate('/')
-    }
-    else {
-      buscarDepartamentos()
-      if (id !== undefined) {
-        buscarPorId(id)
+    if (!isAuthLoading) {
+      if (!token) {
+        ToastAlerta('Você precisa estar logado!', 'info')
+        navigate('/')
       }
-      setLoadingPage(false);
+      else {
+        buscarDepartamentos()
+        if (id !== undefined) {
+          buscarPorId(id)
+        }
+        setLoadingPage(false);
+      }
     }
-  }, [token, id])
+  }, [isAuthLoading, token, id])
 
-  if (loadingPage) {
+
+  if (isAuthLoading) {
     return <div className="flex justify-center items-center h-screen w-full">
-      <Hourglass
-        visible={true}
-        height="80"
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
         width="80"
-        ariaLabel="hourglass-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        colors={['#306cce', '#72a1ed']}
+        visible={true}
       />
-    </div>
+    </div>;
+  }
+
+  if (!usuario?.token) {
+    return null;
   }
 
   return (
@@ -168,7 +168,7 @@ export default function FormCargo() {
 
       <div className="flex items-center flex-col gap-4 p-4 py-8 md:py-4 w-full max-w-lg mx-auto md:max-w-xl lg:max-w-2xl">
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-gray-800 my-2 text-center">
-          {id === undefined ? 'Criar Cargo' : 'Atualizando Cargo'}
+          {id === undefined ? 'Cadastrar Cargo' : 'Atualizando Cargo'}
         </h2>
 
         <form className="flex flex-col gap-4 w-full max-w-sm sm:max-w-md md:max-w-lg" onSubmit={gerarNovoCargo}>
