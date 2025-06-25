@@ -48,7 +48,9 @@ export default function ListaCargo() {
   }, [token])
 
   if (loadingPage) {
-    return <Hourglass
+    return(
+    <div className="flex justify-center items-center h-screen w-full">
+     <Hourglass
       visible={true}
       height="80"
       width="80"
@@ -57,32 +59,39 @@ export default function ListaCargo() {
       wrapperClass=""
       colors={['#306cce', '#72a1ed']}
     />
+    </div>
+    );
   }
 
   return (
-    <div className="w-full p-6">
-      <div className="flex gap-3 ml-1 my-6 items-center">
-        <Link to="/home" className="flex items-center rounded-full gap-2 mb-6 hover:bg-gray-200 p-4 hover:-translate-x-2 transition-all duration-300">
-          <IoArrowBackSharp className="w-7 h-7" />
+    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 max-w-7xl"> 
+      
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center mb-6 sm:mb-8">
+        <Link to="/home" className="flex items-center rounded-full p-2 sm:p-3 hover:bg-gray-200 
+                                     hover:-translate-x-1 sm:hover:-translate-x-2 transition-all duration-300">
+        
+          <IoArrowBackSharp className="w-6 h-6 sm:w-7 sm:h-7 text-rh-primarygrey" />
         </Link>
-        <h3 className="text-3xl font-medium text-rh-primarygrey mb-6">
+        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-rh-primarygrey mt-2 sm:mt-0">
           Lista de Cargos
         </h3>
       </div>
-      <div className="flex flex-wrap gap-4">
-        {
-          listaCargos.length === 0 && (
-            <div className="flex flex-col items-center justify-center w-full h-full">
-              <p className="text-xl font-semibold text-rh-primarygrey mt-4">Nenhum cargo cadastrado.</p>
-            </div>
-          )
-        }
-        {
-          listaCargos.map((cargo) => (
-            <CardCargo key={cargo.id} cargo={cargo} />
-          ))
-        }
+      {listaCargos.length === 0 && (
+        <div className="flex flex-col items-center justify-center w-full min-h-[calc(100vh-250px)]"> 
+        
+          <p className="text-xl md:text-2xl font-semibold text-rh-primarygrey mt-4">Nenhum cargo cadastrado.</p>
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-4 justify-center">
+        {listaCargos.map((cargo) => (
+          <CardCargo
+            key={cargo.id}
+            cargo={cargo}
+          />
+        ))}
       </div>
     </div>
-  )
+  );
 }
+

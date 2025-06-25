@@ -106,13 +106,15 @@ function FormDepartamento() {
 
   if (loadingPage) {
     return (
-      <RotatingLines
-        strokeColor="black"
-        strokeWidth="5"
-        animationDuration="0.75"
-        width="24"
-        visible={true}
-      />
+      <div className="flex justify-center items-center h-screen w-full">
+        <RotatingLines
+          strokeColor="black"
+          strokeWidth="5"
+          animationDuration="0.75"
+          width="24"
+          visible={true}
+        />
+      </div>
     );
   }
 
@@ -120,10 +122,10 @@ function FormDepartamento() {
 
     <>
       <div className="flex min-h-screen relative justify-between">
-        <img className="sticky h-screen " src={ColunaEsquerda} alt="Coluna Esquerda" />
-        <div className="flex flex-col gap-4 p-4">
+        <img className="sticky h-screen hidden md:block w-auto " src={ColunaEsquerda} alt="Coluna Esquerda" />
+        <div className="flex flex-col gap-4 p-4 sm:p-6 md:p-8 w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto">
 
-          <h1 className="text-4xl text-center my-8 text-rh-primaryblue">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl text-center my-4 sm:my-6 md:my-8 text-rh-primaryblue">
             {id === undefined
               ? "Cadastrar Departamento"
               : "Editar Departamento"}
@@ -133,61 +135,68 @@ function FormDepartamento() {
             className="flex flex-col gap-4 "
             onSubmit={gerarNovoDepartamento}
           >
-            <div className="flex flex-col gap-2 focus:ring-2 ">
-              <label className="text-rh-secondaryblue" htmlFor="nome">Nome do Departamento</label>
+            <div className="flex flex-col gap-2">
+              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="nome">Nome do Departamento</label>
               <input
                 type="text"
                 placeholder="Escreva o nome do Departamento"
                 name="nome"
-                className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
+                className="w-full p-2 sm:p-3 rounded border-2 border-rh-primarygrey 
+                           focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple 
+                           outline-none text-base sm:text-lg"
                 value={departamento.nome}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   atualizarEstado(e)
                 }
               />
 
-              <label className="text-rh-secondaryblue" htmlFor="andar">Andar</label>
+              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="andar">Andar</label>
               <input
                 type="number"
                 placeholder="Digite o numero do andar do Departamento"
                 name="andar"
-                className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
+                className="w-full p-2 sm:p-3 rounded border-2 border-rh-primarygrey 
+                           focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple 
+                           outline-none text-base sm:text-lg"
                 value={departamento.andar}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   atualizarEstado(e)
                 }
               />
-              <label className="text-rh-secondaryblue" htmlFor="ramal">Ramal</label>
+              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="ramal">Ramal</label>
               <input
                 type="text"
                 placeholder="Por Ex: 123"
                 name="ramal"
-                className="w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
+                className="w-full p-2 sm:p-3 rounded border-2 border-rh-primarygrey 
+                           focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple 
+                           outline-none text-base sm:text-lg"
                 value={departamento.ramal}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   atualizarEstado(e)
                 }
               />
 
-              <label className="text-rh-secondaryblue" htmlFor="descricao">Descrição do Departamento</label>
+              <label className="text-rh-secondaryblue text-sm sm:text-base" htmlFor="descricao">Descrição do Departamento</label>
               <textarea
 
                 placeholder="Descreva aqui seu Departamento"
                 name="descricao"
-                className="resize-none h-20 w-full p-2 rounded border-2 border-rh-primarygrey focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple outline-none text-shadow-rh-primarygrey"
+                className="resize-none h-20 sm:h-24 w-full p-2 sm:p-3 rounded border-2 border-rh-primarygrey 
+                           focus:border-rh-primarypurple focus:ring-2 focus:ring-rh-primarypurple 
+                           outline-none text-base sm:text-lg"
                 value={departamento.descricao}
                 onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                   atualizarEstado(e)
                 }
               />
 
-
-
             </div>
-            <div className="flex justify-between pb-[20px] pt-[10px]">
+            <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 sm:gap-6 pt-4 pb-4 sm:pb-6">
               <button onClick={() => setMostrarModal(true)}
                 className="rounded text-slate-100 bg-rh-primarypurple transition-colors duration-500
-                                    hover:bg-rh-secondarypurple w-[150px] py-2  flex justify-center"
+               hover:bg-rh-secondarypurple w-full sm:w-[calc(50%-0.75rem)] py-2 sm:py-3 
+               flex items-center justify-center text-base sm:text-lg"
                 type="submit"
               >
                 {isLoading ? (
@@ -203,12 +212,11 @@ function FormDepartamento() {
                 )}
               </button>
 
-
-
-
               <Link to="/departamentos"
                 className="rounded text-slate-100 bg-rh-primarygrey
-                                    transition-colors hover:bg-rh-secondaryblue duration-500 w-[150px] py-2  flex justify-center"
+               transition-colors hover:bg-rh-secondaryblue duration-500 
+               w-full sm:w-[calc(50%-0.75rem)] py-2 sm:py-3 
+               flex items-center justify-center text-base sm:text-lg"
               >
                 Cancelar
               </Link>
@@ -216,7 +224,7 @@ function FormDepartamento() {
           </form>
         </div>
 
-        <img className="sticky h-screen" src={ColunaDireita} alt="Coluna Direita" />
+        <img className="sticky h-screen hidden md:block w-auto" src={ColunaDireita} alt="Coluna Direita" />
 
       </div>
     </>
