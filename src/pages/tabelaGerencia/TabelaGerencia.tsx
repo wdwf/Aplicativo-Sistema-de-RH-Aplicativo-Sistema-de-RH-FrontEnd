@@ -17,61 +17,109 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { AuthContext } from "../../contexts/AuthContext";
 import { buscar } from "../../services/Service";
 import { ToastAlerta } from "../../utils/ToastAlerta";
-import noPicture from '../../assets/img/noPicture.png'
+import noPicture from '../../assets/img/noPicture.png';
 import { IconButton } from "../../components/table/icon-button";
+import Select from 'react-select';
+
+interface FilterOptions {
+  [key: string]: boolean;
+}
+
+interface OptionType {
+  value: string;
+  label: string;
+}
 
 export default function TabelaGerencia() {
   const navigate = useNavigate();
   window.scrollTo(0, 0);
-  const [listaUsuarios, setListaUsuarios] = useState<Usuario[]>([])
-  const { usuario, handleLogout } = useContext(AuthContext)
-  const token = usuario.token
 
-  const [usuariosFiltrados, setUsuariosFiltrados] = useState<Usuario[]>([])
-  const [busca, setBusca] = useState('')
+  const [listaUsuarios, setListaUsuarios] = useState<Usuario[]>([]);
+  const [usuariosFiltrados, setUsuariosFiltrados] = useState<Usuario[]>([]);
+  const [busca, setBusca] = useState('');
 
+  const [filtrosCargo, setFiltrosCargo] = useState<FilterOptions>({});
+  const [filtrosDepartamento, setFiltrosDepartamento] = useState<FilterOptions>({});
+
+  const { usuario, handleLogout } = useContext(AuthContext);
+  const token = usuario.token;
 
   async function buscarCargos() {
     try {
       await buscar('/usuario', (res: Usuario[]) => {
         setListaUsuarios(res);
         setUsuariosFiltrados(res);
+
+        const nomesCargos = Array.from(new Set(res.map(user => user.cargo?.nome).filter(Boolean)));
+        const nomesDepartamentos = Array.from(new Set(res.map(user => user.cargo?.departamento?.nome).filter(Boolean)));
+
+        const filtrosIniciaisCargo: FilterOptions = {};
+        const filtrosIniciaisDep: FilterOptions = {};
+
+        nomesCargos.forEach(nome => filtrosIniciaisCargo[nome] = false);
+        nomesDepartamentos.forEach(nome => filtrosIniciaisDep[nome] = false);
+
+        setFiltrosCargo(filtrosIniciaisCargo);
+        setFiltrosDepartamento(filtrosIniciaisDep);
       }, {
         headers: { Authorization: token }
-      })
+      });
     } catch (error: any) {
       if (error.toString().includes('403')) {
-        // handleLogout()
         console.log(error);
-
       }
     }
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     if (token === '') return;
     if (!token) {
-      ToastAlerta('Você precisa estar logado!', 'info')
+      ToastAlerta('Você precisa estar logado!', 'info');
       handleLogout();
-      navigate('/')
+      navigate('/');
+    } else {
+      buscarCargos();
     }
-    else {
-      buscarCargos()
-    }
-  }, [token])
-
+  }, [token]);
 
   useEffect(() => {
-    const resultado = listaUsuarios.filter(user =>
-      user.nome.toLowerCase().includes(busca.toLowerCase()) ||
-      user.usuario.toLowerCase().includes(busca.toLowerCase()) ||
-      user.cargo?.nome?.toLowerCase().includes(busca.toLowerCase())
-    )
-    setUsuariosFiltrados(resultado)
-  }, [busca, listaUsuarios])
+    aplicarFiltros();
+  }, [busca, filtrosCargo, filtrosDepartamento, listaUsuarios]);
 
+  function aplicarFiltros() {
+    const cargosSelecionados = Object.keys(filtrosCargo).filter((nome) => filtrosCargo[nome]);
+    const departamentosSelecionados = Object.keys(filtrosDepartamento).filter((nome) => filtrosDepartamento[nome]);
+
+    const resultado = listaUsuarios.filter(user => {
+      const nomeMatch = user.nome.toLowerCase().includes(busca.toLowerCase());
+      const usuarioMatch = user.usuario.toLowerCase().includes(busca.toLowerCase());
+      const cargoMatch = user.cargo?.nome?.toLowerCase().includes(busca.toLowerCase());
+
+      const cargoSelecionadoMatch = cargosSelecionados.length === 0 || cargosSelecionados.includes(user.cargo?.nome);
+      const depSelecionadoMatch = departamentosSelecionados.length === 0 || departamentosSelecionados.includes(user.cargo?.departamento?.nome);
+
+      return (nomeMatch || usuarioMatch || cargoMatch) && cargoSelecionadoMatch && depSelecionadoMatch;
+    });
+
+    setUsuariosFiltrados(resultado);
+  }
+
+  function handleSelectCargo(options: OptionType[]) {
+    const novoFiltro: FilterOptions = {};
+    Object.keys(filtrosCargo).forEach(c => novoFiltro[c] = false);
+    options.forEach(opt => novoFiltro[opt.value] = true);
+    setFiltrosCargo(novoFiltro);
+  }
+
+  function handleSelectDepartamento(options: OptionType[]) {
+    const novoFiltro: FilterOptions = {};
+    Object.keys(filtrosDepartamento).forEach(d => novoFiltro[d] = false);
+    options.forEach(opt => novoFiltro[opt.value] = true);
+    setFiltrosDepartamento(novoFiltro);
+  }
+
+  const opcoesCargo: OptionType[] = Object.keys(filtrosCargo).map((cargo) => ({ value: cargo, label: cargo }));
+  const opcoesDepartamento: OptionType[] = Object.keys(filtrosDepartamento).map((dep) => ({ value: dep, label: dep }));
 
   return (
     <div className="w-full p-4 md:p-6 lg:p-8">
@@ -81,9 +129,7 @@ export default function TabelaGerencia() {
             <IoArrowBackSharp className="w-6 h-6 md:w-7 md:h-7" />
             <span className="sr-only">Voltar para Home</span>
           </Link>
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-rh-primarygrey mt-2 md:mt-0-">
-            Colaboradores
-          </h3>
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-medium text-rh-primarygrey mt-2 md:mt-0-">Colaboradores</h3>
         </div>
         <div className='flex items-center px-3 py-2 border border-gray-600 rounded-lg text-sm w-full md:w-72 lg:w-96 gap-3'>
           <Search className='size-5 text-rh-primarygrey' />
@@ -98,7 +144,29 @@ export default function TabelaGerencia() {
         </div>
       </div>
 
-     <div className="overflow-x-auto rounded-lg shadow-md"> 
+      <div className="overflow-x-auto rounded-lg shadow-md">
+        <div className="w-full sm:w-1/2">
+          <label className="font-semibold block mb-1 text-rh-primarygrey">Filtrar por Cargo</label>
+          <Select
+            isMulti
+            options={opcoesCargo}
+            placeholder="Selecione os cargos"
+            onChange={handleSelectCargo}
+            className="text-sm"
+          />
+        </div>
+        <div className="w-full sm:w-1/2">
+          <label className="font-semibold block mb-1 text-rh-primarygrey">Filtrar por Departamento</label>
+          <Select
+            isMulti
+            options={opcoesDepartamento}
+            placeholder="Selecione os departamentos"
+            onChange={handleSelectDepartamento}
+            className="text-sm"
+          />
+        </div>
+      </div>
+
       <Table>
         <thead>
           <tr className='border-b border-gray-500'>
@@ -110,45 +178,37 @@ export default function TabelaGerencia() {
           </tr>
         </thead>
         <tbody>
-          {usuariosFiltrados.map((user) => {
-            return (
-              <TableRow key={user.id}>
-                <TableCell>
-                  <img src={user.foto.length > 10 ? user.foto : noPicture} alt="foto do usuario" className="w-10 h-10 object-cover border-2 border-gray-700 rounded-full flex-shrink-0" />
-                </TableCell>
-                <TableCell className="py-3 px-4">
-                  <div className='flex flex-col gap-0.5'>
-                    <span className='font-semibold text-sm'>
-                      {user.nome}
-                    </span>
-                    <span className="text-xs">{user.usuario}</span>
-                  </div>
-                </TableCell>
-                <TableCell className="py-3 px-4">
-                  <div className='flex flex-col gap-1'>
-                    <span className="text-sm">{user.cargo.nome}</span>
-                  </div>
-                </TableCell>
-                <TableCell className="py-3 px-4 text-sm">{user.cargo?.salario.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</TableCell>
-                <TableCell className="py-3 px-4 text-center">
-                  <Link to={`/editar-perfil/${user.id}`} className="inline-flex items-center justify-center w-8 h-8 md:w-9 md:h-9 bg-rh-primaryblue text-white rounded-full hover:bg-rh-secondaryblue transition-colors shadow-sm">
-                    <FaPen size={14}/>
-                  </Link>
-                </TableCell>
-              </TableRow>
-            );
-          })}
+          {usuariosFiltrados.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell>
+                <img src={user.foto.length > 10 ? user.foto : noPicture} alt="foto do usuario" className="w-10 h-10 object-cover border-2 border-gray-700 rounded-full flex-shrink-0" />
+              </TableCell>
+              <TableCell className="py-3 px-4">
+                <div className='flex flex-col gap-0.5'>
+                  <span className='font-semibold text-whitek'>{user.nome}</span>
+                  <span>{user.usuario}</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className='flex flex-col gap-1'>
+                  <span>{user.cargo.nome}</span>
+                </div>
+              </TableCell>
+              <TableCell>{user.cargo?.salario.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}</TableCell>
+              <TableCell>
+                <Link to={`/editar-perfil/${user.id}`} className="flex items-center justify-center w-9 h-9 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors">
+                  <FaPen />
+                </Link>
+              </TableCell>
+            </TableRow>
+          ))}
         </tbody>
         <tfoot>
           <tr>
-            <TableCell colSpan={2} className="py-3 px-4 text-sm">
-              
-            </TableCell>
-            <TableCell className='text-right py-3 px-4' colSpan={3}>
-              <div className='inline-flex items-center gap-6 md:gap-8'>
-                <span className="text-sm">
-            
-                </span>
+            <TableCell colSpan={3}></TableCell>
+            <TableCell className='text-right' colSpan={3}>
+              <div className='inline-flex items-center gap-8'>
+
                 <div className='flex gap-1.5'>
                   <IconButton onClick={() => { }} disabled>
                     <ChevronsLeft className='size-4' />
@@ -156,16 +216,10 @@ export default function TabelaGerencia() {
                   <IconButton onClick={() => { }} disabled>
                     <ChevronLeft className='size-4' />
                   </IconButton>
-                  <IconButton
-                    onClick={() => { }}
-                    disabled
-                  >
+                  <IconButton onClick={() => { }} disabled>
                     <ChevronRight className='size-4' />
                   </IconButton>
-                  <IconButton
-                    onClick={() => { }}
-                    disabled
-                  >
+                  <IconButton onClick={() => { }} disabled>
                     <ChevronsRight className='size-4' />
                   </IconButton>
                 </div>
@@ -175,6 +229,5 @@ export default function TabelaGerencia() {
         </tfoot>
       </Table>
     </div>
-     </div>
-  )
+  );
 }

@@ -130,9 +130,9 @@ function FormDepartamento() {
               ? "Cadastrar Departamento"
               : "Editar Departamento"}
           </h1>
-
+          {/* aqui eu deixei um padding de 6 para ajustar o tamanho dos campos do forms */}
           <form
-            className="flex flex-col gap-4 "
+            className="flex flex-col gap-2 px-6"
             onSubmit={gerarNovoDepartamento}
           >
             <div className="flex flex-col gap-2">
@@ -199,17 +199,16 @@ function FormDepartamento() {
                flex items-center justify-center text-base sm:text-lg"
                 type="submit"
               >
-                {isLoading ? (
+                {isLoading ?
                   <RotatingLines
                     strokeColor="white"
                     strokeWidth="5"
                     animationDuration="0.75"
                     width="24"
                     visible={true}
-                  />
-                ) : (
-                  <span>{id === undefined ? "Cadastrar" : "Atualizar"}</span>
-                )}
+                  /> :
+                  <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                }
               </button>
 
               <Link to="/departamentos"

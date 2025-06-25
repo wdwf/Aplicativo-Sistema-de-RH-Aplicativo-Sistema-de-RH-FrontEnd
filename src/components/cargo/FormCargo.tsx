@@ -178,7 +178,7 @@ export default function FormCargo() {
               <input
                 className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
-                placeholder="..."
+                placeholder="Escreva o nome do Cargo"
                 name='nome'
                 value={cargo.nome}
                 required
@@ -190,7 +190,7 @@ export default function FormCargo() {
               <input
                 className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="text"
-                placeholder="..."
+                placeholder="Ex: Estagiário, Junior, Pleno, Sênior... "
                 name='nivel'
                 value={cargo.nivel}
                 required
@@ -202,7 +202,7 @@ export default function FormCargo() {
               <input
                 className="w-full rounded-sm text-rh-primarygrey border bg-white px-3 py-2 text-base md:text-lg lg:text-xl placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-rh-primaryblue disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-200"
                 type="number"
-                placeholder="..."
+                placeholder="Escreva o valor do salário"
                 name='salario'
                 value={cargo.salario}
                 required
