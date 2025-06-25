@@ -57,24 +57,24 @@ export default function Perfil() {
 
   return (
 
-    <div className="h-screen relative flex justify-center">
-      <img src={bgperfil} alt="" className="cover max-h-[607px] h-fit" />
-      <div className="absolute z-10 top-[100px] text-center flex flex-col items-center">
-        <img src={usuario?.foto.length > 10 ? usuario?.foto : noPicture} alt="" className="rounded-full border-10 border-white max-w-[200px] " />
-        <p className="mt-6 mb-2 font-semibold text-4xl">
-          {usuario?.nome}
+    <div className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden">
+      <img src={bgperfil} alt="Imagem de fundo do perfil" className="w-full h-48 md:h-64 object-cover object-center absolute top-0 left-0 z-0" />
+      <div className="relative z-10 bg-white shadow-lg rounded-lg p-6 mx-4 mt-24 md:mt-32 w-full max-w-sm sm:max-w-md lg:max-w-lg flex flex-col items-center">
+        <img src={usuario.foto.length > 10 ? usuario.foto : noPicture} alt="Foto de Perfil" className="rounded-full border-4 border-white w-32 h-32 md:w-40 md:h-40 object-cover -mt-20 md:-mt-24 shadow-md" />
+        <p className="mt-4 mb-2 font-semibold text-2xl md:text-3xl text-gray-800">
+          {usuario.nome}
         </p>
-        <div className="flex justify-between gap-5 py-4">
-          <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
-            <p className="text-sm text-gray-600">Cargo</p>
-            <p className="text-lg font-semibold">{usuarioPerfil.cargo?.nome}</p>
+        <div className="flex flex-col sm:flex-row justify-center w-full gap-4 mb-6">
+          <div className="bg-[#f3f3f4] rounded-lg border border-gray-300 w-full sm:w-1/2 p-3 text-center">
+            <p className="text-sm text-gray-600 mb-1">Cargo</p>
+            <p className="text-md md:text-lg font-semibold">{usuarioPerfil.cargo?.nome}</p>
           </div>
-          <div className="bg-[#f3f3f4] rounded border border-gray-300 w-1/2 p-2">
-            <p className="text-sm text-gray-600">Nivel</p>
-            <p className="text-lg font-semibold">{usuarioPerfil.cargo?.nivel}</p>
+          <div className="bg-[#f3f3f4] rounded-LG border border-gray-300 w-full sm:w-1/2 p-3 text-center">
+            <p className="text-sm text-gray-600 mb-1">Nivel</p>
+            <p className="text-md md:text-lg font-semibold">{usuarioPerfil.cargo?.nivel}</p>
           </div>
         </div>
-        <Link to="/editar-perfil" className="bg-rh-secondarypurple text-rh-primary-50 px-10 py-2 rounded hover:bg-gray-800 transition-colors">
+        <Link to="/editar-perfil" className="bg-rh-secondarypurple text-rh-primary-50 px-8 py-3 rounded-full hover:bg-gray-800 transition-colors text-lg font-medium">
           Editar Perfil
         </Link>
       </div>
