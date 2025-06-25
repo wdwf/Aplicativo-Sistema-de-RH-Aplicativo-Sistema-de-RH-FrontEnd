@@ -18,7 +18,7 @@ function Home() {
     window.scrollTo(0, 0);
     const navigate = useNavigate();
 
-    const { usuario, setUsuario, handleLogout } = useContext(AuthContext);
+    const { usuario, setUsuario, handleLogout, isAuthLoading } = useContext(AuthContext);
     const [usuarioData, setUsuarioData] = useState<Usuario>({} as Usuario);
 
     async function buscarUserPorId(id: string) {
@@ -40,20 +40,24 @@ function Home() {
 
 
     useEffect(() => {
-        if (!usuario?.token) {
-            ToastAlerta("Você precisa estar Logado!", "info");
-            navigate("/");
-        } else {
-            if (usuario?.id) {
-                buscarUserPorId(String(usuario?.id))
+        if (!isAuthLoading) {
+            if (!usuario?.token) {
+                ToastAlerta("Você precisa estar Logado!", "info");
+                navigate("/");
+            } else {
+                if (usuario?.id) {
+                    buscarUserPorId(String(usuario?.id))
+                }
             }
         }
-    }, [usuario?.token]);
+    }, [isAuthLoading, usuario?.token]);
+
+    if (isAuthLoading) {
+        return <h1>Carregando ...</h1>;
+    }
 
     if (!usuario?.token) {
-        return (
-            <h1>Carregando...</h1>
-        )
+        return null;
     }
 
     return (

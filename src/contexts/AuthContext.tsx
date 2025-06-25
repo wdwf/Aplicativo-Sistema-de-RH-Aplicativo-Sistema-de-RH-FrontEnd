@@ -10,6 +10,7 @@ interface AuthContextProps {
     handleLogout(): void
     handleLogin(usuario: UsuarioLogin): Promise<void>
     isLoading: boolean
+    isAuthLoading: boolean
 }
 
 interface AuthProviderProps {
@@ -22,6 +23,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const [usuario, setUsuario] = useState<UsuarioLogin | null>(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [isAuthLoading, setIsAuthLoading] = useState(true);
 
     async function handleLogin(usuarioLogin: UsuarioLogin) {
         setIsLoading(true)
@@ -50,11 +52,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
             setUsuario(JSON.parse(storedUser));
         }
 
-        setIsLoading(false);
+        // setIsLoading(false);
+        setIsAuthLoading(false);
     }, []);
 
     return (
-        <AuthContext.Provider value={{ usuario, setUsuario, handleLogin, handleLogout, isLoading }}>
+        <AuthContext.Provider value={{ usuario, setUsuario, handleLogin, handleLogout, isLoading, isAuthLoading }}>
             {children}
         </AuthContext.Provider>
     )
