@@ -53,7 +53,7 @@ export default function EditarPerfilTabela() {
         },
         {
           headers: {
-            Authorization: usuario.token,
+            Authorization: usuario?.token,
           },
         }
       );
@@ -67,7 +67,7 @@ export default function EditarPerfilTabela() {
   async function buscarCargo() {
     try {
       await buscar("/cargo", setListaCargos, {
-        headers: { Authorization: usuario.token },
+        headers: { Authorization: usuario?.token },
       });
     } catch (error: any) {
       if (error.toString().includes("403")) {
@@ -86,7 +86,7 @@ export default function EditarPerfilTabela() {
     try {
       await atualizar("/usuario/atualizar", usuarioEditar, setUsuario, {
         headers: {
-          Authorization: usuario.token,
+          Authorization: usuario?.token,
         },
       });
 
@@ -111,10 +111,10 @@ export default function EditarPerfilTabela() {
   }
 
   useEffect(() => {
-    if (usuario.token === "") {
+    if (usuario?.token === "") {
       return;
     }
-    if (!usuario.token) {
+    if (!usuario?.token) {
       ToastAlerta("Você precisa estar Logado!", "info");
       handleLogout();
       navigate("/");
@@ -129,7 +129,7 @@ export default function EditarPerfilTabela() {
         });
       }
     }
-  }, [usuario.token]);
+  }, [usuario?.token]);
 
 
   return (

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import {  cadastrarUsuario } from '../../services/Service'
+import { cadastrarUsuario } from '../../services/Service'
 import Usuario from '../../models/Usuario'
 import { RotatingLines } from 'react-loader-spinner'
 
@@ -11,7 +11,7 @@ import Logo from "../../assets/img/Logo.png"
 
 function Cadastro() {
 
-  const navigate = useNavigate() 
+  const navigate = useNavigate()
 
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -20,7 +20,7 @@ function Cadastro() {
   const [usuario, setUsuario] = useState<Usuario>({} as Usuario)
 
   useEffect(() => {
-    if (usuario.id !== undefined) {
+    if (usuario?.id !== undefined) {
       retornar()
     }
   }, [usuario])
@@ -44,17 +44,17 @@ function Cadastro() {
   async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (confirmaSenha === usuario.senha && usuario.senha.length >= 8) {
+    if (confirmaSenha === usuario?.senha && usuario?.senha.length >= 8) {
 
       setIsLoading(true)
       console.log(usuario);
 
       try {
         await cadastrarUsuario(`/usuario/cadastrar`, {
-          nome: usuario.nome,
-          usuario: usuario.usuario,
-          senha: usuario.senha,
-          foto: usuario.foto
+          nome: usuario?.nome,
+          usuario: usuario?.usuario,
+          senha: usuario?.senha,
+          foto: usuario?.foto
         }, setUsuario)
         ToastAlerta("Usuário cadastrado com sucesso!", "sucesso")
       } catch (error) {
@@ -95,72 +95,72 @@ function Cadastro() {
           <h1 className="text-rh-primarygrey  text-3xl md:text-4xl text-center mb-2 ">Cadastre-se</h1>
           <p className="text-rh-secondarygrey text-sm md:text-xs text-center mb-6">Gerenciando sabiamente o bem mais valioso de uma empresa.</p>
 
-     
-        <form onSubmit={cadastrarNovoUsuario} className="space-y-4">
 
-          <div>
-            <label className="block text-text mb-1" htmlFor="usuario">Nome</label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              placeholder="Digite seu nome completo"
-              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-              value={usuario.nome}
+          <form onSubmit={cadastrarNovoUsuario} className="space-y-4">
+
+            <div>
+              <label className="block text-text mb-1" htmlFor="usuario">Nome</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite seu nome completo"
+                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+                value={usuario.nome}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
-          <div>
-            <label htmlFor="usuario" className="block text-text mb-1">E-mail</label>
-            <input
-              type="email"
-              id="usuario"
-              name="usuario"
-              placeholder="Digite seu e-mail"
-              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-              value={usuario.usuario}
+            <div>
+              <label htmlFor="usuario" className="block text-text mb-1">E-mail</label>
+              <input
+                type="email"
+                id="usuario"
+                name="usuario"
+                placeholder="Digite seu e-mail"
+                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+                value={usuario.usuario}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-            />
-          </div>
-          <div>
-            <label htmlFor="foto" className=" block text-text mb-1">Foto</label>
-            <input
-              type="text"
-              id="foto"
-              name="foto"
-              placeholder="Cole o Link da sua Imagem"
-              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-              value={usuario.foto}
+              />
+            </div>
+            <div>
+              <label htmlFor="foto" className=" block text-text mb-1">Foto</label>
+              <input
+                type="text"
+                id="foto"
+                name="foto"
+                placeholder="Cole o Link da sua Imagem"
+                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+                value={usuario.foto}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
-          <div>
-            <label htmlFor="senha" className="block text-text mb-1">Senha</label>
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              placeholder="Digite sua senha"
-              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-              value={usuario.senha}
+            <div>
+              <label htmlFor="senha" className="block text-text mb-1">Senha</label>
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Digite sua senha"
+                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+                value={usuario.senha}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
               />
             </div>
 
-          <div>
-            <label htmlFor="confirmarSenha" className="block text-text mb-1">Confirmar Senha</label>
-            <input
-              type="password"
-              id="confirmarSenha"
-              name="confirmarSenha"
-              placeholder="Digite novamente sua senha"
-              className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
-              value={confirmaSenha}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>handleConfirmarSenha(e)}
-            />
-          </div>
+            <div>
+              <label htmlFor="confirmarSenha" className="block text-text mb-1">Confirmar Senha</label>
+              <input
+                type="password"
+                id="confirmarSenha"
+                name="confirmarSenha"
+                placeholder="Digite novamente sua senha"
+                className="w-full px-4 py-2 text-shadow-rh-primarygrey border border-rh-primarygrey rounded focus:outline-none focus:ring-2 focus:ring-rh-primarygrey"
+                value={confirmaSenha}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)}
+              />
+            </div>
 
             <button
               type="submit"

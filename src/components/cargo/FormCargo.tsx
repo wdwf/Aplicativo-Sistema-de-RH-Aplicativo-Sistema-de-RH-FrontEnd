@@ -26,7 +26,7 @@ export default function FormCargo() {
   const [loadingPage, setLoadingPage] = useState(true);
 
   const { usuario, handleLogout } = useContext(AuthContext)
-  const token = usuario.token
+  const token = usuario?.token
   const { id } = useParams<{ id: string }>();
 
   async function buscarPorId(id: string) {

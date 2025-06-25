@@ -39,7 +39,7 @@ export default function Perfil() {
         },
         {
           headers: {
-            Authorization: usuario.token,
+            Authorization: usuario?.token,
           },
         }
       );
@@ -51,7 +51,7 @@ export default function Perfil() {
   }
 
   useEffect(() => {
-    buscarUserPorId(String(usuario.id))
+    buscarUserPorId(String(usuario?.id))
 
   }, [])
 

@@ -19,7 +19,7 @@ function FormDepartamento() {
   const [loadingPage, setLoadingPage] = useState(true);
 
   const { usuario, handleLogout } = useContext(AuthContext);
-  const token = usuario.token;
+  const token = usuario?.token;
   const [mostrarModal, setMostrarModal] = useState(false);
 
   const { id } = useParams<{ id: string }>();
